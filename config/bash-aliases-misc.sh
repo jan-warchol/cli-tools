@@ -14,7 +14,7 @@ alias sai='sudo apt-get install'
 alias fr='cd $JANEKDATA/nuty/urs/fried; git status'
 alias nuty='cd $JANEKDATA/nuty/warsztat; git status'
 alias alm='alsamixer'
-alias ,='less -r'
+alias ,='less -R'
 
 # directory "bookmarks"
 alias s1='alias d1="cd $(pwd)"'
