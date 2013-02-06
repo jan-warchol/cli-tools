@@ -29,4 +29,5 @@ alias grep='grep -nr --color=always'
 alias mkdir='mkdir -p'
 
 alias grep2='grep -C2'
+alias grep3='grep -C3'
 alias grep5='grep -C5'
