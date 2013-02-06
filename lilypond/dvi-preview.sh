@@ -29,6 +29,7 @@ mkdir ~/font-preview/
 
 case $1 in
   c)
+  # TODO: use git stash here (and remember branch to return to it)
     git commit -a -m "committing uncommitted changes"
     git checkout master
 
