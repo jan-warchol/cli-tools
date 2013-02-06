@@ -12,8 +12,8 @@ git fetch
 echo ""
 
 echo "UPDATING BRANCHES-----------------------";
-for branch in $(git branch | sed s/*//); do 
-    git checkout --quiet "$branch"; 
+for branch in $(git branch --color=never | sed s/*//); do
+    git checkout --quiet "$branch" || die;
     #rebases on respective remote tracking branch (taken from config)
     git rebase || die;
     echo "";
@@ -23,7 +23,7 @@ git checkout --quiet master;
 
 if [ $# == 0 ]; then
     echo "DELETING MERGED BRANCHES----------------";
-    for branch in $(git branch| sed s/*// | sed s/master//); do 
+    for branch in $(git branch --color=never | sed s/*// | sed s/master//); do
         git branch -d "$branch"
         echo ""
     done
