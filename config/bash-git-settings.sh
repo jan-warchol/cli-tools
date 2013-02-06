@@ -63,6 +63,7 @@ alias glo-om='git log --oneline origin/master..'
  alias grsh='git reset --hard'
 alias grshm='git reset --hard master'
 alias grshom='git reset --hard origin/master'
+   alias gu='git reset HEAD~1'
 
    alias gs='git status'
    alias gt='git tag'
