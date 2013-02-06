@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# this will update all branches in lilypond git repository.
+# if no argument is specified, it will also delete merged branches.
+
 die() {
     aplay -q ~/src/sznikers.wav
     exit 1
@@ -21,6 +24,7 @@ for branch in $(git branch --color=never | sed s/*//); do
     echo "";
 done
 
+# $# = number of arguments specified by user
 if [ $# == 0 ]; then
     git checkout --quiet master;
     echo "DELETING MERGED BRANCHES----------------";
