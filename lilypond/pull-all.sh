@@ -5,6 +5,8 @@ die() {
     exit 1
 }
 
+currentbranch=$(git branch --color=never | sed --quiet 's/* \(.*\)/\1/p')
+
 cd $LILYPOND_GIT/
 echo "========================================"
 echo "FETCHING--------------------------------"
@@ -19,9 +21,8 @@ for branch in $(git branch --color=never | sed s/*//); do
     echo "";
 done
 
-git checkout --quiet master;
-
 if [ $# == 0 ]; then
+    git checkout --quiet master;
     echo "DELETING MERGED BRANCHES----------------";
     for branch in $(git branch --color=never | sed s/*// | sed s/master//); do
         git branch -d "$branch"
@@ -29,6 +30,8 @@ if [ $# == 0 ]; then
     done
     echo ""
 fi
+
+git checkout $currentbranch
 
 echo "________________________________________"
 echo ""
