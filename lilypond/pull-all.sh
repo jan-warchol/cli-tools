@@ -30,13 +30,6 @@ if [ $# == 0 ]; then
     echo ""
 fi
 
-echo "UPDATING MIRROR REPOSITORY--------------"
-cd $LILYPOND_GIT/../mirror-repo
-for branch in $(git branch | sed s/*//); do 
-    git checkout --quiet "$branch"; 
-    #rebases on respective remote tracking branch (taken from config)
-    git rebase || die;
-done
 echo "________________________________________"
 echo ""
 
