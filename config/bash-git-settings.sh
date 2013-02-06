@@ -41,6 +41,7 @@ fi
    alias gl='git log'
   alias gl,='git log | less -R -S'
   alias glo='git log --oneline'
+ alias glo,='git log --oneline | less -R -S'
  alias glod='git log --oneline --decorate'
 alias glod,='git log --oneline --decorate | less -R -S'
  alias glog='git log --oneline --graph'
