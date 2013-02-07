@@ -1,80 +1,63 @@
 #!/bin/bash
 
-# Call this script from lilypond-git/ directory.
-# This will run make and then compile test files
-# located in parent directory (or its subdirectory if specified).
-# Test files will be compiled with installed lilypond
-# (suffix "-current") and lilypond built from git ("-new" suffix)
-# for easy comparison.
-# It will not overwrite existing pdf files without suffix.
-#
-# "options":
-# b = make bin
-# o = ordinary make
-# s = make from scratch
-#
-# if the letter is doubled, reference repository used for
-# test-files comparison (clean-master) is rebuilt too.
-#
-# On exit plays a sound.
+# Call this script from any directory.  It will compile lilypodn.
 
+# $1 = operating mode (Bin or Scratch or sth else)
+# $2 = build directory (default $LILYPOND_BUILD_DIR)
+# $3 = repository directory (default $LILYPOND_GIT)
 
-die()
-{
-aplay -q ~/src/sznikers.wav
-exit 1
+die() {
+    #aplay -q ~/src/sznikers.wav
+    exit 1
 }
 
-#?# mkdir -p build/ oraz clean-master/build/?
-cd build/
+echo "========================================"
 
-case $1 in
-  b)
-    make bin || die;
-    ;;
-  bb)
-    make bin || die;
-    cd ../../clean-master/build/
-    make bin || die;
-    ;;
-  o)
-    make -j5 CPU_COUNT=5 || die;
-    ;;
-  oo)
-    make || die;
-    cd ../../clean-master/build/
-    make || die;
-    ;;
-  s)
-    cd ../
-    rm -r -f build
-    ./autogen.sh --noconfigure
-    mkdir -p build/
-    cd build/
-    ../configure
-    make -j5 CPU_COUNT=5 || die;
-    ;;
-  ss)
-    cd ../
-    rm -r -f build
-    ./autogen.sh --noconfigure
-    mkdir -p build/
-    cd build/
-    ../configure
-    make || die;
-    cd ../../clean-master/
-    rm -r -f build
-    ./autogen.sh --noconfigure
-    mkdir -p build/
-    cd build/
-    ../configure
-    make || die;
-    ;;
-esac
+# we may need to convert given paths to absolute paths
+# we use readlink for that and for consistency of the format
+if [ "$2" != "" ]; then 
+    build=$(readlink -m $2)
+else 
+    build=$(readlink -m $LILYPOND_BUILD_DIR)
+fi
 
-cd ../
+if [ "$3" != "" ]; then 
+    source=$(readlink -m $3)
+else
+    source=$(readlink -m $LILYPOND_GIT)
+fi
 
-# compile test files using external script
-../compiletestfiles $2
+echo -e "Attempting to build lilypond (option: $1) in \n  $build"
+echo -e "from sources located in \n  $source"
+#echo "press any key to continue"
+#read confirmation
 
-aplay -q ~/src/sznikers.wav
+if [[ "$1" == s* ]]; then
+    echo "building from scratch"
+    rm -rf $build
+fi
+
+# build dir may have not existed
+mkdir -p $build; cd $build
+configured_source=$(grep -s configure-srcdir config.make \
+                     | sed s/configure-srcdir\ =\ //)
+
+if [ "$configured_source" != "$source" ]; then
+    # this dir was previously configured to build from another source
+    # or wasn't configured at all.  Need to run autogen and configure
+    cd $source; ./autogen.sh --noconfigure
+    cd $build; $source/configure || die
+fi
+
+echo "----------------------------------------"
+if [[ "$1" == b* ]]; then
+echo ffff
+    make $MAKE_OPTIONS bin || die
+else
+echo fdff
+    make $MAKE_OPTIONS || die
+fi
+
+echo "________________________________________"
+echo ""
+
