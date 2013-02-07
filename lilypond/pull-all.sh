@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # this will update all branches in LILYPOND_GIT repository.
-# if no argument is specified, it will also delete merged branches.
+# if any argument is specified, it will also delete merged branches
+# (i.e. branches that were already pushed upstream or merged with master).
 
 die() { # in case of some error...
     #aplay -q ~/src/sznikers.wav
@@ -39,7 +40,7 @@ for branch in $(git branch --color=never | sed s/*//); do
 done
 
 # $# = number of arguments specified by user
-if [ $# == 0 ]; then
+if [ $# != 0 ]; then
     git checkout --quiet master;
     echo -e "\e[00;32mDELETING MERGED BRANCHES\e[00m----------------";
     for branch in $(git branch --color=never | sed s/*// | sed s/master//); do
