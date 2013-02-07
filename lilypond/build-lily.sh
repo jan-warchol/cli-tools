@@ -33,10 +33,12 @@ echo "========================================"
 #  - consistency of the format for the sake of comparisons
 #  - some paths may need to be converted to absolute paths
 
-# make sure that $LILYPOND_BUILD_DIR exists:
-mkdir -p $LILYPOND_BUILD_DIR
 # normalize $LILYPOND_GIT (no / at the end):
 LILYPOND_GIT=$(readlink -m $LILYPOND_GIT)
+# in case $LILYPOND_BUILD_DIR is unset, set it:
+[[ -n "$LILYPOND_BUILD_DIR" ]] || export LILYPOND_BUILD_DIR="$LILYPOND_GIT/build"
+# make sure that $LILYPOND_BUILD_DIR directory exists:
+mkdir -p $LILYPOND_BUILD_DIR
 
 
 
