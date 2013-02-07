@@ -1,0 +1,17 @@
+#!/bin/bash
+
+die() {
+    exit 1
+}
+# this is a comment!!!
+if [ "$1" != "" ]; then lily=$1; else lily=$defaultlily; fi
+    
+# aaaaaaaargh!
+case $OSTYPE in
+  linux-gnu)
+    $LILYPOND_BUILD_DIR/$lily/out/bin/lilypond $2
+    ;;
+  msys)
+    lily="/c/Program\ Files\ \(x86\)/lilypond/$defaultlily/usr/bin/lilypond.exe"
+    ;;
+esac

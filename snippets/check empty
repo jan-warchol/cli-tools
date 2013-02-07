@@ -1,0 +1,2 @@
+# -z checks whether var is empty
+[ -z $var ]

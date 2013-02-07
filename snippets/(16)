@@ -1,0 +1,4 @@
+
+for branch in $(git branch | sed s/*//); do
+    #something
+done

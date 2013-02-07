@@ -1,0 +1,9 @@
+*~
+*.backup
+*.ffs_db
+.fuse_hidden*
+*.diff
+*.patch
+*.ods#
+*.odt#
+Thumbs.db

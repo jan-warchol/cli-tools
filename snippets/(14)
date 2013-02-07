@@ -1,0 +1,3 @@
+coloredtext="blah"
+echo -e "\e[00;34m$coloredtext\e[00m"
+echo -e "\e[00;32m$coloredtext\e[00m"    

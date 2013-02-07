@@ -1,0 +1,21 @@
+[include]
+	path = $JANEKDATA/janek/ustawienia/git-config
+[user]
+	name = Janek Warchoł
+	email = lemniskata.bernoullego@gmail.com
+[color]
+	ui = always
+[help]
+	autocorrect = 1
+[alias]
+	a = add
+	b = branch
+	c = checkout
+	k = commit
+	d = diff
+	h = help
+	l = log
+	rb = rebase
+	rs = reset
+	s = status
+	graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"

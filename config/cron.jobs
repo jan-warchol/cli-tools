@@ -1,0 +1,3 @@
+*/5 * * * *  ~/Desktop/moje/bash/scripts/commit.sh
+0 16 * * *   ~/Desktop/moje/bash/scripts/save-filelist.sh
+0 16 * * *   ~/Desktop/moje/bash/scripts/remove-tilded-copies.sh

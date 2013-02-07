@@ -1,0 +1,2 @@
+change $bashsettings to $settings or sth else
+use $settings in crontab
