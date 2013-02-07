@@ -181,12 +181,12 @@ if [ "$(grep -s configure-srcdir config.make \
     cd $build; $source/configure || die
 fi
 
-# actual compiling. $multimake is defined as make with options.
+# actual compiling.
 echo "----------------------------------------"
 if [[ "$1" == b* ]]; then
-    time $multimake bin || die
+    time make $MAKE_OPTIONS bin || die
 else
-    time $multimake || die
+    time make $MAKE_OPTIONS || die
 fi
 
 if [ $? == 0 ]; then

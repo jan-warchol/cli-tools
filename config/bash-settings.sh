@@ -58,7 +58,7 @@ shopt -s histappend
 #echo 0 > /proc/sys/kernel/sysrq ....nope, something's wrong...
 
 # for multi-threaded compilation with 'make':
-export multimake="make -j5 CPU_COUNT=5"
+export MAKE_OPTIONS="-j5 CPU_COUNT=5"
 
 # resize ouput to fit window
 shopt -s checkwinsize
