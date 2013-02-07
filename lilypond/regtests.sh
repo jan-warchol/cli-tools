@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # r - rerun regtests
-# o - make regtests without cleaning fonts
-# f - make regtests with cleaning fonts
+# o - make regtests 
+
 # s - make regtests from scratch
 # <filename> - compile given filename
 
@@ -21,49 +21,31 @@ if [ $1 == r ]; then
 
   firefox file:///home/janek/lilypond-git/build/out/test-results/index.html &
   
-else if [ $1 == o ]; then
+else if [ $1 == oo ]; then
   # go to master
   git add .
   git commit -a -m "saving unsaved changes"
-  git pull -r || die;
   git checkout master
-  git pull -r || die;
 
-  # make from scratch and make test baseline
   cd build/
+
+  # make test baseline
   make || die;
   make test-baseline || die;
 
-  # go to another branch and compare regtets
-  cd ../
+  # stash the baseline so that it could be used later
+  #mkdir ../../regtest-baselines; export LILYPOND_BASELINES=~/regtest-baselines
+
+  # compare regtets
   git checkout $tested_branch
-  cd build/
   make || die;
   make check || die;
 
   firefox file:///home/janek/lilypond-git/build/out/test-results/index.html &
   
-else if [ $1 == f ]; then
-  # update both master and tested branch, go to master
-  git add .
-  git commit -a -m "saving unsaved changes"
-  git pull -r || die;
-  git checkout master
-  git pull -r || die;
-
-  # make with cleaning fonts and make test baseline
-  cd build/mf/
-  make clean
-  cd ../
-  make || die;
-  make test-baseline || die;
-
-  # go to another branch and compare regtets
-  cd ../
-  git checkout $tested_branch
-  cd build/mf/
-  make clean
-  cd ../
+else if [ $1 == o ]; then
+  # compare regtets
+  cd build/
   make || die;
   make check || die;
 
@@ -73,9 +55,9 @@ else if [ $1 == s ]; then
   # go to master
   git add .
   git commit -a -m "saving unsaved changes"
-  git pull -r || die;
+ # git pull -r || die;
   git checkout master
-  git pull -r || die;
+ # git pull -r || die;
 
   # make from scratch and make test baseline
   rm -r -f build
@@ -104,7 +86,7 @@ else if [ $1 == s ]; then
 
 else
   cd ../
-  lilypond ~/lilypond-git/input/regression/$1.ly
+  ~/clean-master/build/out/bin/lilypond ~/lilypond-git/input/regression/$1.ly
   mv $1.pdf $1-current.pdf
   ~/lilypond-git/build/out/bin/lilypond ~/lilypond-git/input/regression/$1
   mv $1.pdf $1-new.pdf
