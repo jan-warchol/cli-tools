@@ -7,13 +7,31 @@
 die() { # in case of some error...
     #aplay -q ~/src/sznikers.wav
     echo -e "\e[00;31mSomething went wrong. Exiting.\e[00m"
+    if [ $dirtytree != 0 ]; then
+        echo ""
+        echo "Warning: there were some uncommitted changes on branch"
+        echo -e "\e[00;33m$branch\e[00m when this script was started."
+        echo "They were saved using 'git stash' and you should be able"
+        echo "to get them back using 'git stash apply'."
+        echo "Before doing that make sure that the repository"
+        echo "is in good state - maybe the thing that caused this script"
+        echo "to abort requires some cleanup."
+    fi
     exit 1
 }
 
-currentbranch=$(git branch --color=never | sed --quiet 's/* \(.*\)/\1/p')
-
 cd $LILYPOND_GIT/
 echo "========================================"
+echo "If you have any uncommitted changes, they will be saved using"
+echo "'git stash' and restored after the script finishes successfully..."
+currentbranch=$(git branch --color=never | sed --quiet 's/* \(.*\)/\1/p')
+# with --quiet, diff exits with 1 when there are any uncommitted changes.
+git diff --quiet HEAD
+dirtytree=$?
+git stash
+sleep 3
+
+echo ""
 echo -e "\e[00;32mFETCHING\e[00m--------------------------------"
 git fetch
 echo ""
@@ -51,6 +69,10 @@ if [ $# != 0 ]; then
 fi
 
 git checkout $currentbranch
+if [ $dirtytree != 0 ]; then
+    echo -e "\e[00;32mRestoring the working state from before pulling.\e[00m"
+    git stash apply
+fi
 
 echo "________________________________________"
 echo ""
