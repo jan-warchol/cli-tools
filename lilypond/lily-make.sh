@@ -27,13 +27,17 @@ else
     source=$(readlink -m $LILYPOND_GIT)
 fi
 
-echo -e "Attempting to build lilypond (option: $1) in \n  $build"
+echo -e "Attempting to build \n"
+git log -n 1
+echo -e "\n(using option: $1) in \n  $build"
 echo -e "from sources located in \n  $source"
 #echo "press any key to continue"
 #read confirmation
+sleep 3
 
 if [[ "$1" == s* ]]; then
-    echo "building from scratch"
+    echo -e "\nbuilding from scratch.\n"
+    sleep 1
     rm -rf $build
 fi
 
@@ -46,6 +50,7 @@ if [ "$configured_source" != "$source" ]; then
     # this dir was previously configured to build from another source
     # or wasn't configured at all.  Need to run autogen and configure
     cd $source; ./autogen.sh --noconfigure
+    echo ""
     cd $build; $source/configure || die
 fi
 
@@ -59,5 +64,4 @@ echo fdff
 fi
 
 echo "________________________________________"
-echo ""
 
