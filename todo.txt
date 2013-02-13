@@ -3,3 +3,5 @@ use $settings in crontab
 
 put all data into ~/jw/ and use that as JANEKDATA. consider how to make it work on different computers.
 rename "desktop" to pulpit (or sth better) and update user-dirs
+
+git commit --patch shortcut
