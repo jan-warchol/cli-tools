@@ -9,8 +9,8 @@
 # GENERAL PLACES.
 # make sure to update them if there was any reorganization
 
-export LILYPOND_GIT=$HOME/repos/lilypond-git/
-export LILYPOND_BUILD_DIR=$HOME/lily-builds/
+export LILYPOND_GIT=$HOME/jw/repos/lilypond-git/
+export LILYPOND_BUILD_DIR=$HOME/jw/lily-builds/
 export scripts="$JANEKDATA/moje/cli/scripts"
 export lilyscripts="$JANEKDATA/moje/cli/lilypond"
 
