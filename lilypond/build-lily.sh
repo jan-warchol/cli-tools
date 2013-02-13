@@ -146,16 +146,22 @@ fi
 if [ "$3" != "" ]; then
     cd $source
     git checkout --quiet $3
-    || echo "I cannot checkout $3. Maybe it is a detached HEAD?"
-    && echo "Having this commit as an explicit branch might help." && die;
+    if [ $? != 0 ]; then
+        echo "I cannot checkout $3. Maybe it is a detached HEAD?"
+        echo "Having this commit as an explicit branch might help."
+        die;
+    fi;
 else
     cd $LILYPOND_GIT
 fi
 commit=$(git rev-parse HEAD)
 cd $source
 git checkout --quiet $commit
-|| echo "I cannot checkout $commit. Maybe it is a detached HEAD?"
-&& echo "Having this commit as an explicit branch might help." && die;
+if [ $? != 0 ]; then
+    echo "I cannot checkout $3. Maybe it is a detached HEAD?"
+    echo "Having this commit as an explicit branch might help."
+    die;
+fi;
 
 
 
