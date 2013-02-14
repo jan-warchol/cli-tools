@@ -11,6 +11,13 @@ sudo apt-get install xbacklight
 # a program for opening files with GUI programs from command line (gnome-open)
 sudo apt-get install libgnome2-0
 
+# TODO install gimp
+# TODO install imagemagick
+# TODO install frescobaldi
+# TODO configure user dirs
+# TODO decide and install some txt editor
+# TODO change keyboard sensitivity
+
 echo " " | tee -a $HOME/.bashrc
 echo 'export JANEKDATA=$HOME/Desktop' | tee -a $HOME/.bashrc
 echo 'export bashsettings=$JANEKDATA/moje/cli/config' | tee -a $HOME/.bashrc
