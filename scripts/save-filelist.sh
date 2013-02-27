@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 # this is for saving list of my all files, to make recovery easier
 

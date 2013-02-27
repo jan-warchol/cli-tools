@@ -1,4 +1,4 @@
-#!/bin/sh
+﻿#!/bin/sh
 
 # create a file 'testfile' using
 # dd if=/dev/urandom of=testfile count=20 bs=1024k

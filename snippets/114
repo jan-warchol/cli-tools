@@ -1,4 +1,4 @@
-#! /bin/bash
+﻿#! /bin/bash
 
 VARIABLE="Let's test this string!"
 

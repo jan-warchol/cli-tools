@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 cd ~/Host/integrals-test/Epifania
 

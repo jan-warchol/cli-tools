@@ -1,4 +1,4 @@
-[include]
+﻿[include]
 	path = $JANEKDATA/janek/ustawienia/git-config
 [user]
 	name = Janek Warchoł

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 # first argument - opus pattern to use
 if [ "$1" != "" ]; then opus=$1; else opus="0[1-4]"; fi

@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 # r - rerun regtests
 # o - make regtests 

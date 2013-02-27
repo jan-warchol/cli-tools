@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 while read branch; do
     echo $branch 

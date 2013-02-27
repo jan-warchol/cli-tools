@@ -1,4 +1,4 @@
-[log]
+﻿[log]
   decorate = short
 [color]
   ui = auto

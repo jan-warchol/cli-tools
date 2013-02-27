@@ -1,4 +1,4 @@
-This should solve the problem
+﻿This should solve the problem
 
 git config core.quotepath false
 

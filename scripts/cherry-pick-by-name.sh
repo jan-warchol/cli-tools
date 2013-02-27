@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 # this script adds to the current branch all patches about gitingore
 # that are present in origin/master

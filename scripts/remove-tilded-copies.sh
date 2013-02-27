@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 # this script moves all files which names end with ~ to trash.
 
