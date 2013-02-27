@@ -4,6 +4,9 @@ use $settings in crontab
 put all data into ~/jw/ and use that as JANEKDATA. consider how to make it work on different computers.
 rename "desktop" to pulpit (or sth better) and update user-dirs
 
+perhaps the structure should be ~/data/jan/
+or better, jan/dane
+
 apparently it would make more sense to have currently-worked-on lilypond built in LILYPOND_GIT, so i need a few shortcuts for that.  It would be also good to have an indication of dirty tree if we're building that.
 
 git commit --patch shortcut
