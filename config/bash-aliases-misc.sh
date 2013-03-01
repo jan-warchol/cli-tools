@@ -28,8 +28,8 @@ alias s3='alias d3="cd $(pwd)"'
 alias bashrc='gedit $bashsettings/* &'
 
 # redefine commands
-alias grep='grep -nr --color=always'
-alias mkdir='mkdir -p'
+alias grepp='grep -nr --color=always'
+alias mkdp='mkdir -p'
 
 alias grep2='grep -C2'
 alias grep3='grep -C3'
