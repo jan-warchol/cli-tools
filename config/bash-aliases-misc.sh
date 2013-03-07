@@ -28,7 +28,7 @@ alias s3='alias d3="cd $(pwd)"'
 alias bashrc='gedit $bashsettings/* &'
 
 # redefine commands
-alias grepp='grep -nr --color=always'
+alias grepp='grep -nri --color=always'
 alias mkdp='mkdir -p'
 
 alias grep2='grep -C2'
