@@ -18,7 +18,7 @@ alias cli='cd $JANEKDATA/moje/cli; git status'
 alias alm='alsamixer'
 alias ,='less -R -S'
 alias ,,='less -R'
-alias smnt='sudo smbmount //domowy/dane/janek /media/shamon/ -o user=janek'
+alias smnt='sudo smbmount //192.168.15.210/dane/janek /media/shamon/ -o user=janek'
 
 # directory "bookmarks"
 alias s1='alias d1="cd $(pwd)"'
