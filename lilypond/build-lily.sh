@@ -156,7 +156,8 @@ commit=$(git rev-parse HEAD)
 cd $source
 git checkout --quiet $commit
 if [ $? != 0 ]; then
-    echo "I cannot checkout $3. Maybe it is a detached HEAD?"
+    echo "I cannot checkout $3."
+    echo "Maybe it is a detached HEAD?"
     echo "Having this commit as an explicit branch might help."
     die;
 fi;
