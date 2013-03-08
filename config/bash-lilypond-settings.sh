@@ -6,6 +6,7 @@ alias fixcc='scripts/auxiliar/fixcc.py'
 alias fll='flip -ub *ly'
 
 alias lily='$LILYPOND_BUILD_DIR/$defaultlily/out/bin/lilypond'
+alias lgit='$LILYPOND_GIT/build/out/bin/lilypond'
 alias lmaster='$LILYPOND_BUILD_DIR/master/out/bin/lilypond'
 alias lstable='$LILYPOND_BUILD_DIR/stable/out/bin/lilypond'
 alias lrelease='$LILYPOND_BUILD_DIR/release/out/bin/lilypond'
