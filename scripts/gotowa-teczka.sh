@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # TODO: make this script work on CRLF files containing list of pieces
-# TODO: make this script work with $1 containing special chars
 
 # $1 - ścieżka do pliku z listą utworów do przetworzenia
 # $2 - nazwa pliku pod jaką zapisać gotowy pdf
@@ -26,7 +25,7 @@ while read nazwa; do
             echo "$sciezkaDoPliku" >> listaUtworow.txt
         fi
     fi
-done < $1
+done < "$1"
 
 sed '/^$/d' listaUtworow.txt > temp
 mv --force temp listaUtworow.txt
