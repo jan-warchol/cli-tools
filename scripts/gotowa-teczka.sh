@@ -13,11 +13,12 @@ while read string; do
     # to trzeba zacząć od wyrzucenia CR ze stringów
     nazwa=$(echo "$string" | tr -d '\r')
 
-    # jeśli w wejściu są puste linijki, to ich nie szukaj
+    # w pliku z listą mogą być puste linijki - nie wyszukuj ich
     # (szukanie pustych linijek zwraca wszystko).
-    # pomiń również komentarze zaczynające się od # lub %.
+    # pomiń również komentarze, zaczynające się od # lub %.
     if [[ "$nazwa" != "" && "$nazwa" != \#* && "$nazwa" != %* ]]; then
         sciezkaDoPliku=$(find $nutyEpifanii | grep "$nazwa" | grep .pdf)
+
         if [ "$sciezkaDoPliku" = "" ]; then
             echo Nie znalazłam pliku o nazwie \"$nazwa\".
         elif  [[ $sciezkaDoPliku == *$'\n'* ]]; then
