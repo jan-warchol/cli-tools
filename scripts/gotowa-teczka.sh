@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# TODO: make this script work on CRLF files containing list of pieces
-
 # $1 - ścieżka do pliku z listą utworów do przetworzenia
 # $2 - nazwa pliku pod jaką zapisać gotowy pdf
 
@@ -10,7 +8,11 @@ mv --force listaUtworow.txt listaUtworow.txt~ 2> /dev/null
 
 nutyEpifanii=~/Dropbox/Epifania/nuty
 
-while read nazwa; do
+while read string; do
+    # na wypadek gdyby plik z listą miał Windowsowe końce linii (CRLF)
+    # to trzeba zacząć od wyrzucenia CR ze stringów
+    nazwa=$(echo "$string" | tr -d '\r')
+
     # jeśli w wejściu są puste linijki, to ich nie szukaj
     # (szukanie pustych linijek zwraca wszystko).
     # pomiń również komentarze zaczynające się od # lub %.
