@@ -59,6 +59,7 @@ shopt -s histappend
 
 # for multi-threaded compilation with 'make':
 export MAKE_OPTIONS="-j5 CPU_COUNT=5"
+alias mko='make $MAKE_OPTIONS'
 
 # resize ouput to fit window
 shopt -s checkwinsize
