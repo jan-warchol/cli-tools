@@ -19,6 +19,7 @@ alias alm='alsamixer'
 alias ,='less -R -S'
 alias ,,='less -R'
 alias smnt='sudo smbmount //192.168.15.210/dane/janek /media/shamon/ -o user=janek'
+alias fres='python ~/jw/repos/frescobaldi/frescobaldi'
 
 # directory "bookmarks"
 alias s1='alias d1="cd $(pwd)"'

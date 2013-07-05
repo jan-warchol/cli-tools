@@ -10,6 +10,7 @@ alias lgit='$LILYPOND_GIT/build/out/bin/lilypond'
 alias lmaster='$LILYPOND_BUILD_DIR/master/out/bin/lilypond'
 alias lstable='$LILYPOND_BUILD_DIR/stable/out/bin/lilypond'
 alias lrelease='$LILYPOND_BUILD_DIR/release/out/bin/lilypond'
+alias stroke='$LILYPOND_BUILD_DIR/strokeadjust/out/bin/lilypond'
 alias lpull='$lilyscripts/pull-all.sh'
 
 alias lbuild='$lilyscripts/build-lily.sh'

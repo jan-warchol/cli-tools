@@ -50,9 +50,9 @@ for branch in $(git branch --color=never | sed s/*//); do
         echo -e "\nThis means\e[00;31m a warning: upstream branch is not configured.\e[00m"
         echo "Don't worry, that's not dangerous."
         echo "Trying to rebase on origin/master..."
-        sleep 7
+       # sleep 7
         git rebase origin/master || die;
-        sleep 3
+       # sleep 3
     fi
     echo "";
 done
