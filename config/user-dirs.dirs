@@ -5,11 +5,11 @@
 # homedir-relative path, or XDG_xxx_DIR="/yyy", where /yyy is an
 # absolute path. No other format is supported.
 # 
-XDG_DESKTOP_DIR="$HOME/jw/Desktop"
-XDG_DOWNLOAD_DIR="$HOME/jw/Desktop"
+XDG_DESKTOP_DIR="$HOME/janek"
+XDG_DOWNLOAD_DIR="$HOME/janek"
 XDG_TEMPLATES_DIR="$HOME/"
 XDG_PUBLICSHARE_DIR="$HOME/Ubuntu One"
-XDG_DOCUMENTS_DIR="$HOME/jw/Desktop/moje"
-XDG_MUSIC_DIR="$HOME/jw/media/muzyka"
-XDG_PICTURES_DIR="$HOME/jw/media/obrazy"
-XDG_VIDEOS_DIR="$HOME/jw/media/filmy"
+XDG_DOCUMENTS_DIR="$HOME/janek/moje"
+XDG_MUSIC_DIR="$HOME/media/muzyka"
+XDG_PICTURES_DIR="$HOME/media/obrazy"
+XDG_VIDEOS_DIR="$HOME/media/filmy"
