@@ -1,7 +1,7 @@
 ﻿#!/bin/bash
 
 # this script generates dvi previews of metafont files;
-# they are saved in '$LILYPOND_GIT/../font-preview/'.
+# they are saved in '~/font-preview/'.
 # call this script from top source directory (usually
 # 'lilypond-git/')
 #
