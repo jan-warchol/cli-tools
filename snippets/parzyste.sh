@@ -1,3 +1,4 @@
+#!/bin/bash
 
 parzystosc=$(expr $liczba % 2)    
 if [ $parzystosc = 1 ]; then

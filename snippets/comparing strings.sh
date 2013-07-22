@@ -1,4 +1,4 @@
-﻿VARIABLE="Let's test this string!"
+VARIABLE="Let's test this string!"
 
 # This is for regular expressions:
 if [[ "$VARIABLE" =~ "Let's.*ring" ]]

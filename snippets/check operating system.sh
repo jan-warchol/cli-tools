@@ -1,4 +1,4 @@
-﻿# to check which opetaring system is running a script,
+# to check which opetaring system is running a script,
 # use this command
 uname -s
 # it returns

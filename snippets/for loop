@@ -1,7 +1,0 @@
-﻿
-
-# don't know what's the difference between the two
-
-for branch in `git branch | sed s/*//`; 
-
-for branch in $(git branch | sed s/*//); 

@@ -1,6 +1,0 @@
-﻿# redirect stdout
-git rev-parse > /dev/null
-
-# redirect stderr
-git rev-parse 2> /dev/null
-

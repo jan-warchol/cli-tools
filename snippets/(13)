@@ -1,6 +1,0 @@
-﻿# glue two variables together
-text="blah-"
-date=$(date +"%Y-%m-%d")
-concated=$text$date
-
-echo $concated

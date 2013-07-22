@@ -1,4 +1,4 @@
-﻿ext="pdf"
+ext="pdf"
 suffix="blah"
 
 # here's one way to do this
