@@ -26,6 +26,7 @@ fi
    alias gk='git commit'
   alias gka='git commit -a'
   alias gkm='git commit -m'
+  alias gkp='git commit -p'
  alias gkam='git commit -a -m'
   alias gam='git commit -a --amend'
 
