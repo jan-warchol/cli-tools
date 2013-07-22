@@ -23,6 +23,9 @@ echo 'export JANEKDATA=$HOME/Desktop' | tee -a $HOME/.bashrc
 echo 'export bashsettings=$JANEKDATA/moje/cli/config' | tee -a $HOME/.bashrc
 echo 'source $bashsettings/bash-settings.sh' | tee -a $HOME/.bashrc
 
+# create an .inputrc file and link to the content
+echo '$include ~/jw/janek/moje/cli/config/inputrc' | tee -a $HOME/.inputrc
+
 # make bash autocompletion case-insensitive:
 echo set completion-ignore-case on | sudo tee -a /etc/inputrc
 
