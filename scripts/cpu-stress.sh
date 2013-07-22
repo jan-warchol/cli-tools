@@ -1,4 +1,4 @@
-﻿#!/bin/sh
+#!/bin/sh
 
 # create a 'testfile' containing random data
 # and repeatedly calculate md5 hash of this file.

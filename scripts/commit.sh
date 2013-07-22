@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 cd ~/Desktop
 git add -A

@@ -1,4 +1,4 @@
-﻿# count how many files there are in each subdir
+# count how many files there are in each subdir
 
 IFS=$(echo -en "\n\b")
 

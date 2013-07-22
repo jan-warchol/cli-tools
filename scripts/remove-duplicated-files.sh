@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 # this script walks through all subdirectories of current dir,
 # compares all files inside (be careful, quadratic computational complexity)

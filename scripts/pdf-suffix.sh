@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 # add the argument of this script as the suffix to all pdfs in ./
 

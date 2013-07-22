@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 # this will update all branches in LILYPOND_GIT repository.
 # if any argument is specified, it will also delete merged branches

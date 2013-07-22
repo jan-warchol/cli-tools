@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 # this script generates dvi previews of metafont files;
 # they are saved in '~/font-preview/'.

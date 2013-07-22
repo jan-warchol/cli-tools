@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 # use convert-ly accompanying lily version marked as "default"
 # $1 - optional arguments to convert-ly
 
