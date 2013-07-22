@@ -35,4 +35,9 @@ sudo cp /usr/share/X11/xkb/symbols/pl /usr/share/X11/xkb/symbols/pl.backup
 # overwrite polish keyboard layout with my own layout
 sudo cp -f $bashsettings/janek-keyboard-layout /usr/share/X11/xkb/symbols/pl
 
+# copy my global git settings
+cp $bashsettings/gitconfig ~/.gitconfig
+# when git > 1.7.10 becomes widespread, this could be used instead:
+# [include]
+#	path = ~/janek/moje/cli/git/gitconfig
 
