@@ -13,24 +13,25 @@ fi
   alias gan='git add -N'
   alias gap='git add -p'
   alias gau='git add --update' #only tracked files
+
    alias gb='git branch'
-  alias gbr='git branch -r'
   alias gba='git branch -a'
+  alias gbr='git branch -r'
 
    alias gc='git checkout'
+  alias gch='git checkout'
   alias gcm='git checkout master'
  alias gcom='git checkout origin/master'
  alias gch0='git checkout HEAD~0'
  alias gch1='git checkout HEAD~1'
  alias gch2='git checkout HEAD~2'
+
    alias gk='git commit'
   alias gka='git commit -a'
   alias gkm='git commit -m'
   alias gkp='git commit -p'
  alias gkam='git commit -a -m'
   alias gam='git commit -a --amend'
-
-   alias gf='git add --all; git commit -m foo'
 
    alias gd='git diff'
   alias gd,='git diff | less -R -S'
@@ -40,6 +41,8 @@ fi
   alias gdm='git diff master'
  alias gdm,='git diff master | less -R -S'
  alias gdom='git diff origin/master'
+alias gdom,='git diff origin/master | less -R -S'
+
    alias gl='git log'
   alias gl,='git log | less -R -S'
   alias glo='git log --oneline'
@@ -71,11 +74,12 @@ alias glpr,='git log -p --reverse master.. | less -R -S'
 alias griam='git rebase --interactive --autosquash master'
 alias gri11='git rebase --interactive HEAD~11'
 alias gri22='git rebase --interactive HEAD~22'
+
   alias grs='git reset'
    alias gu='git reset HEAD~1'
 
    alias gs='git status'
+  alias gst='git status'
+
    alias gt='git tag'
   alias gt,='git tag | less -R -S'
-
-
