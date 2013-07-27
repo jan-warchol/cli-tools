@@ -8,6 +8,7 @@ alias flly='flip -ub *.ly; flip -ub *.ily'
 
 alias lgit='$LILYPOND_GIT/build/out/bin/lilypond'
 alias lily='$LILYPOND_BUILD_DIR/$defaultlily/out/bin/lilypond'
+alias lcurrent='$LILYPOND_BUILD_DIR/current/out/bin/lilypond'
 alias lmaster='$LILYPOND_BUILD_DIR/master/out/bin/lilypond'
 alias lstable='$LILYPOND_BUILD_DIR/stable/out/bin/lilypond'
 alias lrelease='$LILYPOND_BUILD_DIR/release/out/bin/lilypond'
