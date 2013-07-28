@@ -24,6 +24,10 @@ fi
 
 echo "========================================"
 
+# amount of time that we give to the user to check information
+# at various moments (in seconds).
+timeout=10
+
 
 
 ########################## PREMISES: ###########################
@@ -84,11 +88,9 @@ fi
 cd $build
 if [[ "$1" == s* && "$build" != "$LILYPOND_GIT" ]]; then
     echo "You requested to build from scratch."
-    echo "Removing $build directory..."
-    # give the user 5 seconds to abort the script
-    # (using ctrl-C) if something is wrong.
-    # Pressing return skips this delay.
-    read -t 5 confirmation
+    echo -e "Removing \e[00;33m$build\e[00m directory in $timeout seconds"
+    echo "(press Ctrl-C to abort, Enter to skip delay)"
+    read -t 10 confirmation
     cd ../
     rm -r $build
     mkdir -p $build
@@ -169,9 +171,9 @@ fi;
 echo -e "Attempting to build lilypond: \n"
 git log -n 1
 echo ""
-echo -e "inside directory \n  $build \n"
-# give the user 8 seconds to check above information.
-read -t 8 confirmation
+echo -e "inside directory \n  \e[00;33m$build\e[00m"
+echo -e "in $timeout seconds (press Ctrl-C to abort, Enter to skip delay)\n"
+read -t $timeout confirmation
 
 # build dir might have been freshly created, so we need
 # to check whether it contains necessary setup information.
