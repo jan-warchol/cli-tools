@@ -101,7 +101,7 @@ if [[ "$1" == s* && "$build" != "$LILYPOND_GIT" ]]; then
     echo "(press Ctrl-C to abort, Enter to skip delay)"
     read -t 10 confirmation
     cd ../
-    rm -r $build
+    rm -rf $build
     mkdir -p $build
 fi
 
