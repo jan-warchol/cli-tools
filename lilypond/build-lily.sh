@@ -169,7 +169,7 @@ fi;
 
 # we should be inside $source now.
 echo -e "Attempting to build lilypond: \n"
-git log -n 1
+git log -n 1 | cat
 echo ""
 echo -e "inside directory \n  \e[00;33m$build\e[00m"
 echo -e "in $timeout seconds (press Ctrl-C to abort, Enter to skip delay)\n"
@@ -200,7 +200,7 @@ if [ $? == 0 ]; then
     echo "----------------------------------------"
     cd $source
     echo -e "successfully built lilypond: \n"
-    git log -n 1
+    git log -n 1 | cat
     echo ""
     echo -e "inside directory \n  $build"
 fi
