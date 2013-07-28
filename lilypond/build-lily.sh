@@ -15,7 +15,7 @@ die() { # in case of some error...
 }
 
 if [[ "$1" == "help" || "$1" == "-help"
-|| "$1" == "--help" || "$1" == "-h"  || "$1" == "h" ]]; then
+|| "$1" == "--help" || "$1" == "-h"  || "$1" == "h" || $# < 1 ]]; then
     echo "\$1 = operating 'mode' (e.g. to make from scratch)"
     echo "\$2 = build directory (default: $LILYPOND_BUILD_DIR)"
     echo "\$3 = what to build (default: current source state in $LILYPOND_GIT)"
