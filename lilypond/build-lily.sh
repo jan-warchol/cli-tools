@@ -31,7 +31,12 @@ timeout=10
 
 
 ########################## PREMISES: ###########################
-# $LILYPOND_GIT directory exists and it's a LilyPond repository
+# $LILYPOND_GIT directory should exist and be a LilyPond repository
+if [ -z $LILYPOND_GIT ]; then
+    echo '$LILYPOND_GIT environment variable is unset.'
+    echo "Please set it to point to the location of LilyPond source repository."
+    die
+fi
 
 # note: we use readlink for two reasons:
 #  - consistency of the format for the sake of comparisons
@@ -40,7 +45,11 @@ timeout=10
 # normalize $LILYPOND_GIT (no / at the end):
 LILYPOND_GIT=$(readlink -m $LILYPOND_GIT)
 # in case $LILYPOND_BUILD_DIR is unset, set it:
-[[ -n "$LILYPOND_BUILD_DIR" ]] || export LILYPOND_BUILD_DIR="$LILYPOND_GIT/build"
+if [ -z "$LILYPOND_BUILD_DIR" ]; then
+    echo '$LILYPOND_BUILD_DIR variable is unset.'
+    echo 'Setting it to be a build/ subdir of $LILYPOND_GIT'
+    export LILYPOND_BUILD_DIR="$LILYPOND_GIT/build"
+fi
 # make sure that $LILYPOND_BUILD_DIR directory exists:
 mkdir -p $LILYPOND_BUILD_DIR
 
