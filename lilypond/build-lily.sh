@@ -18,7 +18,7 @@ if [[ "$1" == "help" || "$1" == "-help"
 || "$1" == "--help" || "$1" == "-h"  || "$1" == "h" ]]; then
     echo "\$1 = operating 'mode' (e.g. to make from scratch)"
     echo "\$2 = build directory (default: $LILYPOND_BUILD_DIR)"
-    echo "\$3 = commit to build (default: HEAD in $LILYPOND_GIT)"
+    echo "\$3 = what to build (default: current source state in $LILYPOND_GIT)"
     exit
 fi
 
@@ -136,33 +136,56 @@ if [ $? != 0 ]; then
     cd $source
 fi
 
-# we have lily source code, but it may need updating
-# (if it's a local clone of LILYPOND_GIT)
-if [[ "$building_inside_main_repo" == "no" ]]; then
-    git fetch
-fi
+# The third argument specifies what to build.
+# It can be a commit (specified using a committish, a branch name,
+# a tag, etc.) or the current state of working directory at
+# $LILYPOND_GIT (if the argument is empty).  The latter case
+# means that we have to create a temporarty commit containing
+# this state, so that it can be passed to the "satellite" repository
+# (if any exists).  In any case, the commit to be built is passed
+# using a special tag; since tags won't be automatically force-updated,
+# old tags have to be deleted first.
 
-# find the ID of the commit we want to compile.
-# if it wasnt specified by user, grab HEAD of LILYPOND_GIT
+git tag -d commit_to_build > /dev/null 2> /dev/null
 cd $LILYPOND_GIT
-if [ "$3" != "" ]; then
-    git checkout --quiet $3
-    if [ $? != 0 ]; then
-        echo "I cannot checkout $3. Maybe it is a detached HEAD?"
-        echo "Having this commit as an explicit branch might help."
-        die;
-    fi;
-fi
-commit=$(git rev-parse HEAD)
-cd $source
-git checkout --quiet $commit
-if [ $? != 0 ]; then
-    echo "I cannot checkout $3."
-    echo "Maybe it is a detached HEAD?"
-    echo "Having this commit as an explicit branch might help."
-    die;
-fi;
+git tag -d commit_to_build > /dev/null 2> /dev/null
 
+if [ "$3" != "" ]; then
+    git tag commit_to_build $3
+else
+    # prepare a description for the temporary commit
+    if (( $(git diff --color=never HEAD | wc --chars) < 5000 ))
+    then
+        description=$(echo -e \
+        "\nChanges:\n\n$(git diff HEAD)")
+    else
+        description=$(echo -e \
+        "\nSummary of changes:\n\n$(git diff --stat HEAD)")
+    fi
+
+    git commit --quiet -a -m \
+    "A temporary commit - work in progress to be compiled.$description"
+    if [ $? != 0 ]; then
+        # there was actually nothing to commit
+        git tag commit_to_build
+    else
+        echo "Creating a temporary commit..."
+        git tag commit_to_build
+        # restore previous (uncommitted) state
+        git reset --quiet HEAD~1
+    fi
+fi
+
+cd $source
+if [[ "$building_inside_main_repo" == "no" ]]; then
+    git fetch --quiet --tags
+fi
+git checkout --quiet commit_to_build
+if [ $? != 0 ]; then
+    echo "I cannot checkout commit_to_build."
+    echo "Having this commit as an explicit branch might help."
+    die
+fi
 
 
 ######################### BUILDING: ############################
