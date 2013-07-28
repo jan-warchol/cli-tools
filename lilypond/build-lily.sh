@@ -90,8 +90,7 @@ if [[ "$1" == s* && "$build" != "$LILYPOND_GIT" ]]; then
     # Pressing return skips this delay.
     read -t 5 confirmation
     cd ../
-    rm -r $HOME/.local/share/Trash/$(basename $build) 2> /dev/null
-    mv $build $HOME/.local/share/Trash/
+    rm -r $build
     mkdir -p $build
 fi
 
