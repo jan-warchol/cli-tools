@@ -133,12 +133,12 @@ if [ $? != 0 ]; then
     cd ../
     git clone $LILYPOND_GIT $source
     cd $source
-else 
-    # we have lily source code, but it may need updating
-    # (if it's a local clone of LILYPOND_GIT)
-    if [[ "$building_inside_main_repo" == "no" ]]; then
-        git fetch
-    fi
+fi
+
+# we have lily source code, but it may need updating
+# (if it's a local clone of LILYPOND_GIT)
+if [[ "$building_inside_main_repo" == "no" ]]; then
+    git fetch
 fi
 
 # find the ID of the commit we want to compile.
