@@ -1,21 +1,67 @@
 #!/bin/bash
 
-# Call this script from any directory to compile lilypond.
-#
-# 1. our assumptions
-# 2. gathering information
-# 3. preparation
-# 4. building.
+# written by Janek Warchoł (janek.lilypond@gmail.com)
 
-# amount of time that we give to the user to check
-# information at various moments (default value, in seconds)
-timeout=10
+helpmessage="This script will build LilyPond for you.
 
-# some colors
-yellow="\e[00;33m"
-red="\e[00;31m"
-normal="\e[00m"
-dircolor=$yellow
+You should have a git repository with LilyPond source code,
+and an environment variable \$LILYPOND_GIT pointing there.
+
+Usage: with no options specified, lilypond will be built in
+the \$LILYPOND_BUILD_DIR directory, directly from \$LILYPOND_GIT
+sources, using the current state of the working directory.
+
+-s option means to \"build from scratch\", i.e. delete previous
+   build results before compiling again.
+
+-b option tells make just to compile C++ files, without walking
+   through all other files.  If this is all you need, it is the
+   fastest solution.
+
+-t <value> sets the amount of time for which the script is paused
+   when the user has to check whether the setup is correct.
+
+-h displays this help.
+
+-c <commit> tells the script to compile a particular commit
+   instead of current working directory state. This can be
+   a SHA1 commit ID, branch name or a tag name.
+
+-d <path> is the directory where the build will happen.
+   This can be an absolute path or a path relative to
+   \$LILYPOND_BUILD_DIR.
+
+Sometimes it is useful to have multiple LilyPond builds,
+or to be able to continue changing source code while the
+previous state is being compiled.  You can do this quite
+easily - set your \$LILYPOND_BUILD_DIR to a directory outside
+of \$LILYPOND_GIT, and compile lilypond in its subdirectories
+(using the -d option of this script).
+
+In such situations (i.e. when the build directory isn't inside
+\$LILYPOND_GIT) the script will clone lilypond repository into
+that build directory, so that it will be completely separate
+from your main repository.  This way you can continue your work,
+switch branches etc. without affecting the code that is being
+compiled at the moment.
+
+Note that these \"satellite build repositories\" work just as
+\"regular builds\" inside \$LILYPOND_GIT - you don't have to
+commit your work to build it, and if you make changes, you can
+rebuild them in the same satellite repo without having to copy
+things around or rebuilding from scratch.  The script handles
+all this quite fine.
+
+This script can be called from any directory whatsoever.
+"
+
+# TODO:
+# support untracked files with satellite repositories
+# allow repositories other than LILYPOND_GIT
+
+if [[ "$1" == "help" || "$1" == "--help" ]]; then
+    help="yes"
+fi
 
 while getopts "bc:d:hst:" opts; do
     case $opts in
@@ -34,16 +80,28 @@ while getopts "bc:d:hst:" opts; do
     esac
 done
 
+if [[ "$help" == "yes" ]]; then
+    echo -en "$helpmessage" | less
+    exit
+fi
+
+# amount of time that we give to the user to check
+# information at various moments (default value, in seconds)
+if [ -z $timeout ]; then
+    timeout=10
+fi
+
+# some colors
+yellow="\e[00;33m"
+red="\e[00;31m"
+normal="\e[00m"
+dircolor=$yellow
+
 die() {
     # in case of some error...
     echo -e "$red""Something went wrong. Exiting.$normal"
     exit 1
 }
-
-if [[ "$help" == "yes" ]]; then
-    echo "read the comments in the script to understand it, hoho!"
-    exit
-fi
 
 
 
