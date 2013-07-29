@@ -92,11 +92,12 @@ if [ -z $timeout ]; then
 fi
 
 # some colors
+violet="\e[00;35m"
 yellow="\e[00;33m"
 green="\e[00;32m"
 red="\e[00;31m"
 normal="\e[00m"
-dircolor=$yellow
+dircolor=$violet
 
 die() {
     # in case of some error...
