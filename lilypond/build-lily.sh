@@ -101,7 +101,8 @@ dircolor=$violet
 
 die() {
     # in case of some error...
-    echo -e "$red""Something went wrong. Exiting.$normal"
+    echo -e "$red$1$normal"
+    echo Exiting.
     exit 1
 }
 
@@ -271,9 +272,7 @@ if [[ "$building_inside_main_repo" == "no" ]]; then
 fi
 git checkout --quiet commit_to_build
 if [ $? != 0 ]; then
-    echo "I cannot checkout commit_to_build."
-    echo "Having this commit as an explicit branch might help."
-    die
+    die "Cannot checkout desired commit."
 fi
 
 
@@ -298,7 +297,7 @@ if [ "$(grep -s configure-srcdir config.make \
     # are located. Need to run autogen and configure
     cd $source; ./autogen.sh --noconfigure
     echo ""
-    cd $build; $source/configure || die
+    cd $build; $source/configure || die "Configure failed."
 fi
 
 # actual compiling.
@@ -306,7 +305,7 @@ echo "----------------------------------------"
 if [[ "$only_bin" == "yes" ]]; then
     cd lily/
 fi
-time make $MAKE_OPTIONS || die
+time make $MAKE_OPTIONS || die "Make failed."
 
 if [ $? == 0 ]; then
     # last command (make) exited with 0, so build was sucessful.
