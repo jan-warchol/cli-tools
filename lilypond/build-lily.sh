@@ -302,10 +302,9 @@ fi
 # actual compiling.
 echo "----------------------------------------"
 if [[ "$only_bin" == "yes" ]]; then
-    time make $MAKE_OPTIONS bin || die
-else
-    time make $MAKE_OPTIONS || die
+    cd lily/
 fi
+time make $MAKE_OPTIONS || die
 
 if [ $? == 0 ]; then
     # last command (make) exited with 0, so build was sucessful.
