@@ -10,7 +10,7 @@ die() { # in case of some error...
     if [ $dirtytree != 0 ]; then
         echo ""
         echo "Warning: there were some uncommitted changes on branch"
-        echo -e "\e[00;33m$branch\e[00m when this script was started."
+        echo -e "\e[00;33m$currentbranch\e[00m when this script was started."
         echo "They were saved using 'git stash' and you should be able"
         echo "to get them back using 'git stash apply'."
         echo "Before doing that make sure that the repository"
