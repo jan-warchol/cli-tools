@@ -103,6 +103,15 @@ die() {
     # in case of some error...
     echo -e "$red$1$normal"
     echo Exiting.
+    if [ "$dirtytree" != "" ]; then
+        echo -e "$red""Warning!
+        When this script was ran, the HEAD of $source
+        repository was $prev_commit
+        (branch $prev_branch)
+        and there were uncommitted changes on top of that commit.
+        They were saved using 'git stash' and you should be able
+        to get them back using 'git stash apply'."
+    fi
     exit 1
 }
 
@@ -270,6 +279,19 @@ cd $source
 if [[ "$building_inside_main_repo" == "no" ]]; then
     git fetch --quiet --tags
 fi
+
+prev_branch=$(git branch --color=never | sed --quiet 's/* \(.*\)/\1/p')
+prev_commit=$(git rev-parse HEAD)
+
+git diff --quiet HEAD
+# with --quiet, diff exits with 1 when there are any uncommitted changes.
+if [ $? != 0 ]; then
+    dirtytree=1
+    echo "You have uncommitted changes. They will be saved using"
+    echo "'git stash' and restored after the script finishes."
+    git stash
+    read -t $timeout delay
+fi
 git checkout --quiet commit_to_build
 if [ $? != 0 ]; then
     die "Cannot checkout desired commit."
@@ -315,6 +337,22 @@ if [ $? == 0 ]; then
     git log -n 1 | cat
     echo ""
     echo -e "inside directory \n  $dircolor$build$normal"
+
+    if [[ "$building_inside_main_repo" == "yes" || "$dirtytree" != "" ]]
+    # (we don't want to restore before-build-state in satellite repos)
+    then
+        git checkout --quiet $prev_commit || \
+        die "Problems with checking out previous HEAD."
+        # there may be errors when initial state was a detached HEAD
+        # (no branch), but that's not a problem
+        git checkout --quiet $prev_branch 2> /dev/null
+
+        if [[ "$dirtytree" != "" ]]; then
+            echo -e "\n$green""Restoring uncommitted changes" \
+            "from stash.$normal"
+            git stash apply
+        fi
+    fi
 fi
 
 echo "________________________________________"
