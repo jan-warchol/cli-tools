@@ -7,26 +7,39 @@
 # 3. preparation
 # 4. building.
 
+# amount of time that we give to the user to check
+# information at various moments (default value, in seconds)
+timeout=10
 
-die() { # in case of some error...
-    #aplay -q ~/src/sznikers.wav
+while getopts "bc:d:hst:" opts; do
+    case $opts in
+    b)
+        only_bin="yes";;
+    c)
+        whichcommit=$OPTARG;;
+    d)
+        whichdir=$OPTARG;;
+    h)
+        help="yes";;
+    s)
+        from_scratch="yes";;
+    t)
+        timeout=$OPTARG;;
+    esac
+done
+
+die() {
+    # in case of some error...
     echo -e "\e[00;31mSomething went wrong. Exiting.\e[00m"
     exit 1
 }
 
-if [[ "$1" == "help" || "$1" == "-help"
-|| "$1" == "--help" || "$1" == "-h"  || "$1" == "h" || $# < 1 ]]; then
-    echo "\$1 = operating 'mode' (e.g. to make from scratch)"
-    echo "\$2 = build directory (default: $LILYPOND_BUILD_DIR)"
-    echo "\$3 = what to build (default: current source state in $LILYPOND_GIT)"
+if [[ "$help" == "yes" ]]; then
+    echo "read the comments in the script to understand it, hoho!"
     exit
 fi
 
 echo "========================================"
-
-# amount of time that we give to the user to check information
-# at various moments (in seconds).
-timeout=10
 
 
 
@@ -56,16 +69,15 @@ mkdir -p $LILYPOND_BUILD_DIR
 
 
 ################### GATHERING INFORMATION: #####################
-# determine build directory (based on second argument):
+# determine build directory (based on the value of -d option):
 #  - if an absolute path is specified, use it.
 #  - if a relative path is specified, it is taken relative
-#    to the $LILYPOND_BUILD_DIR. So, if 2nd argument is empty
-#    $LILYPOND_BUILD_DIR is used.
+#    to the $LILYPOND_BUILD_DIR.
 
 cd $LILYPOND_BUILD_DIR
-if [ "$2" != "" ]; then
-    mkdir -p $2
-    cd $2
+if [ "$whichdir" != "" ]; then
+    mkdir -p $whichdir
+    cd $whichdir
 fi
 build=$(pwd)
 
@@ -95,11 +107,11 @@ fi
 # to make from scratch (e.g. erase everything before building)
 # because that'd delete the repository and all of user's work.
 cd $build
-if [[ "$1" == s* && "$build" != "$LILYPOND_GIT" ]]; then
+if [[ "$from_scratch" == "yes" && "$build" != "$LILYPOND_GIT" ]]; then
     echo "You requested to build from scratch."
     echo -e "Removing \e[00;33m$build\e[00m directory in $timeout seconds"
     echo "(press Ctrl-C to abort, Enter to skip delay)"
-    read -t 10 confirmation
+    read -t $timeout confirmation
     cd ../
     rm -rf $build
     mkdir -p $build
@@ -145,10 +157,10 @@ if [ $? != 0 ]; then
     cd $source
 fi
 
-# The third argument specifies what to build.
+# The value of -c option specifies what to build.
 # It can be a commit (specified using a committish, a branch name,
 # a tag, etc.) or the current state of working directory at
-# $LILYPOND_GIT (if the argument is empty).  The latter case
+# $LILYPOND_GIT (if no value was specified).  The latter case
 # means that we have to create a temporarty commit containing
 # this state, so that it can be passed to the "satellite" repository
 # (if any exists).  In any case, the commit to be built is passed
@@ -159,8 +171,8 @@ git tag -d commit_to_build > /dev/null 2> /dev/null
 cd $LILYPOND_GIT
 git tag -d commit_to_build > /dev/null 2> /dev/null
 
-if [ "$3" != "" ]; then
-    git tag commit_to_build $3
+if [ "$whichcommit" != "" ]; then
+    git tag commit_to_build $whichcommit
 else
     # prepare a description for the temporary commit
     if (( $(git diff --color=never HEAD | wc --chars) < 5000 ))
@@ -221,7 +233,7 @@ fi
 
 # actual compiling.
 echo "----------------------------------------"
-if [[ "$1" == b* ]]; then
+if [[ "$only_bin" == "yes" ]]; then
     time make $MAKE_OPTIONS bin || die
 else
     time make $MAKE_OPTIONS || die
