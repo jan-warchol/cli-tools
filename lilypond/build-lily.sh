@@ -93,6 +93,7 @@ fi
 
 # some colors
 yellow="\e[00;33m"
+green="\e[00;32m"
 red="\e[00;31m"
 normal="\e[00m"
 dircolor=$yellow
@@ -283,7 +284,7 @@ echo -e "Attempting to build lilypond: \n"
 git log -n 1 | cat
 echo ""
 echo -e "inside directory \n  $dircolor$build$normal"
-echo -e "in $timeout seconds (press Ctrl-C to abort,"
+echo -e "in $timeout seconds (press Ctrl-C to abort," \
         "Enter to skip delay)\n"
 read -t $timeout confirmation
 
@@ -310,7 +311,7 @@ if [ $? == 0 ]; then
     # last command (make) exited with 0, so build was sucessful.
     echo "----------------------------------------"
     cd $source
-    echo -e "successfully built lilypond: \n"
+    echo -e "$green""successfully built lilypond:$normal \n"
     git log -n 1 | cat
     echo ""
     echo -e "inside directory \n  $dircolor$build$normal"
