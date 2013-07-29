@@ -11,6 +11,12 @@
 # information at various moments (default value, in seconds)
 timeout=10
 
+# some colors
+yellow="\e[00;33m"
+red="\e[00;31m"
+normal="\e[00m"
+dircolor=$yellow
+
 while getopts "bc:d:hst:" opts; do
     case $opts in
     b)
@@ -30,7 +36,7 @@ done
 
 die() {
     # in case of some error...
-    echo -e "\e[00;31mSomething went wrong. Exiting.\e[00m"
+    echo -e "$red""Something went wrong. Exiting.$normal"
     exit 1
 }
 
@@ -39,16 +45,15 @@ if [[ "$help" == "yes" ]]; then
     exit
 fi
 
-echo "========================================"
-
 
 
 ########################## PREMISES: ###########################
 # $LILYPOND_GIT directory should exist and be a LilyPond repository
 if [ -z $LILYPOND_GIT ]; then
-    echo '$LILYPOND_GIT environment variable is unset.'
-    echo "Please set it to point to the location of LilyPond source repository."
-    die
+    echo -e "$red\$LILYPOND_GIT environment variable is unset."
+    echo -e "$normal""Please set it to point to the" \
+            "LilyPond git repository."
+    exit 1
 fi
 
 # note: we use readlink for two reasons:
@@ -60,7 +65,7 @@ LILYPOND_GIT=$(readlink -m $LILYPOND_GIT)
 # in case $LILYPOND_BUILD_DIR is unset, set it:
 if [ -z "$LILYPOND_BUILD_DIR" ]; then
     echo '$LILYPOND_BUILD_DIR variable is unset.'
-    echo 'Setting it to be a build/ subdir of $LILYPOND_GIT'
+    echo 'Setting it to $LILYPOND_GIT/build.'
     export LILYPOND_BUILD_DIR="$LILYPOND_GIT/build"
 fi
 # make sure that $LILYPOND_BUILD_DIR directory exists:
@@ -99,6 +104,8 @@ fi
 #    where we'll be building,
 #  - $build exists (but it may be empty).
 
+echo "========================================"
+
 
 
 ######################## PREPARATION: ##########################
@@ -109,7 +116,8 @@ fi
 cd $build
 if [[ "$from_scratch" == "yes" && "$build" != "$LILYPOND_GIT" ]]; then
     echo "You requested to build from scratch."
-    echo -e "Removing \e[00;33m$build\e[00m directory in $timeout seconds"
+    echo -e "Removing $dircolor$build$normal directory"\
+            "in $timeout seconds"
     echo "(press Ctrl-C to abort, Enter to skip delay)"
     read -t $timeout confirmation
     cd ../
@@ -209,14 +217,16 @@ if [ $? != 0 ]; then
 fi
 
 
+
 ######################### BUILDING: ############################
 
 # we should be inside $source now.
 echo -e "Attempting to build lilypond: \n"
 git log -n 1 | cat
 echo ""
-echo -e "inside directory \n  \e[00;33m$build\e[00m"
-echo -e "in $timeout seconds (press Ctrl-C to abort, Enter to skip delay)\n"
+echo -e "inside directory \n  $dircolor$build$normal"
+echo -e "in $timeout seconds (press Ctrl-C to abort,"
+        "Enter to skip delay)\n"
 read -t $timeout confirmation
 
 # build dir might have been freshly created, so we need
@@ -246,7 +256,7 @@ if [ $? == 0 ]; then
     echo -e "successfully built lilypond: \n"
     git log -n 1 | cat
     echo ""
-    echo -e "inside directory \n  $build"
+    echo -e "inside directory \n  $dircolor$build$normal"
 fi
 
 echo "________________________________________"
