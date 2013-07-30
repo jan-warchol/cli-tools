@@ -1,5 +1,6 @@
 
 export defaultlily='2.17.3'
+export defaultbuild='current'
 
 alias lg='cd $LILYPOND_GIT; git status'
 alias lpull='$lilyscripts/pull-all.sh'
@@ -15,6 +16,6 @@ alias lrelease='$LILYPOND_BUILD_DIR/release/out/bin/lilypond'
 alias lstroke='$LILYPOND_BUILD_DIR/strokeadjust/out/bin/lilypond'
 
 alias lbuild='$lilyscripts/build-lily.sh -t 2'
-alias mb='lbuild -d current -b'
-alias mn='lbuild -d current'
-alias ms='lbuild -d current -s'
+alias mb='lbuild -d $defaultbuild -b'
+alias mn='lbuild -d $defaultbuild'
+alias ms='lbuild -d $defaultbuild -s'
