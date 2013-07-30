@@ -253,7 +253,7 @@ if [ "$whichcommit" != "" ]; then
     git tag commit_to_build $whichcommit
 else
     # prepare a description for the temporary commit
-    if (( $(git diff --color=never HEAD | wc --chars) < 5000 ))
+    if (( $(git diff --color=never HEAD | wc --lines) < 50 ))
     then
         description=$(echo -e \
         "\nChanges:\n\n$(git diff HEAD)")
