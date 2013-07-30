@@ -35,8 +35,10 @@ fi
 
    alias gd='git diff'
   alias gd,='git diff | less -R -S'
+ alias gdw,='git diff --word-diff=color | less -R -S'
   alias gdc='git diff --cached'
  alias gdc,='git diff --cached | less -R -S'
+alias gdwc,='git diff --word-diff=color --cached | less -R -S'
   alias gdh='git diff HEAD'
   alias gdm='git diff master'
  alias gdm,='git diff master | less -R -S'
