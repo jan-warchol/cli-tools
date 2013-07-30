@@ -183,7 +183,7 @@ echo "========================================"
 # if we're building directly in $LILYPOND_GIT, we don't want
 # to make from scratch (e.g. erase everything before building)
 # because that'd delete the repository and all of user's work.
-cd $build
+cd $build || die "\$build doesn't exist."
 if [[ "$from_scratch" == "yes" && "$build" != "$LILYPOND_GIT" ]]; then
     echo "You requested to build from scratch."
     echo -e "Removing $dircolor$build$normal directory"\
@@ -191,7 +191,7 @@ if [[ "$from_scratch" == "yes" && "$build" != "$LILYPOND_GIT" ]]; then
     echo "(press Ctrl-C to abort, Enter to skip delay)"
     read -t $timeout confirmation
     cd ../
-    rm -rf $build
+    rm -rf $build || die "Failed to remove $build."
     mkdir -p $build
 fi
 
@@ -277,7 +277,7 @@ fi
 
 cd $source
 if [[ "$building_inside_main_repo" == "no" ]]; then
-    git fetch --quiet --tags
+    git fetch --quiet --tags || die "Failed to fetch from $LILYPOND_GIT."
 fi
 
 prev_branch=$(git branch --color=never | sed --quiet 's/* \(.*\)/\1/p')
