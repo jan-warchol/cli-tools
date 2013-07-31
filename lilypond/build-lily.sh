@@ -325,7 +325,14 @@ fi
 # actual compiling.
 echo "----------------------------------------"
 if [[ "$only_bin" == "yes" ]]; then
-    cd lily/
+    if [[ -f out/bin/lilypond ]]; then
+        cd lily/
+    else
+        echo -e "\nLooks like this is the first time when LilyPond"
+        echo "is built in this directory, so despite -b flag"
+        echo "I will build everything, not just C++ files."
+        sleep 10
+    fi
 fi
 time make $MAKE_OPTIONS || die "Make failed."
 
