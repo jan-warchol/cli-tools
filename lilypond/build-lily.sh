@@ -31,6 +31,8 @@ sources, using the current state of the working directory.
    This can be an absolute path or a path relative to
    \$LILYPOND_BUILD_DIR.
 
+-l build in the current directory.
+
 Sometimes it is useful to have multiple LilyPond builds,
 or to be able to continue changing source code while the
 previous state is being compiled.  You can do this quite
@@ -63,7 +65,7 @@ if [[ "$1" == "help" || "$1" == "--help" ]]; then
     help="yes"
 fi
 
-while getopts "bc:d:hst:" opts; do
+while getopts "bc:d:hlst:" opts; do
     case $opts in
     b)
         only_bin="yes";;
@@ -73,6 +75,8 @@ while getopts "bc:d:hst:" opts; do
         whichdir=$OPTARG;;
     h)
         help="yes";;
+    l)
+        whichdir=$(pwd);;
     s)
         from_scratch="yes";;
     t)
@@ -331,7 +335,7 @@ if [[ "$only_bin" == "yes" ]]; then
         echo -e "\nLooks like this is the first time when LilyPond"
         echo "is built in this directory, so despite -b flag"
         echo "I will build everything, not just C++ files."
-        sleep 10
+        read -t $(expr $timeout + 3) proceed
     fi
 fi
 time make $MAKE_OPTIONS || die "Make failed."
