@@ -123,7 +123,7 @@ die() {
 
 ########################## PREMISES: ###########################
 # $LILYPOND_GIT directory should exist and be a LilyPond repository
-if [ -z $LILYPOND_GIT ]; then
+if [ -z "$LILYPOND_GIT" ]; then
     echo -e "$red\$LILYPOND_GIT environment variable is unset."
     echo -e "$normal""Please set it to point to the" \
             "LilyPond git repository."
@@ -141,20 +141,20 @@ if [ -z "$LILYPOND_BUILD_DIR" ]; then
     echo '$LILYPOND_BUILD_DIR variable is unset.'
     echo 'Setting it to $LILYPOND_GIT/build.'
     export LILYPOND_BUILD_DIR="$LILYPOND_GIT/build"
-    read -t 3 proceed
+    read -t 5 proceed
 fi
 # make sure that $LILYPOND_BUILD_DIR directory exists:
 mkdir -p $LILYPOND_BUILD_DIR
 
 # assert $MAKE_OPTIONS for optimum performance
-if [ -z $MAKE_OPTIONS ]; then
+if [ -z "$MAKE_OPTIONS" ]; then
     echo -e "$yellow\$MAKE_OPTIONS$normal" \
             "environment variable is unset."
     echo "If you have a multi-threaded processor and would like"
     echo "to use multiple threads to build LilyPond faster,"
     echo "set \$MAKE_OPTIONS to -jN CPU_COUNT=N (where N is the"
     echo -e "number of threads you want to use plus one).\n"
-    read -t $(expr $timeout + 3) proceed
+    read -t $(expr $timeout + 5) proceed
 fi
 
 
@@ -347,7 +347,7 @@ if [[ "$only_bin" == "yes" ]]; then
         echo -e "\nLooks like this is the first time when LilyPond"
         echo "is built in this directory, so despite -b flag"
         echo "I will build everything, not just C++ files."
-        read -t $(expr $timeout + 3) proceed
+        read -t $(expr $timeout + 5) proceed
     fi
 fi
 time make $MAKE_OPTIONS || die "Make failed."
