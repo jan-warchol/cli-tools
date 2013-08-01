@@ -370,6 +370,8 @@ compile_lilypond () {
     echo -e "inside directory \n  $dircolor$build$normal"
 }
 
+STARTTIME=$(date +%s.%N)
+
 compile_lilypond
 
 if [[ "$regtests" == "yes" ]]; then
@@ -381,6 +383,13 @@ if [[ "$regtests" == "yes" ]]; then
     die "Cannot checkout desired commit."
     compile_lilypond
     time make $MAKE_OPTIONS check || die "Regtest check failed."
+
+    ENDTIME=$(date +%s.%N)
+    TIMEDIFF=$(echo \
+    $(echo "($ENDTIME - $STARTTIME) / 60" | bc) min \
+    $(echo "($ENDTIME - $STARTTIME) % 60" | bc) sec \
+    )
+    echo "Total time spent doing regression tests: $TIMEDIFF"
 fi
 
 # restore previous state of LILYPOND_GIT (if necessary).
