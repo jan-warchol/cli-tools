@@ -15,11 +15,11 @@ exit 1
 tested_branch=$(git branch | sed --quiet 's/* \(.*\)/\1/p')
 
 if [ $1 == r ]; then
-  make test-clean || die;
-  make || die;
-  make check || die;
+  make $MAKE_OPTIONS test-clean || die;
+  make $MAKE_OPTIONS || die;
+  make $MAKE_OPTIONS check || die;
 
-  firefox file:///home/janek/lilypond-git/build/out/test-results/index.html &
+  firefox file://$build/out/test-results/index.html &
   
 else if [ $1 == oo ]; then
   # go to master
@@ -27,29 +27,30 @@ else if [ $1 == oo ]; then
   git commit -a -m "saving unsaved changes"
   git checkout master
 
+  mkdir -p build
   cd build/
 
   # make test baseline
-  make || die;
-  make test-baseline || die;
+  make $MAKE_OPTIONS || die;
+  make $MAKE_OPTIONS test-baseline || die;
 
   # stash the baseline so that it could be used later
   #mkdir ../../regtest-baselines; export LILYPOND_BASELINES=~/regtest-baselines
 
   # compare regtets
   git checkout $tested_branch
-  make || die;
-  make check || die;
+  make $MAKE_OPTIONS || die;
+  make $MAKE_OPTIONS check || die;
 
-  firefox file:///home/janek/lilypond-git/build/out/test-results/index.html &
+  firefox file://$build/out/test-results/index.html &
   
 else if [ $1 == o ]; then
   # compare regtets
   cd build/
-  make || die;
-  make check || die;
+  make $MAKE_OPTIONS || die;
+  make $MAKE_OPTIONS check || die;
 
-  firefox file:///home/janek/lilypond-git/build/out/test-results/index.html &
+  firefox file://$build/out/test-results/index.html &
   
 else if [ $1 == s ]; then
   # go to master
@@ -65,8 +66,8 @@ else if [ $1 == s ]; then
   mkdir -p build/
   cd build/
   ../configure
-  make || die;
-  make test-baseline || die;
+  make $MAKE_OPTIONS || die;
+  make $MAKE_OPTIONS test-baseline || die;
 
   # go to another branch and compare regtets
   cp -r input/regression/ ~/baseline-copy/
@@ -79,10 +80,10 @@ else if [ $1 == s ]; then
   ../configure
   cp -r ~/baseline-copy/* input/regression/
   rm -r -f ~/baseline-copy/
-  make || die;
-  make check || die;
+  make $MAKE_OPTIONS || die;
+  make $MAKE_OPTIONS check || die;
 
-  firefox file:///home/janek/lilypond-git/build/out/test-results/index.html &
+  firefox file://$build/out/test-results/index.html &
 
 else
   cd ../
