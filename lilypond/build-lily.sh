@@ -33,6 +33,8 @@ sources, using the current state of the working directory.
 
 -l build in the current directory.
 
+-r compile regression tests.
+
 Sometimes it is useful to have multiple LilyPond builds,
 or to be able to continue changing source code while the
 previous state is being compiled.  You can do this quite
@@ -65,7 +67,7 @@ if [[ "$1" == "help" || "$1" == "--help" ]]; then
     help="yes"
 fi
 
-while getopts "bc:d:hlst:" opts; do
+while getopts "bc:d:hlrst:" opts; do
     case $opts in
     b)
         only_bin="yes";;
@@ -77,6 +79,8 @@ while getopts "bc:d:hlst:" opts; do
         help="yes";;
     l)
         whichdir=$(pwd);;
+    r)
+        regtests="yes";;
     s)
         from_scratch="yes";;
     t)
@@ -308,8 +312,11 @@ if [ $? != 0 ]; then
     git stash
     read -t $timeout delay
 fi
-git checkout --quiet commit_to_build
-if [ $? != 0 ]; then
+
+if [[ "$regtests" == "yes" ]]; then
+    git checkout --quiet master || die "Cannot checkout master."
+else
+    git checkout --quiet commit_to_build || \
     die "Cannot checkout desired commit."
 fi
 
@@ -365,6 +372,17 @@ compile_lilypond () {
 
 compile_lilypond
 
+if [[ "$regtests" == "yes" ]]; then
+    echo "cleaning previous regtests..."
+    make $MAKE_OPTIONS test-clean # crude, needs polishing.
+    time make $MAKE_OPTIONS test-baseline || \
+    die "Test baseline failed."
+    git checkout --quiet commit_to_build || \
+    die "Cannot checkout desired commit."
+    compile_lilypond
+    time make $MAKE_OPTIONS check || die "Regtest check failed."
+fi
+
 # restore previous state of LILYPOND_GIT (if necessary).
 cd $source
 if [[ "$building_inside_main_repo" == "yes" || "$dirtytree" != "" ]]
@@ -385,3 +403,6 @@ fi
 
 echo "________________________________________"
 
+if [[ "$regtests" == "yes" ]]; then
+    firefox file://$build/out/test-results/index.html &
+fi
