@@ -339,42 +339,47 @@ if [ "$(grep -s configure-srcdir config.make \
 fi
 
 # actual compiling.
-echo "----------------------------------------"
-if [[ "$only_bin" == "yes" ]]; then
-    if [[ -f out/bin/lilypond ]]; then
-        cd lily/
-    else
-        echo -e "\nLooks like this is the first time when LilyPond"
-        echo "is built in this directory, so despite -b flag"
-        echo "I will build everything, not just C++ files."
-        read -t $(expr $timeout + 5) proceed
-    fi
-fi
-time make $MAKE_OPTIONS || die "Make failed."
 
-if [ $? == 0 ]; then
-    # last command (make) exited with 0, so build was sucessful.
+compile_lilypond () {
+    echo "----------------------------------------"
+    cd $build
+    if [[ "$only_bin" == "yes" ]]; then
+        if [[ -f out/bin/lilypond ]]; then
+            cd lily/
+        else
+            echo -e "\nLooks like this is the first time when LilyPond"
+            echo "is built in this directory, so despite -b flag"
+            echo "I will build everything, not just C++ files."
+            read -t $(expr $timeout + 5) proceed
+        fi
+    fi
+    time make $MAKE_OPTIONS || die "Make failed."
+
     echo "----------------------------------------"
     cd $source
     echo -e "$green""successfully built lilypond:$normal \n"
     git log -n 1 | cat
     echo ""
     echo -e "inside directory \n  $dircolor$build$normal"
+}
 
-    if [[ "$building_inside_main_repo" == "yes" || "$dirtytree" != "" ]]
-    # (we don't want to restore before-build-state in satellite repos)
-    then
-        git checkout --quiet $prev_commit || \
-        die "Problems with checking out previous HEAD."
-        # there may be errors when initial state was a detached HEAD
-        # (no branch), but that's not a problem
-        git checkout --quiet $prev_branch 2> /dev/null
+compile_lilypond
 
-        if [[ "$dirtytree" != "" ]]; then
-            echo -e "\n$green""Restoring uncommitted changes" \
-            "from stash.$normal"
-            git stash apply
-        fi
+# restore previous state of LILYPOND_GIT (if necessary).
+cd $source
+if [[ "$building_inside_main_repo" == "yes" || "$dirtytree" != "" ]]
+# (we don't want to restore before-build-state in satellite repos)
+then
+    git checkout --quiet $prev_commit || \
+    die "Problems with checking out previous HEAD."
+    # there may be errors when initial state was a detached HEAD
+    # (no branch), but that's not a problem
+    git checkout --quiet $prev_branch 2> /dev/null
+
+    if [[ "$dirtytree" != "" ]]; then
+	echo -e "\n$green""Restoring uncommitted changes" \
+	"from stash.$normal"
+	git stash apply
     fi
 fi
 
