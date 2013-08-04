@@ -40,11 +40,16 @@ alias grep2='grep -C2'
 alias grep3='grep -C3'
 alias grep5='grep -C5'
 
+# Add an "alert" alias.
+# Use by appending to the command after a semicolon:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
 
 
 #### LILYPOND ALIASES:
 
-alias lpull='$LILY_SCRIPTS/pull-all.sh'
+alias lpull='$LILY_SCRIPTS/pull-all.sh; alert'
 alias fixcc='$LILYPOND_GIT/scripts/auxiliar/fixcc.py'
 alias flly='flip -ub *.ly; flip -ub *.ily'
 
@@ -57,9 +62,9 @@ alias lrelease='$LILYPOND_BUILD_DIR/release/out/bin/lilypond'
 alias lstroke='$LILYPOND_BUILD_DIR/strokeadjust/out/bin/lilypond'
 
 alias lbuild='$LILY_SCRIPTS/build-lily.sh -t 2'
-alias mb='$LILY_SCRIPTS/build-lily.sh -t 0 -d $defaultbuild -b'
-alias mn='$LILY_SCRIPTS/build-lily.sh -t 0 -d $defaultbuild'
-alias ms='$LILY_SCRIPTS/build-lily.sh -t 0 -d $defaultbuild -s'
+alias mb='$LILY_SCRIPTS/build-lily.sh -t 0 -d $defaultbuild -b; alert'
+alias mn='$LILY_SCRIPTS/build-lily.sh -t 0 -d $defaultbuild; alert'
+alias ms='$LILY_SCRIPTS/build-lily.sh -t 0 -d $defaultbuild -s; alert'
 
 
 
