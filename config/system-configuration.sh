@@ -19,28 +19,28 @@ sudo apt-get install libgnome2-0
 # TODO change keyboard sensitivity
 
 echo " " | tee -a $HOME/.bashrc
-echo 'export JANEKDATA=$HOME/Desktop' | tee -a $HOME/.bashrc
-echo 'export bashsettings=$JANEKDATA/moje/cli/config' | tee -a $HOME/.bashrc
-echo 'source $bashsettings/bash-settings.sh' | tee -a $HOME/.bashrc
+echo 'export ALL_MY_STUFF=$HOME' | tee -a $HOME/.bashrc
+echo 'export MY_CONFIGS=$ALL_MY_STUFF/repos/command-line-stuff/config' | tee -a $HOME/.bashrc
+echo 'source $MY_CONFIGS/bash-settings.sh' | tee -a $HOME/.bashrc
 
 # create an .inputrc file and link to the content
-echo '$include ~/jw/janek/moje/cli/config/inputrc' | tee -a $HOME/.inputrc
+echo '$include $MY_CONFIGS/inputrc' | tee -a $HOME/.inputrc
 
 # make bash autocompletion case-insensitive:
 echo set completion-ignore-case on | sudo tee -a /etc/inputrc
 
 # load my cron jobs
-crontab $bashsettings/cron.jobs
+crontab $MY_CONFIGS/cron.jobs
 
 # make a backup of polish keyboard layout
 sudo cp /usr/share/X11/xkb/symbols/pl /usr/share/X11/xkb/symbols/pl.backup
 
 # overwrite polish keyboard layout with my own layout
-sudo cp -f $bashsettings/janek-keyboard-layout /usr/share/X11/xkb/symbols/pl
+sudo cp -f $MY_CONFIGS/janek-keyboard-layout /usr/share/X11/xkb/symbols/pl
 
 # copy my global git settings
-cp $bashsettings/gitconfig ~/.gitconfig
+cp $MY_CONFIGS/gitconfig ~/.gitconfig
 # when git > 1.7.10 becomes widespread, this could be used instead:
 # [include]
-#	path = ~/janek/moje/cli/git/gitconfig
+#	path = $MY_CONFIGS/gitconfig
 

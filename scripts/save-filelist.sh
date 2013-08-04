@@ -5,6 +5,6 @@
 date=$(date +"-%Y-%m-%d")
 name="filelist"
 
-cd ~/
-find | sort >> Desktop/moje/$name$date
+cd $ALL_MY_STUFF
+find | grep -v "\./\.") | sort >> zasoby/$name$date
 

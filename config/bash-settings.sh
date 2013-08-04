@@ -9,26 +9,30 @@
 # GENERAL PLACES.
 # make sure to update them if there was any reorganization
 
-export LILYPOND_GIT=$HOME/repos/lilypond-git/
-export LILYPOND_BUILD_DIR=$HOME/lily-builds/
-export scripts="$JANEKDATA/moje/cli/scripts"
-export lilyscripts="$JANEKDATA/moje/cli/lilypond"
+export MY_DROPBOX="$ALL_MY_STUFF/Dropbox/"
+export MY_OWN_DATA="$ALL_MY_STUFF/moje/"
+export MY_REPOSITORIES="$ALL_MY_STUFF/repos/"
+export LILYPOND_BUILD_DIR=$ALL_MY_STUFF/lily-builds/
+export LILYPOND_GIT=$MY_REPOSITORIES/lilypond-git/
+export MY_CLI_TOOLS="$MY_REPOSITORIES/command-line-stuff/"
+export MY_SCRIPTS="$MY_CLI_TOOLS/scripts"
+export LILY_SCRIPTS="$MY_CLI_TOOLS/lilypond"
 
 
 ######################################
 # INCLUDE CONFIG FILES:
 
 # import lilypond-specific settings and aliases
-source "$bashsettings/bash-lilypond-settings.sh"
+source "$MY_CONFIGS/bash-lilypond-settings.sh"
 
 # import aliases and other stuff for git work
-source "$bashsettings/bash-git-settings.sh"
+source "$MY_CONFIGS/bash-git-settings.sh"
 
 # import miscellaneous aliases
-source "$bashsettings/bash-aliases-misc.sh"
+source "$MY_CONFIGS/bash-aliases-misc.sh"
 
 # import file with predefined prompts
-source "$bashsettings/bash-prompts.sh"
+source "$MY_CONFIGS/bash-prompts.sh"
 
 
 ######################################

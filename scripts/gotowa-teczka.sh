@@ -33,7 +33,7 @@ done < "$1"
 sed '/^$/d' listaUtworow.txt > temp
 mv --force temp listaUtworow.txt
 
-$scripts/pdf-merge-on-odd-page.py listaUtworow.txt > $2
+$MY_SCRIPTS/pdf-merge-on-odd-page.py listaUtworow.txt > $2
 
 rm listaUtworow.txt
 mv --force temp listaUtworow.txt~ listaUtworow.txt 2> /dev/null

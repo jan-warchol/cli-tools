@@ -1,2 +1,2 @@
-0 16 * * *   ~/janek/moje/cli/scripts/save-filelist.sh
-0 16 * * *   ~/janek/moje/cli/scripts/remove-tilded-copies.sh
+0 16 * * *   ~/repos/command-line-stuff/scripts/save-filelist.sh
+0 16 * * *   ~/repos/command-line-stuff/scripts/remove-tilded-copies.sh

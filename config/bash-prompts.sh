@@ -1,5 +1,5 @@
 # import a file contating nice features for git:
-source "$bashsettings/git-prompt.sh"
+source "$MY_CONFIGS/git-prompt.sh"
 
 # some colors:
 thinblue="\[$(tput setaf 6)\]"
