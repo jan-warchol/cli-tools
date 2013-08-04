@@ -12,7 +12,7 @@ normal="\[$(tput sgr0)\]"
 alias promptnormal='PS1="\u@\h \w\$"'
 alias huh='PS1="$boldhuh? $normal"'
 alias promptmaster='PS1="$boldYes, master? $normal"'
-alias prompt2master='PS1="$thickblue\u@\h: \w$normal\$(__git_ps1)\n$thinblueYes, master? \[\e[0m\]"'
+alias prompt2master='PS1="$thickblue\u@\h: \w$normal\$(__git_ps1)\n$thinblue""Yes, master? \[\e[0m\]"'
 alias promptgit='PS1="$thinblue\w$normal\$(__git_ps1)$\n"'
 
 # choose default prompt:
