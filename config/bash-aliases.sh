@@ -1,9 +1,69 @@
 
-# enable autocompletion in git
-if [ -f ~/.git-completion.bash ]; then
-  . ~/.git-completion.bash
-fi
+# BASH ALIASES:
 
+alias u='cd ..'
+alias uu='cd ../..'
+alias uuu='cd ../../..'
+alias uuuu='cd ../../../..'
+
+alias m='man'
+alias o="gnome-open "
+alias s="sudo !!"
+alias d='cd $MY_OWN_DATA'
+alias np='nautilus "$(pwd)"'
+alias mko='make $MAKE_OPTIONS'
+alias sai='sudo apt-get install'
+alias alm='alsamixer'
+alias ifs='IFS=$(echo -en "\n\b")'
+alias ,='less -R -S'
+alias ,,='less -R'
+alias smnt='sudo smbmount //192.168.15.210/dane/janek /media/shamon/ -o user=janek'
+alias fres='python $MY_REPOSITORIES/frescobaldi/frescobaldi'
+alias editconf='gedit $MY_CONFIGS/* &'
+
+alias lg='cd $LILYPOND_GIT; git status'
+alias fr='cd $MY_REPOSITORIES/fried-songs; git status'
+alias nuty='cd $MY_REPOSITORIES/warsztat-nutowy; git status'
+alias epi='cd $MY_DROPBOX/Epifania; git status'
+alias cli='cd $MY_CLI_TOOLS; git status'
+
+# directory "bookmarks"
+alias s1='alias d1="cd $(pwd)"'
+alias s2='alias d2="cd $(pwd)"'
+alias s3='alias d3="cd $(pwd)"'
+
+# redefine commands
+alias grepp='grep -nri --color=always'
+alias mkdp='mkdir -p'
+
+alias grep2='grep -C2'
+alias grep3='grep -C3'
+alias grep5='grep -C5'
+
+
+
+#### LILYPOND ALIASES:
+
+alias lpull='$LILY_SCRIPTS/pull-all.sh'
+alias fixcc='$LILYPOND_GIT/scripts/auxiliar/fixcc.py'
+alias flly='flip -ub *.ly; flip -ub *.ily'
+
+alias lgit='$LILYPOND_GIT/build/out/bin/lilypond'
+alias lily='$LILYPOND_BUILD_DIR/$defaultlily/out/bin/lilypond'
+alias lcurrent='$LILYPOND_BUILD_DIR/current/out/bin/lilypond'
+alias lmaster='$LILYPOND_BUILD_DIR/master/out/bin/lilypond'
+alias lstable='$LILYPOND_BUILD_DIR/stable/out/bin/lilypond'
+alias lrelease='$LILYPOND_BUILD_DIR/release/out/bin/lilypond'
+alias lstroke='$LILYPOND_BUILD_DIR/strokeadjust/out/bin/lilypond'
+
+alias lbuild='$LILY_SCRIPTS/build-lily.sh -t 2'
+alias mb='$LILY_SCRIPTS/build-lily.sh -t 0 -d $defaultbuild -b'
+alias mn='$LILY_SCRIPTS/build-lily.sh -t 0 -d $defaultbuild'
+alias ms='$LILY_SCRIPTS/build-lily.sh -t 0 -d $defaultbuild -s'
+
+
+
+############ BASH GIT ALIASES #############
 # bash aliases for more efficient git use:
 
     alias g='git'

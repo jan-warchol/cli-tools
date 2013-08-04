@@ -22,17 +22,14 @@ export LILY_SCRIPTS="$MY_CLI_TOOLS/lilypond"
 ######################################
 # INCLUDE CONFIG FILES:
 
-# import lilypond-specific settings and aliases
-source "$MY_CONFIGS/bash-lilypond-settings.sh"
+# import aliases
+source "$MY_CONFIGS/bash-aliases.sh"
 
-# import aliases and other stuff for git work
-source "$MY_CONFIGS/bash-git-settings.sh"
+# import a file containing git-enabled prompt:
+source "$MY_CONFIGS/git-prompt.sh"
 
-# import miscellaneous aliases
-source "$MY_CONFIGS/bash-aliases-misc.sh"
-
-# import file with predefined prompts
-source "$MY_CONFIGS/bash-prompts.sh"
+# enable autocompletion in git
+source "$MY_CONFIGS/git-completion.bash"
 
 
 ######################################
@@ -63,8 +60,31 @@ shopt -s histappend
 
 # for multi-threaded compilation with 'make':
 export MAKE_OPTIONS="-j5 CPU_COUNT=5"
-alias mko='make $MAKE_OPTIONS'
 
 # resize ouput to fit window
 shopt -s checkwinsize
 
+export defaultlily='2.17.3'
+export defaultbuild='current'
+
+# some colors:
+thinblue="\[$(tput setaf 6)\]"
+thickcyan="\[\e[1;36m\]"
+thickblue="\[\e[1;34m\]"
+bold="\[$(tput bold)\]"
+normal="\[$(tput sgr0)\]"
+violet="\e[00;35m"
+yellow="\e[00;33m"
+green="\e[00;32m"
+red="\e[00;31m"
+normalanother="\e[00m"
+
+# several prompts created by me.
+alias promptnormal='PS1="\u@\h \w\$"'
+alias huh='PS1="$boldhuh? $normal"'
+alias promptmaster='PS1="$boldYes, master? $normal"'
+alias prompt2master='PS1="$thickblue\u@\h: \w$normal\$(__git_ps1)\n$thinblue""Yes, master? \[\e[0m\]"'
+alias promptgit='PS1="$thinblue\w$normal\$(__git_ps1)$\n"'
+
+# choose default prompt:
+promptgit
