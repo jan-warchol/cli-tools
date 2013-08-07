@@ -13,6 +13,15 @@ die() {
     exit 1
 }
 
+echo "What is your top data directory?"
+read datalocation
+echo "Saving this location in ~/.bashrc ..."
+
+echo " " | tee -a $HOME/.bashrc
+echo "export ALL_MY_STUFF=$datalocation" | tee -a $HOME/.bashrc
+echo 'export MY_CONFIGS=$ALL_MY_STUFF/repos/command-line-stuff/config' | tee -a $HOME/.bashrc
+echo 'source $MY_CONFIGS/bash-settings.sh' | tee -a $HOME/.bashrc
+
 # a program for changing line endings from windows to unix
 sudo apt-get install flip
 
@@ -33,11 +42,6 @@ sudo apt-get install keepass2
 # TODO configure user dirs
 # TODO decide and install some txt editor
 # TODO change keyboard sensitivity
-
-echo " " | tee -a $HOME/.bashrc
-echo 'export ALL_MY_STUFF=$HOME' | tee -a $HOME/.bashrc
-echo 'export MY_CONFIGS=$ALL_MY_STUFF/repos/command-line-stuff/config' | tee -a $HOME/.bashrc
-echo 'source $MY_CONFIGS/bash-settings.sh' | tee -a $HOME/.bashrc
 
 # create an .inputrc file and link to the content
 echo '$include $MY_CONFIGS/inputrc' | tee -a $HOME/.inputrc
