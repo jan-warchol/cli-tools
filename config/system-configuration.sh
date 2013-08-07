@@ -32,13 +32,13 @@ echo '$include $MY_CONFIGS/inputrc' | tee -a $HOME/.inputrc
 echo set completion-ignore-case on | sudo tee -a /etc/inputrc
 
 # load my cron jobs
-crontab $MY_CONFIGS/cron.jobs
+# crontab $MY_CONFIGS/cron.jobs
 
 # make a backup of polish keyboard layout
-sudo cp /usr/share/X11/xkb/symbols/pl /usr/share/X11/xkb/symbols/pl.backup
+# sudo cp /usr/share/X11/xkb/symbols/pl /usr/share/X11/xkb/symbols/pl.backup
 
 # overwrite polish keyboard layout with my own layout
-sudo cp -f $MY_CONFIGS/janek-keyboard-layout /usr/share/X11/xkb/symbols/pl
+# sudo cp -f $MY_CONFIGS/janek-keyboard-layout /usr/share/X11/xkb/symbols/pl
 
 # copy my global git settings
 cp $MY_CONFIGS/gitconfig ~/.gitconfig
