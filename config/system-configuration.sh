@@ -2,6 +2,17 @@
 # my system and user account.
 # it's meant to be ran once, not with everys system reboot.
 
+# color definitions
+red="\e[00;31m"
+normal="\e[00m"
+
+die() {
+    # in case of some error...
+    echo -e "$red$1$normal"
+    echo Exiting.
+    exit 1
+}
+
 # a program for changing line endings from windows to unix
 sudo apt-get install flip
 
