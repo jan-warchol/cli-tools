@@ -64,6 +64,9 @@ export MAKE_OPTIONS="-j5 CPU_COUNT=5"
 # resize ouput to fit window
 shopt -s checkwinsize
 
+# keyboard autorepeat settings: 120 ms delay, 66 repetitions/sec
+xset r rate 120 66
+
 export defaultlily='2.17.3'
 export defaultbuild='current'
 
