@@ -26,6 +26,9 @@ echo 'source $MY_CONFIGS/bash-settings.sh' | tee -a $HOME/.bashrc
 # create an .inputrc file and link to the content
 echo '$include $MY_CONFIGS/inputrc' | tee -a $HOME/.inputrc
 
+# remap CAPS LOCK to another Control
+/usr/bin/setxkbmap -option "ctrl:nocaps"
+
 # make bash autocompletion case-insensitive:
 echo set completion-ignore-case on | sudo tee -a /etc/inputrc
 
