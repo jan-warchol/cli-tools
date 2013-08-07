@@ -11,6 +11,11 @@ sudo apt-get install xbacklight
 # a program for opening files with GUI programs from command line (gnome-open)
 sudo apt-get install libgnome2-0
 
+# install keepass2.  first two commands might not be necessary.
+#sudo apt-add-repository ppa:jtaylor/keepass
+#sudo apt-get update
+sudo apt-get install keepass2
+
 # TODO install gimp
 # TODO install imagemagick
 # TODO install frescobaldi
