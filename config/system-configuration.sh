@@ -22,27 +22,6 @@ echo "export ALL_MY_STUFF=$datalocation" | tee -a $HOME/.bashrc
 echo 'export MY_CONFIGS=$ALL_MY_STUFF/repos/command-line-stuff/config' | tee -a $HOME/.bashrc
 echo 'source $MY_CONFIGS/bash-settings.sh' | tee -a $HOME/.bashrc
 
-# a program for changing line endings from windows to unix
-sudo apt-get install flip
-
-# a program for changing screen brightness
-sudo apt-get install xbacklight
-
-# a program for opening files with GUI programs from command line (gnome-open)
-sudo apt-get install libgnome2-0
-
-# install keepass2.  first two commands might not be necessary.
-#sudo apt-add-repository ppa:jtaylor/keepass
-#sudo apt-get update
-sudo apt-get install keepass2
-
-# TODO install gimp
-# TODO install imagemagick
-# TODO install frescobaldi
-# TODO configure user dirs
-# TODO decide and install some txt editor
-# TODO change keyboard sensitivity
-
 # create an .inputrc file and link to the content
 echo '$include $MY_CONFIGS/inputrc' | tee -a $HOME/.inputrc
 
@@ -67,3 +46,30 @@ cp $MY_CONFIGS/gitconfig ~/.gitconfig
 # [include]
 #	path = $MY_CONFIGS/gitconfig
 
+
+##############################################
+# SOFTWARE INSTALLATION:
+# note that this is at the end of the script so that any
+# errors don't stop too much work.
+
+# a program for changing line endings from windows to unix
+sudo apt-get install flip
+
+# a program for changing screen brightness
+sudo apt-get install xbacklight
+
+# a program for opening files with GUI programs from command line (gnome-open)
+sudo apt-get install libgnome2-0
+
+# install keepass2.  first two commands might not be necessary.
+#sudo apt-add-repository ppa:jtaylor/keepass
+#sudo apt-get update
+sudo apt-get install keepass2
+
+sudo apt-get install gimp
+
+sudo apt-get install imagemagick
+
+sudo apt-get install kate
+
+# TODO install frescobaldi
