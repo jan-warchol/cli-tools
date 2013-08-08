@@ -30,6 +30,8 @@ sudo apt-get -qy install xbacklight || die "Failed to install xbacklight"
 sudo apt-get -qy install libgnome2-0 || die "Failed to install gnome-open"
 
 sudo apt-get -qy install keepass2 || die "Failed to install KeePass"
+# a library enabling auto-type in keepass:
+sudo apt-get -qy install xdotool || die "Failed to install xdotool"
 
 sudo apt-get -qy install gimp || die "Failed to install GIMP"
 
