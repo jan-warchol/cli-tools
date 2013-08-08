@@ -43,6 +43,18 @@ cp $MY_CONFIGS/gitconfig ~/.gitconfig
 # note that this is at the end of the script so that any
 # errors don't stop too much work.
 
+# libraries for compiling git from source
+sudo apt-get install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
+sudo git clone git://git.kernel.org/pub/scm/git/git.git
+cd /repos/git
+sudo make prefix=/usr/local all
+sudo make prefix=/usr/local install
+sudo apt-get remove git
+
+# DVD decryption
+sudo apt-get install libdvdread4
+sudo /usr/share/doc/libdvdread4/install-css.sh
+
 # a program for changing line endings from windows to unix
 sudo apt-get install flip
 
