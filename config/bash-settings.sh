@@ -67,9 +67,6 @@ shopt -s checkwinsize
 # keyboard autorepeat settings: 120 ms delay, 66 repetitions/sec
 xset r rate 120 66
 
-# remap CAPS LOCK to another Control
-/usr/bin/setxkbmap -option "ctrl:nocaps"
-
 export defaultlily='2.17.3'
 export defaultbuild='current'
 

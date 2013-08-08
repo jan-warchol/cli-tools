@@ -11,6 +11,15 @@ fi
 cp $MY_CONFIGS/inputrc ~/.inputrc
 
 
+# This file contains various commands that should be executed
+# at login.
+
+if [ -f ~/.profile ]; then
+    cp ~/.profile ~/.profile.backup
+fi
+cp $MY_CONFIGS/profile ~/.profile
+
+
 # copy my git settings.  When git > 1.7.10 becomes widespread,
 # this probably could be used instead:
 # [include]
