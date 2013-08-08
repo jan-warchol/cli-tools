@@ -8,7 +8,7 @@ die() {
 # libraries for compiling git from source
 sudo apt-get install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
 sudo git clone git://git.kernel.org/pub/scm/git/git.git \
-|| die "Failed to clone git sources"
+$MY_REPOSITORIES/git || die "Failed to clone git sources"
 cd /repos/git
 sudo make prefix=/usr/local all
 sudo make prefix=/usr/local install
