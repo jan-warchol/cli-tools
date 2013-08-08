@@ -46,4 +46,13 @@ cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 # 32-bit version would be:
 # cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86" | tar xzf -
 
-# TODO install frescobaldi
+# Frescobaldi, with dependencies:
+sudo apt-get -qy install python || die "Failed to install python"
+sudo apt-get -qy install python-qt4 || die "Failed to install PyQt4"
+sudo apt-get -qy install python-poppler-qt4 \
+|| die "Failed to install python-poppler-qt4"
+sudo apt-get -qy install python-pypm \
+|| die "Failed to install python-portmidi"
+git clone git://github.com/wbsoft/frescobaldi.git \
+$MY_REPOSITORIES/frescobaldi || die "Failed to clone Frescobaldi"
+
