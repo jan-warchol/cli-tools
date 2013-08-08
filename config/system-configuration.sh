@@ -75,4 +75,6 @@ sudo apt-get install imagemagick
 
 sudo apt-get install kate
 
+sudo apt-get install vlc
+
 # TODO install frescobaldi
