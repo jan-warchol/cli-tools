@@ -47,8 +47,12 @@ cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 # cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86" | tar xzf -
 
 # LilyPond, with dependencies:
-sudo apt-get -qy build-dep lilypond
-|| die "Failed to install build dependencies for LilyPond"\
+sudo apt-get -qy build-dep lilypond \
+|| die "Failed to install build dependencies for LilyPond"
+sudo apt-get -qy install autoconf || die "Failed to install autoconf"
+sudo apt-get -qy install dblatex || die "Failed to install dblatex"
+sudo apt-get -qy install texlive-lang-cyrillic \
+|| die "Failed to install texlive-lang-cyrillic"
 git clone git://git.sv.gnu.org/lilypond.git \
 $MY_REPOSITORIES/lilypond-git || die "Failed to clone LilyPond"
 
