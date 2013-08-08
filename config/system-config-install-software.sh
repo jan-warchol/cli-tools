@@ -46,6 +46,12 @@ cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 # 32-bit version would be:
 # cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86" | tar xzf -
 
+# LilyPond, with dependencies:
+sudo apt-get -qy build-dep lilypond
+|| die "Failed to install build dependencies for LilyPond"\
+git clone git://git.sv.gnu.org/lilypond.git \
+$MY_REPOSITORIES/lilypond-git || die "Failed to clone LilyPond"
+
 # Frescobaldi, with dependencies:
 sudo apt-get -qy install python || die "Failed to install python"
 sudo apt-get -qy install python-qt4 || die "Failed to install PyQt4"
