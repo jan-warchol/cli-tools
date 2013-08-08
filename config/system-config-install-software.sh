@@ -29,9 +29,6 @@ sudo apt-get -qy install xbacklight || die "Failed to install xbacklight"
 # a program for opening files with GUI programs from command line (gnome-open)
 sudo apt-get -qy install libgnome2-0 || die "Failed to install gnome-open"
 
-# install keepass2.  first two commands might not be necessary.
-#sudo apt-add-repository ppa:jtaylor/keepass
-#sudo apt-get update
 sudo apt-get -qy install keepass2 || die "Failed to install KeePass"
 
 sudo apt-get -qy install gimp || die "Failed to install GIMP"
