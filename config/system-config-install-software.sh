@@ -61,4 +61,6 @@ sudo apt-get -qy install python-pypm \
 || die "Failed to install python-portmidi"
 git clone git://github.com/wbsoft/frescobaldi.git \
 $MY_REPOSITORIES/frescobaldi || die "Failed to clone Frescobaldi"
-
+cd $MY_REPOSITORIES/frescobaldi
+sudo python setup.py install || die "Failed to install Frescobaldi"
+cd $ALL_MY_DATA
