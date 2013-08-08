@@ -39,16 +39,14 @@ source "$MY_CONFIGS/git-completion.bash"
 export HISTFILESIZE=1000000
 export HISTSIZE=100000
 
-# don't put duplicate lines in the history
-export HISTCONTROL=ignoredups
-
-# ... and ignore same successive entries.
-export HISTCONTROL=ignoreboth
+# don't save duplicate lines or lines starting with space.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
 
 # combine multiline commands in history
 shopt -s cmdhist
 
-# merge session histories
+# append to the history file, don't overwrite it
 shopt -s histappend
 
 
@@ -61,8 +59,23 @@ shopt -s histappend
 # for multi-threaded compilation with 'make':
 export MAKE_OPTIONS="-j5 CPU_COUNT=5"
 
-# resize ouput to fit window
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+
+# With this option turned on, pattern "**" will match all files,
+# including all files in all levels of subdirectories.
+shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # keyboard autorepeat settings: 120 ms delay, 66 repetitions/sec
 xset r rate 120 66
