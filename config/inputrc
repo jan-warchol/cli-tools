@@ -4,4 +4,6 @@
 # which results in expanding aliases as well).
 "\C-e": alias-expand-line
 
+# make bash autocompletion case-insensitive:
+set completion-ignore-case on
 

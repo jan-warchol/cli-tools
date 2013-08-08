@@ -5,9 +5,6 @@
 # create an .inputrc file and link to the content
 echo '$include $MY_CONFIGS/inputrc' | tee -a $HOME/.inputrc
 
-# make bash autocompletion case-insensitive:
-echo set completion-ignore-case on | sudo tee -a /etc/inputrc
-
 # load my cron jobs
 # crontab $MY_CONFIGS/cron.jobs
 
