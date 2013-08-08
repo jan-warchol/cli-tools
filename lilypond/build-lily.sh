@@ -340,7 +340,7 @@ if [ "$(grep -s configure-srcdir config.make \
                      | sed s/configure-srcdir\ =\ //)" == "" ]; then
     # make doesn't know where the sources to build from
     # are located. Need to run autogen and configure
-    cd $source; ./autogen.sh --noconfigure
+    cd $source; ./autogen.sh --noconfigure || die "Autogen failed."
     echo ""
     cd $build; $source/configure || die "Configure failed."
 fi
