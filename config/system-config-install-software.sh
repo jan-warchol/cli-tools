@@ -69,3 +69,16 @@ $MY_REPOSITORIES/frescobaldi || die "Failed to clone Frescobaldi"
 cd $MY_REPOSITORIES/frescobaldi
 sudo python setup.py install || die "Failed to install Frescobaldi"
 cd $ALL_MY_DATA
+
+# PyPdf library, needed for gotowa-teczka.sh
+cd ~ && wget -O - "http://pybrary.net/pyPdf/pyPdf-1.13.tar.gz" | tar xzf - \
+|| die "Failed to download PyPdf"
+cd pyPdf-1.13
+# i think building isn't necessary
+# sudo python setup.by build || die "Failed to build PyPdf"
+sudo python setup.by install || die "Failed to install PyPdf"
+# TODO: remove leftovers?
+# alternative version of the library could be obtained from here:
+# git clone https://github.com/mstamy2/PyPDF2/ \
+# $MY_REPOSITORIES/pypdf2 || die "Failed to clone PyPdf2"
+
