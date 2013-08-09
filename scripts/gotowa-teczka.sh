@@ -3,6 +3,9 @@
 # $1 - ścieżka do pliku z listą utworów do przetworzenia
 # $2 - nazwa pliku pod jaką zapisać gotowy pdf
 
+# TODO: support .PDF and have some default when no $2 is given,
+# support other directories.
+
 # plik listaUtworow.txt mógł istnieć wcześniej
 mv --force listaUtworow.txt listaUtworow.txt~ 2> /dev/null
 
