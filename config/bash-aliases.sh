@@ -110,6 +110,10 @@ alias gdwc,='git diff --word-diff=color --cached | less -R -S'
  alias gdom='git diff origin/master'
 alias gdom,='git diff origin/master | less -R -S'
 
+   alias gf='git fetch'
+  alias gfa='git fetch --all'
+  alias gfo='git fetch origin'
+
    alias gl='git log'
   alias gl,='git log | less -R -S'
   alias glo='git log --oneline'
@@ -132,6 +136,9 @@ alias gloom='git log --oneline origin/master..'
  alias glp,='git log -p | less -R -S'
  alias glpr='git log -p --reverse master..'
 alias glpr,='git log -p --reverse master.. | less -R -S'
+
+  alias gpo='git push origin'
+ alias gpom='git push origin master'
 
   alias grb='git rebase'
  alias grba='git rebase --abort'
