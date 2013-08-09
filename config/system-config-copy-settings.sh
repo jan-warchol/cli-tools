@@ -22,6 +22,12 @@ fi
 cp $MY_CONFIGS/profile ~/.profile
 
 
+if [ -f ~/.config/user-dirs.dirs ]; then
+    cp ~/.config/user-dirs.dirs ~/.config/user-dirs.dirs.backup
+fi
+cp $MY_CONFIGS/user-dirs.dirs ~/.config/user-dirs.dirs
+
+
 # When git > 1.7.10 becomes widespread,
 # this probably could be used instead:
 # [include]
