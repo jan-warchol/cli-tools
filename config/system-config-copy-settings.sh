@@ -10,6 +10,12 @@ fi
 cp $MY_CONFIGS/bashrc ~/.bashrc
 
 
+if [ -f ~/.gnomerc ]; then
+    cp ~/.gnomerc ~/.gnomerc
+fi
+cp $MY_CONFIGS/gnomerc ~/.gnomerc
+
+
 if [ -f ~/.inputrc ]; then
     cp ~/.inputrc ~/.inputrc.backup
 fi

@@ -1,0 +1,4 @@
+# .gnomerc is executed right after logging in to a gnome session.
+
+# set screen brightness to 70%
+xbacklight -set 70
