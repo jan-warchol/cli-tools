@@ -53,6 +53,9 @@ shopt -s histappend
 ######################################
 # MISCELLANEOUS SETTINGS:
 
+# add a program needed for LilyPond patch handling to PATH
+PATH=$MY_REPOSITORIES/git-cl:"${PATH}"
+
 # disable the MagicSysRq key combinations
 #echo 0 > /proc/sys/kernel/sysrq ....nope, something's wrong...
 
