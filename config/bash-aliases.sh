@@ -25,6 +25,7 @@ alias lg='cd $LILYPOND_GIT; git status'
 alias fr='cd $MY_REPOSITORIES/fried-songs; git status'
 alias nuty='cd $MY_REPOSITORIES/warsztat-nutowy; git status'
 alias epi='cd $MY_DROPBOX/Epifania; git status'
+alias epinuty='cd $MY_REPOSITORIES/epinuty; git status'
 alias cli='cd $MY_CLI_TOOLS; git status'
 
 # directory "bookmarks"
