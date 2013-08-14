@@ -294,15 +294,17 @@ else
     fi
 
     git commit --quiet -a -m \
-    "A temporary commit - work in progress to be compiled.$description"
+    "A temporary commit - work in progress to be compiled.
+    $description"
     if [ $? != 0 ]; then
         # there was actually nothing to commit
-        git tag commit_to_build
+        git tag commit_to_build || die "Failed to create a tag"
     else
         echo "Creating a temporary commit..."
-        git tag commit_to_build
+        git tag commit_to_build || die "Failed to create a tag"
         # restore previous (uncommitted) state
-        git reset --quiet HEAD~1
+        git reset --quiet HEAD~1 \
+        || die "Failed to restore previous (uncommitted) state"
     fi
 fi
 
