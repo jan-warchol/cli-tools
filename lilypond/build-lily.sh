@@ -35,6 +35,8 @@ sources, using the current state of the working directory.
 
 -r compile regression tests.
 
+-f <path> take sources from this directory, not \$LILYPOND_GIT.
+
 Sometimes it is useful to have multiple LilyPond builds,
 or to be able to continue changing source code while the
 previous state is being compiled.  You can do this quite
@@ -43,7 +45,7 @@ of \$LILYPOND_GIT, and compile lilypond in its subdirectories
 (using the -d option of this script).
 
 In such situations (i.e. when the build directory isn't inside
-\$LILYPOND_GIT) the script will clone lilypond repository into
+main repository) the script will clone lilypond repository into
 that build directory, so that it will be completely separate
 from your main repository.  This way you can continue your work,
 switch branches etc. without affecting the code that is being
@@ -57,17 +59,18 @@ things around or rebuilding from scratch.  The script handles
 all this quite fine.
 
 This script can be called from any directory whatsoever.
+
+Press q to close this help message.
 "
 
 # TODO:
 # support untracked files with satellite repositories
-# allow repositories other than LILYPOND_GIT
 
 if [[ "$1" == "help" || "$1" == "--help" ]]; then
     help="yes"
 fi
 
-while getopts "bc:d:hlrst:" opts; do
+while getopts "bc:d:f:hlrst:" opts; do
     case $opts in
     b)
         only_bin="yes";;
@@ -75,6 +78,8 @@ while getopts "bc:d:hlrst:" opts; do
         whichcommit=$OPTARG;;
     d)
         whichdir=$OPTARG;;
+    f)
+        main_repository=$OPTARG;;
     h)
         help="yes";;
     l)
@@ -91,6 +96,12 @@ done
 if [[ "$help" == "yes" ]]; then
     echo -en "$helpmessage" | less
     exit
+fi
+
+# If not specified otherwise, LilyPond sources
+# are taken from $LILYPOND_GIT
+if [ -z $main_repository ]; then
+    main_repository=$LILYPOND_GIT
 fi
 
 # amount of time that we give to the user to check
@@ -127,7 +138,7 @@ die() {
 
 ########################## PREMISES: ###########################
 # $LILYPOND_GIT directory should exist and be a LilyPond repository
-if [ -z "$LILYPOND_GIT" ]; then
+if [ -z "$main_repository" ]; then
     echo -e "$red\$LILYPOND_GIT environment variable is unset."
     echo -e "$normal""Please set it to point to the" \
             "LilyPond git repository."
@@ -138,13 +149,13 @@ fi
 #  - consistency of the format for the sake of comparisons
 #  - some paths may need to be converted to absolute paths
 
-# normalize $LILYPOND_GIT (no / at the end):
-LILYPOND_GIT=$(readlink -m $LILYPOND_GIT)
+# normalize $main_repository (no / at the end):
+main_repository=$(readlink -m $main_repository)
 # in case $LILYPOND_BUILD_DIR is unset, set it:
 if [ -z "$LILYPOND_BUILD_DIR" ]; then
     echo '$LILYPOND_BUILD_DIR variable is unset.'
-    echo 'Setting it to $LILYPOND_GIT/build.'
-    export LILYPOND_BUILD_DIR="$LILYPOND_GIT/build"
+    echo "Setting it to $main_repository/build."
+    export LILYPOND_BUILD_DIR="$main_repository/build"
     read -t 5 proceed
 fi
 # make sure that $LILYPOND_BUILD_DIR directory exists:
@@ -177,11 +188,11 @@ fi
 build=$(pwd)
 
 # check what is the relation between build dir
-# and main lilypond repository ($LILYPOND_GIT).
+# and main lilypond repository ($main_repository).
 
-if [[ $build == $LILYPOND_GIT/* ]]; then
+if [[ $build == $main_repository/* ]]; then
     building_inside_main_repo="yes"
-    source=$LILYPOND_GIT
+    source=$main_repository
 else
     building_inside_main_repo="no"
     source=$build # (source code will be copied to $build)
@@ -200,11 +211,11 @@ echo "========================================"
 
 ######################## PREPARATION: ##########################
 
-# if we're building directly in $LILYPOND_GIT, we don't want
+# if we're building directly in $main_repository, we don't want
 # to make from scratch (e.g. erase everything before building)
 # because that'd delete the repository and all of user's work.
 cd $build || die "\$build doesn't exist."
-if [[ "$from_scratch" == "yes" && "$build" != "$LILYPOND_GIT" ]]; then
+if [[ "$from_scratch" == "yes" && "$build" != "$main_repository" ]]; then
     echo "You requested to build from scratch."
     echo -e "Removing $dircolor$build$normal directory"\
             "in $timeout seconds"
@@ -223,7 +234,7 @@ git rev-parse 2> /dev/null
 if [ $? != 0 ]; then
     # non-zero exit status of rev-parse means that this directory
     # (i.e. $source) isn't inside a repository.
-    # (This means we must be building outside $LILYPOND_GIT,
+    # (This means we must be building outside $main_repository,
     # which in turn means that $source=$build.)
     # 
     # One thing we should check: maybe $build is a directory
@@ -233,7 +244,7 @@ if [ $? != 0 ]; then
     # If that's the case, ask the user.
     #
     # If that's not the case, we simply are in a freshly created dir,
-    # and we have to clone $LILYPOND_GIT to get the sources.
+    # and we have to clone $main_repository to get the sources.
     #
     notArepo=1
     for subdir in $(find . -mindepth 1 -maxdepth 1 -type d); do
@@ -251,14 +262,14 @@ if [ $? != 0 ]; then
     fi
     # proceed -> clone fresh sources
     cd ../
-    git clone $LILYPOND_GIT $source
+    git clone $main_repository $source
     cd $source
 fi
 
 # The value of -c option specifies what to build.
 # It can be a commit (specified using a committish, a branch name,
 # a tag, etc.) or the current state of working directory at
-# $LILYPOND_GIT (if no value was specified).  The latter case
+# $main_repository (if no value was specified).  The latter case
 # means that we have to create a temporarty commit containing
 # this state, so that it can be passed to the "satellite" repository
 # (if any exists).  In any case, the commit to be built is passed
@@ -266,7 +277,7 @@ fi
 # old tags have to be deleted first.
 
 git tag -d commit_to_build > /dev/null 2> /dev/null
-cd $LILYPOND_GIT
+cd $main_repository
 git tag -d commit_to_build > /dev/null 2> /dev/null
 
 if [ "$whichcommit" != "" ]; then
@@ -297,7 +308,7 @@ fi
 
 cd $source
 if [[ "$building_inside_main_repo" == "no" ]]; then
-    git fetch --quiet --tags || die "Failed to fetch from $LILYPOND_GIT."
+    git fetch --quiet --tags || die "Failed to fetch from $main_repository."
 fi
 
 prev_branch=$(git branch --color=never | sed --quiet 's/* \(.*\)/\1/p')
@@ -392,7 +403,7 @@ if [[ "$regtests" == "yes" ]]; then
     echo "Total time spent doing regression tests: $TIMEDIFF"
 fi
 
-# restore previous state of LILYPOND_GIT (if necessary).
+# restore previous state of main_repository (if necessary).
 cd $source
 if [[ "$building_inside_main_repo" == "yes" || "$dirtytree" != "" ]]
 # (we don't want to restore before-build-state in satellite repos)
