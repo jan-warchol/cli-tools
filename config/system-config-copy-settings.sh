@@ -11,7 +11,7 @@ cp $MY_CONFIGS/bashrc ~/.bashrc
 
 
 if [ -f ~/.gnomerc ]; then
-    cp ~/.gnomerc ~/.gnomerc
+    cp ~/.gnomerc ~/.gnomerc.backup
 fi
 cp $MY_CONFIGS/gnomerc ~/.gnomerc
 
