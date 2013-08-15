@@ -4,8 +4,8 @@ IFS=$(echo -en "\n\b")
 
 if [ -z $2 ]; then
     echo "Error: too few arguments given."
-    echo "\$1 - file with strings to be removed"
-    echo "\$2 - file to filter"
+    echo "\$1 - file listing strings that should be removed"
+    echo "\$2 - file to filter through"
     exit 1
 fi
 
