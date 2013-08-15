@@ -16,6 +16,7 @@
 	h = help
 	k = commit
 	l = log
+	list-all-files = ls-tree -r --name-only --full-tree
 	rb = rebase
 	rs = reset
 	s = status
