@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+# hmm. I think this is for removing trailing whitespace or sth.
+
 from sys import argv
 
 f = file(argv[1], 'r')
