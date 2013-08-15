@@ -8,7 +8,7 @@ alias uuuu='cd ../../../..'
 
 alias m='man'
 alias o="gnome-open "
-alias s="sudo !!"
+alias s="$MY_SCRIPTS/"
 alias d='cd $MY_OWN_DATA'
 alias np='nautilus "$(pwd)"'
 alias mko='make $MAKE_OPTIONS'
