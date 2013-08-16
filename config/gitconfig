@@ -4,6 +4,7 @@
 	b = branch
 	c = checkout
 	d = diff
+	discard = stash save "discarded changes"
 
 	# fixup a previous commit and use rebase to merge the fixup.
 	fixup = !sh -c 'git commit --fixup $1 && \

@@ -110,6 +110,7 @@ alias gdwc,='git diff --word-diff=color --cached | less -R -S'
  alias gdm,='git diff master | less -R -S'
  alias gdom='git diff origin/master'
 alias gdom,='git diff origin/master | less -R -S'
+ alias gdis='git stash save "discarded changes"'
 
    alias gf='git fetch'
   alias gfa='git fetch --all'
