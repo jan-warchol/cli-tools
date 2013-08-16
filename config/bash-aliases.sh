@@ -147,6 +147,7 @@ alias glpr,='git log -p --reverse master.. | less -R -S'
  alias grbm='git rebase master'
   alias gri='git rebase --interactive'
  alias grim='git rebase --interactive master'
+ alias gri5='git rebase --interactive HEAD~5'
 alias gri11='git rebase --interactive HEAD~11'
 alias gri22='git rebase --interactive HEAD~22'
 
