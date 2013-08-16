@@ -262,8 +262,12 @@ if [ $? != 0 ]; then
     fi
     # proceed -> clone fresh sources
     cd ../
-    git clone $main_repository $source
+    git clone --no-checkout $main_repository $source || \
+    die "Failed to clone lilypond repository"
     cd $source
+    # checkout is a separate step,
+    # because we don't want to get warnings about detached HEAD.
+    git checkout --quiet HEAD || die "Failed to checkout files"
 fi
 
 # The value of -c option specifies what to build.
