@@ -283,24 +283,25 @@ git tag -d commit_to_build > /dev/null 2> /dev/null
 if [ "$whichcommit" != "" ]; then
     git tag commit_to_build $whichcommit
 else
-    # prepare a description for the temporary commit
-    if (( $(git diff --color=never HEAD | wc --lines) < 50 ))
-    then
-        description=$(echo -e \
-        "\nChanges:\n\n$(git diff HEAD)")
-    else
-        description=$(echo -e \
-        "\nSummary of changes:\n\n$(git diff --stat HEAD)")
-    fi
-
-    git commit --quiet -a -m \
-    "A temporary commit - work in progress to be compiled.
-    $description"
-    if [ $? != 0 ]; then
-        # there was actually nothing to commit
+    git diff --quiet HEAD
+    # with --quiet, diff exits with 1 when there are any uncommitted changes.
+    if [ $? == 0 ]; then
         git tag commit_to_build || die "Failed to create a tag"
     else
+        # prepare a description for the temporary commit
+        if (( $(git diff --color=never HEAD | wc --lines) < 50 ))
+        then
+            description=$(echo -e \
+            "\nChanges:\n\n$(git diff HEAD)")
+        else
+            description=$(echo -e \
+            "\nSummary of changes:\n\n$(git diff --stat HEAD)")
+        fi
+
         echo "Creating a temporary commit..."
+        git commit --quiet -a -m \
+            "A temporary commit - work in progress to be compiled.
+            $description" || die "Faile to create a temporary commit"
         git tag commit_to_build || die "Failed to create a tag"
         # restore previous (uncommitted) state
         git reset --quiet HEAD~1 \
