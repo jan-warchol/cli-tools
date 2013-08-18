@@ -84,6 +84,8 @@ alias ms='$LILY_SCRIPTS/build-lily.sh -t 0 -d $defaultbuild -s; alert'
    alias gb='git branch'
   alias gba='git branch -a'
   alias gbr='git branch -r'
+  alias gbv='git branch -v'
+ alias gbvv='git branch -vv'
 
    alias gc='git checkout'
   alias gch='git checkout'
