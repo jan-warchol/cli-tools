@@ -60,11 +60,20 @@ all this quite fine.
 
 This script can be called from any directory whatsoever.
 
+Example usage:
+path-to-this-script -d mybuildname -c master
+will compile master branch in \$LILYPOND_BUILD_DIR/mybuildname
+
 Press q to close this help message.
 "
 
 # TODO:
 # support untracked files with satellite repositories
+# make dirname automatically derived from commit name.
+# allow to specify processor threads? or better,
+# detect automatically
+# grep -c ^processor /proc/cpuinfo
+# with an option to override it, ofc.
 
 if [[ "$1" == "help" || "$1" == "--help" ]]; then
     help="yes"
