@@ -100,7 +100,7 @@ alias ms='$LILY_SCRIPTS/build-lily.sh -t 0 -d $defaultbuild -s; alert'
   alias gkm='git commit -m'
   alias gkp='git commit -p'
  alias gkam='git commit -a -m'
-  alias gam='git commit -a --amend'
+ alias gama='git commit --amend -a'
 
    alias gd='git diff'
   alias gd,='git diff | less -R -S'
