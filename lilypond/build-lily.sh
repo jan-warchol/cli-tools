@@ -68,6 +68,7 @@ Press q to close this help message.
 "
 
 # TODO:
+# add a switch to disable colors
 # support untracked files with satellite repositories
 # make dirname automatically derived from commit name.
 # allow to specify processor threads? or better,
