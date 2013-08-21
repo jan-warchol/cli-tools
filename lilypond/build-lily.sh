@@ -34,6 +34,12 @@ OPTIONS
 
 -h displays this help.
 
+-j <value> sets the number of processor threads used for building.
+   By default the script uses all available threads, but if this
+   causes your computer to slow down too much, you can override
+   that decision using this option.
+   <value> should be the number of threads you want to use plus one.
+
 -t <value> sets the amount of time for which the script is paused
    when the user has to check whether the setup is correct.
 
@@ -94,17 +100,11 @@ for the GNU LilyPond project (lilypond.org).
 Press q to close this help message.
 "
 
-# TODO:
-# allow to specify processor threads? or better,
-# detect automatically
-# grep -c ^processor /proc/cpuinfo
-# with an option to override it, ofc.
-
 if [[ "$1" == "help" || "$1" == "--help" ]]; then
     help="yes"
 fi
 
-while getopts "bc:d:f:hlrst:w" opts; do
+while getopts "bc:d:f:hj:lrst:w" opts; do
     case $opts in
     b)
         only_bin="yes";;
@@ -118,6 +118,8 @@ while getopts "bc:d:f:hlrst:w" opts; do
         main_repository=$OPTARG;;
     h)
         help="yes";;
+    j)
+        threads=$OPTARG;;
     l)
         whichdir=$(pwd);;
     r)
@@ -146,6 +148,12 @@ fi
 if [ -z $whichdir ]; then
     whichdir="current"
 fi
+
+if [ -z $threads ]; then
+    # no cpu count was specified -> grab from processor info
+    threads=$(expr 1 + $(grep -c ^processor /proc/cpuinfo))
+fi
+MAKE_OPTIONS="-j$threads CPU_COUNT=$threads"
 
 # amount of time that we give to the user to check
 # information at various moments (default value, in seconds)
@@ -205,17 +213,6 @@ if [ -z "$LILYPOND_BUILD_DIR" ]; then
 fi
 # make sure that $LILYPOND_BUILD_DIR directory exists:
 mkdir -p $LILYPOND_BUILD_DIR
-
-# assert $MAKE_OPTIONS for optimum performance
-if [ -z "$MAKE_OPTIONS" ]; then
-    echo -e "$yellow\$MAKE_OPTIONS$normal" \
-            "environment variable is unset."
-    echo "If you have a multi-threaded processor and would like"
-    echo "to use multiple threads to build LilyPond faster,"
-    echo "set \$MAKE_OPTIONS to -jN CPU_COUNT=N (where N is the"
-    echo -e "number of threads you want to use plus one).\n"
-    read -t $(expr $timeout + 5) proceed
-fi
 
 # determine build directory (based on the value of -d option):
 #  - if an absolute path is specified, use it.
