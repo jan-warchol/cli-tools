@@ -18,9 +18,9 @@ alias ifs='IFS=$(echo -en "\n\b")'
 alias ,='less -R -S'
 alias ,,='less -R'
 alias smnt='sudo smbmount //192.168.15.210/dane/janek /media/shamon/ -o user=janek'
-fres() { python $MY_REPOSITORIES/frescobaldi/frescobaldi $1 &>/dev/null & }
-edit() { kate $1 &>/dev/null & }
-alias editconf='gedit $MY_CONFIGS/* &'
+fres() { python $MY_REPOSITORIES/frescobaldi/frescobaldi "$@" &>/dev/null & }
+edit() { kate "$@" &>/dev/null & }
+alias editconf='edit $MY_CONFIGS/*'
 
 alias lg='cd $LILYPOND_GIT; git status'
 alias fr='cd $MY_REPOSITORIES/fried-songs; git status'
