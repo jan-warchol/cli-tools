@@ -39,6 +39,8 @@ working directory in \$LILYPOND_GIT repository.
 
 -f <path> take sources from this directory, not \$LILYPOND_GIT.
 
+-w don't use colors in output, only black&White.
+
 Sometimes it is useful to have multiple LilyPond builds,
 or to be able to continue changing source code while the
 previous state is being compiled.  You can do this quite
@@ -70,7 +72,6 @@ Press q to close this help message.
 "
 
 # TODO:
-# add a switch to disable colors
 # support untracked files with satellite repositories
 # allow to specify processor threads? or better,
 # detect automatically
@@ -81,7 +82,7 @@ if [[ "$1" == "help" || "$1" == "--help" ]]; then
     help="yes"
 fi
 
-while getopts "bc:d:f:hlrst:" opts; do
+while getopts "bc:d:f:hlrst:w" opts; do
     case $opts in
     b)
         only_bin="yes";;
@@ -103,6 +104,8 @@ while getopts "bc:d:f:hlrst:" opts; do
         from_scratch="yes";;
     t)
         timeout=$OPTARG;;
+    w)
+        nocolors="--color=never";;
     esac
 done
 
@@ -128,13 +131,15 @@ if [ -z $timeout ]; then
     timeout=10
 fi
 
-# some colors
-violet="\e[00;35m"
-yellow="\e[00;33m"
-green="\e[00;32m"
-red="\e[00;31m"
-normal="\e[00m"
-dircolor=$violet
+# define colors, unless the user turned them off.
+if [ -z $nocolors ]; then
+    violet="\e[00;35m"
+    yellow="\e[00;33m"
+    green="\e[00;32m"
+    red="\e[00;31m"
+    normal="\e[00m"
+    dircolor=$violet
+fi
 
 die() {
     # in case of some error...
@@ -314,10 +319,10 @@ else
         if (( $(git diff --color=never HEAD | wc --lines) < 50 ))
         then
             description=$(echo -e \
-            "\nChanges:\n\n$(git diff HEAD)")
+            "\nChanges:\n\n$(git diff $nocolors HEAD)")
         else
             description=$(echo -e \
-            "\nSummary of changes:\n\n$(git diff --stat HEAD)")
+            "\nSummary of changes:\n\n$(git diff $nocolors --stat HEAD)")
         fi
 
         echo "Creating a temporary commit..."
@@ -362,7 +367,7 @@ fi
 
 # we should be inside $source now.
 echo -e "Attempting to build lilypond: \n"
-git log -n 1 | cat
+git log $nocolors -n 1 | cat
 echo ""
 echo -e "inside directory \n  $dircolor$build$normal"
 echo -e "in $timeout seconds (press Ctrl-C to abort," \
@@ -401,7 +406,7 @@ compile_lilypond () {
     echo "----------------------------------------"
     cd $source
     echo -e "$green""successfully built lilypond:$normal \n"
-    git log -n 1 | cat
+    git log $nocolors -n 1 | cat
     echo ""
     echo -e "inside directory \n  $dircolor$build$normal"
 }
