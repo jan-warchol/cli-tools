@@ -95,7 +95,6 @@ Press q to close this help message.
 "
 
 # TODO:
-# support untracked files with satellite repositories
 # allow to specify processor threads? or better,
 # detect automatically
 # grep -c ^processor /proc/cpuinfo
@@ -330,6 +329,16 @@ git tag -d commit_to_build > /dev/null 2> /dev/null
 if [ "$whichcommit" != "" ]; then
     git tag commit_to_build $whichcommit
 else
+    # check if there are any untracked files.
+    git ls-files --other --directory --exclude-standard | sed --quiet q1
+    if [[ $? != 0 && "$building_inside_main_repo"="no" ]]; then
+        echo -e "$yellow""Warning:$normal you have untracked files in your"
+        echo "$main_repository repository."
+        echo "They will not be included in the build."
+        echo "If they are needed, you should probably commit them."
+        echo ""
+        read -t $timeout confirmation
+    fi
     git diff --quiet HEAD
     # with --quiet, diff exits with 1 when there are any uncommitted changes.
     if [ $? == 0 ]; then
