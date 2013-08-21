@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# written by Janek Warchoł (janek.lilypond@gmail.com)
+scriptpath=$0
+[[ "$0" =~ ^"$HOME"(/|$) ]] && scriptpath="~${0#$HOME}"
 
 helpmessage="This script will build LilyPond for you.
 
@@ -9,19 +10,10 @@ and an environment variable \$LILYPOND_GIT pointing there.
 
 Usage: with no options specified, lilypond will be built in
 \$LILYPOND_BUILD_DIR/current, using the current state of the
-working directory in \$LILYPOND_GIT repository.
+working directory from \$LILYPOND_GIT repository.
 
--s option means to \"build from scratch\", i.e. delete previous
-   build results before compiling again.
 
--b option tells make just to compile C++ files, without walking
-   through all other files.  If this is all you need, it is the
-   fastest solution.
-
--t <value> sets the amount of time for which the script is paused
-   when the user has to check whether the setup is correct.
-
--h displays this help.
+OPTIONS
 
 -c <commit> tells the script to compile a particular commit
    instead of current working directory state. This can be
@@ -33,9 +25,21 @@ working directory in \$LILYPOND_GIT repository.
    This can be an absolute path or a path relative to
    \$LILYPOND_BUILD_DIR.
 
--l build in the current directory.
+-s option means to \"build from scratch\", i.e. delete previous
+   build results from target directory before compiling again.
+
+-b option tells make just to compile C++ files, without walking
+   through all other files.  If you don't need other files to be
+   compiled, use this option to make building faster.
+
+-h displays this help.
+
+-t <value> sets the amount of time for which the script is paused
+   when the user has to check whether the setup is correct.
 
 -r compile regression tests.
+
+-l build in the current working directory.
 
 -f <path> take sources from this directory, not \$LILYPOND_GIT.
 
@@ -49,24 +53,43 @@ of \$LILYPOND_GIT, and compile lilypond in its subdirectories
 (using the -d option of this script).
 
 In such situations (i.e. when the build directory isn't inside
-main repository) the script will clone lilypond repository into
+\$LILYPOND_GIT) the script will clone lilypond repository into
 that build directory, so that it will be completely separate
 from your main repository.  This way you can continue your work,
 switch branches etc. without affecting the code that is being
 compiled at the moment.
 
-Note that these \"satellite build repositories\" work just as
-\"regular builds\" inside \$LILYPOND_GIT - you don't have to
+Note that these \"satellite build repositories\" work similarly
+to \"regular builds\" inside \$LILYPOND_GIT - you don't have to
 commit your work to build it, and if you make changes, you can
 rebuild them in the same satellite repo without having to copy
 things around or rebuilding from scratch.  The script handles
 all this quite fine.
 
-This script can be called from any directory whatsoever.
+This script can be called from any directory whatsoever (you don't
+have to be inside \$LILYPOND_GIT or \$LILYPOND_BUILD_DIR).
 
-Example usage:
-path-to-this-script -d mybuildname -c master
-will compile master branch in \$LILYPOND_BUILD_DIR/mybuildname
+
+EXAMPLES
+
+$scriptpath
+will compile current state of the working directory from
+\$LILYPOND_GIT inside \$LILYPOND_BUILD_DIR/current
+
+$scriptpath -c master
+will compile \"master\" branch from \$LILYPOND_GIT repository
+(regardless of which branch is currently checked out there)
+inside \$LILYPOND_BUILD_DIR/master
+
+$scriptpath -c release/2.16.2-1 -d stable
+will compile the commit tagged \"release/2.16.2-1\" inside
+\$LILYPOND_BUILD_DIR/stable
+
+
+AUTHOR
+
+Written by Janek Warchoł (janek.lilypond@gmail.com)
+for the GNU LilyPond project (lilypond.org).
 
 Press q to close this help message.
 "
@@ -128,7 +151,7 @@ fi
 # amount of time that we give to the user to check
 # information at various moments (default value, in seconds)
 if [ -z $timeout ]; then
-    timeout=10
+    timeout=15
 fi
 
 # define colors, unless the user turned them off.
@@ -159,7 +182,7 @@ die() {
 
 
 
-########################## PREMISES: ###########################
+##################### GATHER INFORMATION: #######################
 # $LILYPOND_GIT directory should exist and be a LilyPond repository
 if [ -z "$main_repository" ]; then
     echo -e "$red\$LILYPOND_GIT environment variable is unset."
@@ -195,9 +218,6 @@ if [ -z "$MAKE_OPTIONS" ]; then
     read -t $(expr $timeout + 5) proceed
 fi
 
-
-
-################### GATHERING INFORMATION: #####################
 # determine build directory (based on the value of -d option):
 #  - if an absolute path is specified, use it.
 #  - if a relative path is specified, it is taken relative
