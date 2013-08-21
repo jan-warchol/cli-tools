@@ -204,11 +204,16 @@ fi
 
 # normalize $main_repository (no / at the end):
 main_repository=$(readlink -m $main_repository)
-# in case $LILYPOND_BUILD_DIR is unset, set it:
+# in case $LILYPOND_BUILD_DIR is unset, set it.
+# By default, $LILYPOND_BUILD_DIR is outside $LILYPOND_GIT
+# because if multiple builds were created in the same repository
+# then they wouldn't work properly when branches in that repo
+# would be switched.
 if [ -z "$LILYPOND_BUILD_DIR" ]; then
     echo '$LILYPOND_BUILD_DIR variable is unset.'
-    echo "Setting it to $main_repository/build."
-    export LILYPOND_BUILD_DIR="$main_repository/build"
+    echo "Setting it to" \
+         "$(readlink -m $main_repository/../lilypond-builds)."
+    export LILYPOND_BUILD_DIR="$main_repository/../lilypond-builds"
     read -t 5 proceed
 fi
 # make sure that $LILYPOND_BUILD_DIR directory exists:
