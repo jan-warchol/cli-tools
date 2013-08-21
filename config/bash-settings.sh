@@ -84,7 +84,6 @@ shopt -s globstar
 xset r rate 120 66
 
 export defaultlily='2.17.3'
-export defaultbuild='current'
 
 # some colors:
 thinblue="\[$(tput setaf 6)\]"

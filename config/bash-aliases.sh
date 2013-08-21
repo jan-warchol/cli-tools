@@ -65,9 +65,9 @@ alias lrelease='$LILYPOND_BUILD_DIR/release/out/bin/lilypond'
 alias lstroke='$LILYPOND_BUILD_DIR/strokeadjust/out/bin/lilypond'
 
 alias lbuild='$LILY_SCRIPTS/build-lily.sh -t 2'
-alias mb='$LILY_SCRIPTS/build-lily.sh -t 0 -d $defaultbuild -b; alert'
-alias mn='$LILY_SCRIPTS/build-lily.sh -t 0 -d $defaultbuild; alert'
-alias ms='$LILY_SCRIPTS/build-lily.sh -t 0 -d $defaultbuild -s; alert'
+alias mb='$LILY_SCRIPTS/build-lily.sh -t 0 -b; alert'
+alias mn='$LILY_SCRIPTS/build-lily.sh -t 0   ; alert'
+alias ms='$LILY_SCRIPTS/build-lily.sh -t 0 -s; alert'
 
 
 

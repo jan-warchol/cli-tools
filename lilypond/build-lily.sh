@@ -8,8 +8,8 @@ You should have a git repository with LilyPond source code,
 and an environment variable \$LILYPOND_GIT pointing there.
 
 Usage: with no options specified, lilypond will be built in
-the \$LILYPOND_BUILD_DIR directory, directly from \$LILYPOND_GIT
-sources, using the current state of the working directory.
+\$LILYPOND_BUILD_DIR/current, using the current state of the
+working directory in \$LILYPOND_GIT repository.
 
 -s option means to \"build from scratch\", i.e. delete previous
    build results before compiling again.
@@ -25,7 +25,9 @@ sources, using the current state of the working directory.
 
 -c <commit> tells the script to compile a particular commit
    instead of current working directory state. This can be
-   a SHA1 commit ID, branch name or a tag name.
+   a SHA1 commit ID, branch name or a tag name. This value
+   will also be used as the name of the build subdirectory,
+   unless overridden with a -d option.
 
 -d <path> is the directory where the build will happen.
    This can be an absolute path or a path relative to
@@ -70,7 +72,6 @@ Press q to close this help message.
 # TODO:
 # add a switch to disable colors
 # support untracked files with satellite repositories
-# make dirname automatically derived from commit name.
 # allow to specify processor threads? or better,
 # detect automatically
 # grep -c ^processor /proc/cpuinfo
@@ -85,7 +86,9 @@ while getopts "bc:d:f:hlrst:" opts; do
     b)
         only_bin="yes";;
     c)
-        whichcommit=$OPTARG;;
+        whichcommit=$OPTARG
+        whichdir=$OPTARG
+        ;;
     d)
         whichdir=$OPTARG;;
     f)
@@ -112,6 +115,11 @@ fi
 # are taken from $LILYPOND_GIT
 if [ -z $main_repository ]; then
     main_repository=$LILYPOND_GIT
+fi
+
+# default build subdirectory
+if [ -z $whichdir ]; then
+    whichdir="current"
 fi
 
 # amount of time that we give to the user to check
