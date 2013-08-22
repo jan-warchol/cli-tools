@@ -104,6 +104,10 @@ if [[ "$1" == "help" || "$1" == "--help" ]]; then
     help="yes"
 fi
 
+# TODO:
+# make builds in a temporary folder and switch them with previous
+# build results only after they're finished (in case of -s builds)
+
 while getopts "bc:d:f:hj:lrst:w" opts; do
     case $opts in
     b)
