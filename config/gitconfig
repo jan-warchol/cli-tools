@@ -12,6 +12,10 @@
 		  git rebase -i --autosquash $1~1 && \
 		  git stash pop' -
 
+        g1 = grep --color=always -n -C1
+        g2 = grep --color=always -n -C2
+        g3 = grep --color=always -n -C3
+        g5 = grep --color=always -n -C5
 	graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
 
 	h = help
