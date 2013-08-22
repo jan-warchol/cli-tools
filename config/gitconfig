@@ -1,57 +1,57 @@
 [alias]
-	a = add
-	amend = commit --amend
-	b = branch
-	c = checkout
-	d = diff
-	discard = stash save "discarded changes"
+    a = add
+    amend = commit --amend
+    b = branch
+    c = checkout
+    d = diff
+    discard = stash save "discarded changes"
 
-	# fixup a previous commit and use rebase to merge the fixup.
-	fixup = !sh -c 'git commit --fixup $1 && \
-		  git stash && \
-		  git rebase -i --autosquash $1~1 && \
-		  git stash pop' -
+    # fixup a previous commit and use rebase to merge the fixup.
+    fixup = !sh -c 'git commit --fixup $1 && \
+        git stash && \
+        git rebase -i --autosquash $1~1 && \
+        git stash pop' -
 
-        g = grep -n
-        g1 = grep -n -C1
-        g2 = grep -n -C2
-        g3 = grep -n -C3
-        g5 = grep -n -C5
-        gh3 = grep --heading -C3
-        gh5 = grep --heading -C5
-        gh11 = grep --heading -C11
+    g = grep -n
+    g1 = grep -n -C1
+    g2 = grep -n -C2
+    g3 = grep -n -C3
+    g5 = grep -n -C5
+    gh3 = grep --heading -C3
+    gh5 = grep --heading -C5
+    gh11 = grep --heading -C11
 
-	graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
+    graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
 
-	h = help
-	k = commit
-	l = log
-	list-all-files = ls-tree -r --name-only --full-tree
-	rb = rebase
-	rs = reset
-	s = status
-	st = status
+    h = help
+    k = commit
+    l = log
+    list-all-files = ls-tree -r --name-only --full-tree
+    rb = rebase
+    rs = reset
+    s = status
+    st = status
 
 [color]
-	ui = always
+    ui = always
 
 [core]
-	# display non-ASCII characters instead of quoting them:
-	quotepath = false
-	editor = nano
+    # display non-ASCII characters instead of quoting them:
+    quotepath = false
+    editor = nano
 
 [help]
-	autocorrect = 10
+    autocorrect = 10
 
 [rebase]
-	autosquash = true
+    autosquash = true
 
 [rerere]
-	# Reuse recorded resolution of conflicted merges
-	# see `man git-rerere'
-	enabled = true
+    # Reuse recorded resolution of conflicted merges
+    # see `man git-rerere'
+    enabled = true
 
 [user]
-	name = Janek Warchoł
-	email = lemniskata.bernoullego@gmail.com
+    name = Janek Warchoł
+    email = lemniskata.bernoullego@gmail.com
 
