@@ -107,6 +107,7 @@ fi
 # TODO:
 # make builds in a temporary folder and switch them with previous
 # build results only after they're finished (in case of -s builds)
+# add support for merging multiple branches
 
 while getopts "bc:d:f:hj:lrst:w" opts; do
     case $opts in
