@@ -166,11 +166,13 @@ if [ -z $whichdir ]; then
 fi
 
 # append names of merged branches to dirname
-whichdir=$whichdir+$(echo $branches_to_merge | \
+if [ -n "$branches_to_merge" ]; then
+    whichdir=$whichdir+$(echo $branches_to_merge | \
     sed -e s'/origin\///'g | \
     sed -e s'/\//_/'g | \
     sed -e s'/ /+/'g | \
     sed -e s'/[^A-Za-z0-9.,_\(\)\-+]/-/'g)
+fi
 
 if [ -z $threads ]; then
     # no cpu count was specified -> grab from processor info
