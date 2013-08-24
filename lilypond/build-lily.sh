@@ -239,7 +239,6 @@ build=$(pwd)
 
 # check what is the relation between build dir
 # and main lilypond repository ($main_repository).
-
 if [[ $build == $main_repository/* ]]; then
     building_inside_main_repo="yes"
     source=$main_repository
