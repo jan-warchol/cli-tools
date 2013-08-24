@@ -34,6 +34,12 @@ OPTIONS
 
 -h displays this help.
 
+-m <branches> will combine multiple branches of LilyPond source
+   code before building.  This can be handy when you'd like to
+   have a LilyPond version that combines several experimental
+   (not yet released) features.  Also, it will probably be more
+   convenient than trying to do the merge yourself.
+
 -j <value> sets the number of processor threads used for building.
    By default the script uses all available threads, but if this
    causes your computer to slow down too much, you can override
@@ -91,6 +97,11 @@ $scriptpath -c release/2.16.2-1 -d stable
 will compile the commit tagged \"release/2.16.2-1\" inside
 \$LILYPOND_BUILD_DIR/stable
 
+$scriptpath -c master -m \"mybranch origin/dev/something\"
+will compile \"master\" branch merged with local branch
+\"mybranch\" and remote branch \"origin/dev/something\",
+inside \$LILYPOND_BUILD_DIR/master+mybranch+dev/something.
+
 
 AUTHOR
 
@@ -105,10 +116,9 @@ if [[ "$1" == "help" || "$1" == "--help" ]]; then
 fi
 
 # TODO:
-# add support for merging multiple branches
 # add a dry-run option
 
-while getopts "bc:d:f:hj:lrst:w" opts; do
+while getopts "bc:d:f:hj:lm:rst:w" opts; do
     case $opts in
     b)
         only_bin="yes";;
@@ -126,6 +136,8 @@ while getopts "bc:d:f:hj:lrst:w" opts; do
         threads=$OPTARG;;
     l)
         whichdir=$(pwd);;
+    m)
+        branches_to_merge=$OPTARG;;
     r)
         regtests="yes";;
     s)
@@ -152,6 +164,13 @@ fi
 if [ -z $whichdir ]; then
     whichdir="current"
 fi
+
+# append names of merged branches to dirname
+whichdir=$whichdir+$(echo $branches_to_merge | \
+    sed -e s'/origin\///'g | \
+    sed -e s'/\//_/'g | \
+    sed -e s'/ /+/'g | \
+    sed -e s'/[^A-Za-z0-9.,_\(\)\-+]/-/'g)
 
 if [ -z $threads ]; then
     # no cpu count was specified -> grab from processor info
@@ -327,9 +346,21 @@ fi
 # using a special tag; since tags won't be automatically force-updated,
 # old tags have to be deleted first.
 
-git tag -d commit_to_build > /dev/null 2> /dev/null
+cd $source
+git tag -d commit_to_build &>/dev/null
+for tag in $(git tag | grep to_be_merged/); do
+    git tag -d $tag &>/dev/null
+done
+
 cd $main_repository
-git tag -d commit_to_build > /dev/null 2> /dev/null
+git tag -d commit_to_build &>/dev/null
+for tag in $(git tag | grep to_be_merged/); do
+    git tag -d $tag &>/dev/null
+done
+
+for branch in $branches_to_merge; do
+    git tag -f to_be_merged/$branch $branch
+done
 
 if [ "$whichcommit" != "" ]; then
     git tag commit_to_build $whichcommit
@@ -394,6 +425,13 @@ else
     git checkout --quiet commit_to_build || \
     die "Cannot checkout desired commit."
 fi
+
+for branch in $(git tag | grep to_be_merged/); do
+    echo Merging branch \'$(echo $branch | sed 's/to_be_merged\///')\' \
+         into HEAD...
+    git merge --commit --no-edit $branch || \
+        die "Failed to merge specified branches"
+done
 
 
 
