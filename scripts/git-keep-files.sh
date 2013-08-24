@@ -30,5 +30,5 @@ if [ "$(cat files.txt)" != "" ]; then
     cat files.txt | \
     # enclose filenames in "" in case they contain spaces
     sed -e 's/^/"/g' -e 's/$/"/g' | \
-    xargs git rm --cached --quiet
+    xargs git rm -r --cached --ignore-unmatch --quiet
 fi
