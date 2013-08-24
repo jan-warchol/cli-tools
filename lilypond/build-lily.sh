@@ -124,7 +124,7 @@ while getopts "bc:d:f:hj:lm:rst:w" opts; do
         only_bin="yes";;
     c)
         whichcommit=$OPTARG
-        whichdir=$OPTARG
+        whichdir=$(echo $OPTARG | sed -e s'/origin\///'g)
         ;;
     d)
         whichdir=$OPTARG;;
