@@ -30,4 +30,4 @@ do
     output="${output}\n${size},${compressedSize},${other}"
 done
  
-echo -e $output | column -t -s ', '
+echo -e $output | column -t -s ','
