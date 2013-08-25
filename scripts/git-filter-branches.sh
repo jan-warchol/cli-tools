@@ -11,6 +11,7 @@ if [ ! -f ~/file-list.txt ]; then
     echo "Error."
     echo "Please put the list of the files you want"
     echo "to prune/keep in ~/file-list.txt."
+    exit 1
 fi
 
 if [ "$1" == "p" ]; then
