@@ -35,7 +35,7 @@ if [ "$1" == "m" ]; then
         echo "Paths should be double-quoted to avoid trouble."
         echo " "
         # the directory part of target path may need creating
-        dir=$(echo $3 | sed -e s'/\/.*/\//')
+        dir=$(echo $3 | sed -e s'/(.*)\//\//')
         # strip asterisk because otherwise 'test -e' fails
         src=$(echo $2 | sed -e s'/*.*//' | sed -e s'/\/.*/\//')
         # index-filter is behaving very weirdly,
