@@ -27,10 +27,16 @@ if [ "$1" == "k" ]; then
 fi
 
 if [ "$1" == "m" ]; then
-    # index-filter is behaving very weirdly,
-    # that's why i use tree-filter.
-    # warning! $2 and $3 should be double-quoted to avoid trouble.
-    git filter-branch -f --prune-empty --tree-filter \
-    "test -e $2 && mv $2 $3 || echo ' nothing to move...'" \
-    -- --all
+    if [ -z $3 ]; then
+        echo "Error: too few arguments."
+        echo "Please specify what to move (\$2) and the target (\$3)."
+        exit 1
+    else
+        echo "Paths should be double-quoted to avoid trouble."
+        # index-filter is behaving very weirdly,
+        # that's why i use tree-filter.
+        git filter-branch -f --prune-empty --tree-filter \
+        "test -e $2 && mv $2 $3 || echo ' nothing to move...'" \
+        -- --all
+    fi
 fi
