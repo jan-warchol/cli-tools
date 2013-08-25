@@ -20,10 +20,10 @@ dest = argv[2]
 # create intermediate directories if necessary..
 dest_dir = os.path.dirname(dest)
 if dest_dir and not os.path.exists(dest_dir):
-    print 'creating directory', os.path.dirname(dest), '...'
+    # print 'creating directory', os.path.dirname(dest), '...'
     os.makedirs(dest_dir)
 
 # move stuff.
 for stuff in glob.glob(src):
-    print 'moving', stuff, 'to', dest, '...'
+    # print 'moving', stuff, 'to', dest, '...'
     shutil.move(stuff, dest)
