@@ -2,12 +2,12 @@
 
 if [ -z $1 ]; then
     echo "Too few arguments."
-    echo "Please specify whether you want to prune (p)"
-    echo "or keep (k) some files from your repository."
+    echo "Please specify whether you want to prune (p),"
+    echo "keep (k) or move (m) some files in your repository."
     exit 1
 fi
 
-if [ ! -f ~/file-list.txt ]; then
+if [[ ! -f ~/file-list.txt && "$1" != "m" ]]; then
     echo "Error."
     echo "Please put the list of the files you want"
     echo "to prune/keep in ~/file-list.txt."
@@ -23,5 +23,14 @@ fi
 if [ "$1" == "k" ]; then
     git filter-branch --prune-empty --index-filter \
     '$MY_SCRIPTS/git-keep-files.sh ~/file-list.txt' \
+    -- --all
+fi
+
+if [ "$1" == "m" ]; then
+    # index-filter is behaving very weirdly,
+    # that's why i use tree-filter.
+    # warning! $2 and $3 should be double-quoted to avoid trouble.
+    git filter-branch -f --prune-empty --tree-filter \
+    "test -e $2 && mv $2 $3 || echo ' nothing to move...'" \
     -- --all
 fi
