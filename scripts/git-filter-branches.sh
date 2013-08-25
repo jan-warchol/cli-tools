@@ -30,6 +30,7 @@ if [ "$1" == "m" ]; then
     if [ -z "$3" ]; then
         echo "Error: too few arguments."
         echo "Please specify what to move (\$2) and the target (\$3)."
+        # optionally, provide a fourth argument if the target dir doesn't exist.
         exit 1
     else
         echo "Paths should be double-quoted to avoid trouble."
@@ -39,7 +40,7 @@ if [ "$1" == "m" ]; then
         # index-filter is behaving very weirdly,
         # that's why i use tree-filter.
         git filter-branch -f --prune-empty --tree-filter \
-        "test -e \"$src\" && mv \"$2\" \"$3\" || echo ' nothing to move...'" \
+        "mkdir -p $4; test -e \"$src\" && mv \"$2\" \"$3\" || echo ' nothing to move...'" \
         -- --all
     fi
 fi
