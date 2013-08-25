@@ -34,14 +34,10 @@ if [ "$1" == "m" ]; then
     else
         echo "Paths should be double-quoted to avoid trouble."
         echo " "
-        # the directory part of target path may need creating
-        dir=$(echo $3 | sed -e s'#(.*)/#/#')
-        # strip asterisk because otherwise 'test -e' fails
-        src=$(echo $2 | sed -e s'#/[^/]*\*.*#/#')
         # index-filter is behaving very weirdly,
         # that's why i use tree-filter.
         git filter-branch -f --prune-empty --tree-filter \
-        "mkdir -p \"$dir\"; test -e \"$src\" && mv \"$2\" \"$3\" || echo ' nothing to move...'" \
+        "$MY_SCRIPTS/move-files.py \"$2\" \"$3\"" \
         -- --all
     fi
 fi
