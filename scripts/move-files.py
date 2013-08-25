@@ -21,7 +21,7 @@ dest = argv[2]
 dest_dir = os.path.dirname(dest)
 if dest_dir and not os.path.exists(dest_dir):
     print 'creating directory', os.path.dirname(dest), '...'
-    os.mkdir(dest_dir)
+    os.makedirs(dest_dir)
 
 # move stuff.
 for stuff in glob.glob(src):
