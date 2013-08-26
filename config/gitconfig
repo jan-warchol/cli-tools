@@ -7,10 +7,9 @@
     discard = stash save "discarded changes"
 
     # fixup a previous commit and use rebase to merge the fixup.
-    fixup = !sh -c 'git commit --fixup $1 && \
-        git stash && \
-        git rebase -i --autosquash $1~2 && \
-        git stash pop' -
+    fixup = !sh -c 'git add -u && \
+        git commit --fixup $1 && \
+        git rebase -i --autosquash $1~2' -
 
     g = grep -n
     g1 = grep -n -C1
@@ -32,10 +31,9 @@
     s = status
     st = status
 
-    squash = !sh -c 'git commit --squash $1 && \
-        git stash && \
-        git rebase -i --autosquash $1~2 && \
-        git stash pop' -
+    squash = !sh -c 'git add -u && \
+        git commit --squash $1 && \
+        git rebase -i --autosquash $1~2' -
 
 [color]
     ui = always
