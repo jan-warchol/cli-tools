@@ -9,7 +9,7 @@
     # fixup a previous commit and use rebase to merge the fixup.
     fixup = !sh -c 'git commit --fixup $1 && \
         git stash && \
-        git rebase -i --autosquash $1~1 && \
+        git rebase -i --autosquash $1~2 && \
         git stash pop' -
 
     g = grep -n
@@ -34,7 +34,7 @@
 
     squash = !sh -c 'git commit --squash $1 && \
         git stash && \
-        git rebase -i --autosquash $1~1 && \
+        git rebase -i --autosquash $1~2 && \
         git stash pop' -
 
 [color]
