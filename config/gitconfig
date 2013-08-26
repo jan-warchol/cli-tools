@@ -32,6 +32,11 @@
     s = status
     st = status
 
+    squash = !sh -c 'git commit --squash $1 && \
+        git stash && \
+        git rebase -i --autosquash $1~1 && \
+        git stash pop' -
+
 [color]
     ui = always
 
