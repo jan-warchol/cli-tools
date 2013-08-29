@@ -368,7 +368,7 @@ if [ "$whichcommit" != "" ]; then
     git tag commit_to_build $whichcommit
 else
     # check if there are any untracked files.
-    git ls-files --other --directory --exclude-standard | sed --quiet q1
+    git ls-files --other --exclude-standard | sed --quiet q1
     if [[ $? != 0 && "$building_inside_main_repo"="no" ]]; then
         echo -e "$yellow""Warning:$normal you have untracked files in your"
         echo "$main_repository repository."
