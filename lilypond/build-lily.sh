@@ -417,7 +417,7 @@ if [ $? != 0 ]; then
     dirtytree=1
     echo "You have uncommitted changes. They will be saved using"
     echo "'git stash' and restored after the script finishes."
-    git stash
+    git stash save "Stashed during build $(date +"%Y-%m-%d_%H:%M")"
     read -t $timeout delay
 fi
 
