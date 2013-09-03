@@ -5,6 +5,15 @@ die() { # in case of error
     exit 1
 }
 
+echo "Where would you like LilyPond stuff to be placed?"
+echo "Please specify a path relative to your home directory."
+read location
+location=$HOME/$location
+
+echo "I will download LilyPond sources and other stuff into"
+echo "$location"
+sleep 5
+
 which git
 # if there's no git on the system, install it
 if [ $? != 0 ]; then
@@ -22,7 +31,18 @@ sudo apt-get install texlive-lang-cyrillic \
 || die "Failed to install texlive-lang-cyrillic"
 
 # clone lilypond sources
-git clone git://git.sv.gnu.org/lilypond.git $HOME/lilypond-sources \
+git clone git://git.sv.gnu.org/lilypond.git $location/lilypond-sources \
 || die "Failed to clone LilyPond"
 
-echo 'export LILYPOND_GIT=$HOME/lilypond-sources' | tee -a $HOME/.bashrc
+echo "export LILYPOND_GIT=$location/lilypond-sources" | tee -a $HOME/.bashrc
+echo "export LILYPOND_BUILD_DIR=$location/lilypond-builds" | tee -a $HOME/.bashrc
+
+# also, clone a repository with helpful scripts written by Janek:
+git clone https://github.com/janek-warchol/cli-tools.git $location/janek-scripts \
+|| die "Failed to clone Janek's scripts"
+
+echo " "
+echo "The script was successful. Now you have LilyPond source code in"
+echo "$location/lilypond-sources/"
+echo "and some scripts and other stuff written by Janek Warchoł in"
+echo "$location/janek-scripts/."
