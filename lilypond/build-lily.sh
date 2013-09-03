@@ -12,7 +12,7 @@ Usage: with no options specified, lilypond will be built in
 \$LILYPOND_BUILD_DIR/current, using the current state of the
 working directory from \$LILYPOND_GIT repository.
 
-
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 OPTIONS
 
 -c <commit> tells the script to compile a particular commit
