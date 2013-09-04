@@ -287,10 +287,20 @@ echo "========================================"
 cd $build || die "\$build doesn't exist."
 if [[ "$from_scratch" == "yes" && "$build" != "$main_repository" ]]; then
     echo "You requested to build from scratch."
-    echo -e "Removing $dircolor$build$normal directory"\
-            "in $timeout seconds"
-    echo "(press Ctrl-C to abort, Enter to skip delay)"
-    read -t $timeout dummy
+    if [[ $build == $LILYPOND_BUILD_DIR/* ]]; then
+        echo -e "Removing $dircolor$build$normal directory"\
+                "in $timeout seconds"
+        echo "(press Ctrl-C to abort, Enter to skip delay)"
+        read -t $timeout dummy
+    else
+        # be extra-careful if removing something outside
+        # $LILYPOND_BUILD_DIR.
+        echo -e "Directory $dircolor$build$normal"
+        echo "and all its content will be removed."
+        echo "This operation cannot be undone. Proceed? (yes/no)"
+        read decision
+        if [ "$decision" != "yes" ]; then die "Removing aborted."; fi
+    fi
     cd ../
     rm -rf $build || die "Failed to remove $build."
     mkdir -p $build
