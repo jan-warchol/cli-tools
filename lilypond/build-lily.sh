@@ -127,7 +127,9 @@ while getopts "bc:d:f:hj:lm:rst:w" opts; do
         whichdir=$(echo $OPTARG | sed -e s'/origin\///'g)
         ;;
     d)
-        whichdir=$OPTARG;;
+        whichdir=$OPTARG
+        dont_override_dirname="yes"
+        ;;
     f)
         main_repository=$OPTARG;;
     h)
@@ -166,7 +168,7 @@ if [ -z $whichdir ]; then
 fi
 
 # append names of merged branches to dirname
-if [ -n "$branches_to_merge" ]; then
+if [[ -z $dont_override_dirname && -n "$branches_to_merge" ]]; then
     whichdir=$whichdir+$(echo $branches_to_merge | \
     sed -e s'/origin\///'g | \
     sed -e s'/\//_/'g | \
