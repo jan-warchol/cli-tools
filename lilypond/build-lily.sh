@@ -290,7 +290,7 @@ if [[ "$from_scratch" == "yes" && "$build" != "$main_repository" ]]; then
     echo -e "Removing $dircolor$build$normal directory"\
             "in $timeout seconds"
     echo "(press Ctrl-C to abort, Enter to skip delay)"
-    read -t $timeout confirmation
+    read -t $timeout dummy
     cd ../
     rm -rf $build || die "Failed to remove $build."
     mkdir -p $build
@@ -380,7 +380,7 @@ else
         echo "They will not be included in the build."
         echo "If they are needed, you should probably commit them."
         echo ""
-        read -t $timeout confirmation
+        read -t $timeout dummy
     fi
     git diff --quiet HEAD
     # with --quiet, diff exits with 1 when there are any uncommitted changes.
@@ -423,7 +423,7 @@ if [ $? != 0 ]; then
     echo "You have uncommitted changes. They will be saved using"
     echo "'git stash' and restored after the script finishes."
     git stash save "Stashed during build $(date +"%Y-%m-%d_%H:%M")"
-    read -t $timeout delay
+    read -t $timeout dummy
 fi
 
 if [[ "$regtests" == "yes" ]]; then
@@ -451,7 +451,7 @@ echo ""
 echo -e "inside directory \n  $dircolor$build$normal"
 echo -e "in $timeout seconds (press Ctrl-C to abort," \
         "Enter to skip delay)\n"
-read -t $timeout confirmation
+read -t $timeout dummy
 
 # build dir might have been freshly created, so we need
 # to check whether it contains necessary setup information.
@@ -477,7 +477,7 @@ compile_lilypond () {
             echo -e "\nLooks like this is the first time when LilyPond"
             echo "is built in this directory, so despite -b flag"
             echo "I will build everything, not just C++ files."
-            read -t $(expr $timeout + 5) proceed
+            read -t $(expr $timeout + 5) dummy
         fi
     fi
     time make $MAKE_OPTIONS || die "Make failed."
