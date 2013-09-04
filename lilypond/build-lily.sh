@@ -198,7 +198,7 @@ fi
 
 die() {
     # in case of some error...
-    echo -e "$red$1$normal"
+    echo -e "$red$@$normal"
     echo Exiting.
     if [ "$dirtytree" != "" ]; then
         echo -e "$red""Warning!
