@@ -420,8 +420,10 @@ git diff --quiet HEAD
 # with --quiet, diff exits with 1 when there are any uncommitted changes.
 if [ $? != 0 ]; then
     dirtytree=1
-    echo "You have uncommitted changes. They will be saved using"
-    echo "'git stash' and restored after the script finishes."
+    echo "You have uncommitted changes in"
+    echo -e "  $dircolor$build$normal"
+    echo "repository. They will be saved using 'git stash'"
+    echo "and restored after the script finishes."
     git stash save "Stashed during build $(date +"%Y-%m-%d_%H:%M")"
     read -t $timeout dummy
 fi
