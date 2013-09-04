@@ -365,7 +365,10 @@ for branch in $branches_to_merge; do
 done
 
 if [ "$whichcommit" != "" ]; then
-    git tag commit_to_build $whichcommit
+    git tag commit_to_build $whichcommit || \
+    die "Failed to create a tag.$normal" \
+    "\nIf you are trying to build a specific branch," \
+    "\nmaybe you are missing 'origin/' at the beginning of its name?"
 else
     # check if there are any untracked files.
     git ls-files --other --exclude-standard | sed --quiet q1
