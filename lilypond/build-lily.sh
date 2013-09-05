@@ -373,7 +373,10 @@ for tag in $(git tag | grep to_be_merged/); do
 done
 
 for branch in $branches_to_merge; do
-    git tag -f to_be_merged/$branch $branch
+    git tag -f to_be_merged/$branch $branch || \
+    die "Failed to create a tag.$normal" \
+    "\nIf you are trying to build a specific branch," \
+    "\nmaybe you are missing 'origin/' at the beginning of its name?"
 done
 
 if [ "$whichcommit" != "" ]; then
