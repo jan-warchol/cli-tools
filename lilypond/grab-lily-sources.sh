@@ -11,12 +11,13 @@ read location
 location=$HOME/$location
 
 echo "I will download LilyPond sources and other stuff into"
-echo "$location"
-sleep 5
+echo -e "$location \n"
+sleep 4
 
-which git
+which git &>/dev/null
 # if there's no git on the system, install it
 if [ $? != 0 ]; then
+    echo "You don't seem to have git installed - downloading..."
     sudo add-apt-repository ppa:git-core/ppa
     sudo apt-get update
     sudo apt-get install git
