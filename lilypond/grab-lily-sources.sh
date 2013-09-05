@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# this script will download stuff needed to compile LilyPond
+# from source, i.e.:
+# - git
+# - some libraries
+# - lilypond sources
+# - scripts by Janek that make building easier
+
+# helper functions:
+
 die() { # in case of error
     echo -e "\e[00;31m$1\e[00m"
     exit 1
@@ -11,6 +20,8 @@ checkversion() {
     [  "$2" = "$(echo -e "$2\n$1" | sort -V | head -n1)" ]
 }
 
+##########################################################
+
 echo "Where would you like LilyPond stuff to be placed?"
 echo "Please specify a path relative to your home directory."
 read location
@@ -19,6 +30,7 @@ location=$HOME/$location
 echo "I will download LilyPond sources and other stuff into"
 echo -e "$location \n"
 sleep 4
+
 
 which git &>/dev/null
 # if there's no git on the system, install it
@@ -54,6 +66,7 @@ sudo apt-get install texlive-lang-cyrillic \
 git clone git://git.sv.gnu.org/lilypond.git $location/lilypond-sources \
 || die "Failed to clone LilyPond"
 
+# set environment variables used by other scripts
 echo "export LILYPOND_GIT=$location/lilypond-sources" | tee -a $HOME/.bashrc
 echo "export LILYPOND_BUILD_DIR=$location/lilypond-builds" | tee -a $HOME/.bashrc
 
