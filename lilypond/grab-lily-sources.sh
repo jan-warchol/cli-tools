@@ -6,6 +6,7 @@
 # - some libraries
 # - lilypond sources
 # - scripts by Janek that make building easier
+# it also sets some environment variables.
 
 # helper functions:
 
