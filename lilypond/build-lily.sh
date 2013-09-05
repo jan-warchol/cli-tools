@@ -100,7 +100,7 @@ will compile the commit tagged \"release/2.16.2-1\" inside
 $scriptpath -c master -m \"mybranch origin/dev/something\"
 will compile \"master\" branch merged with local branch
 \"mybranch\" and remote branch \"origin/dev/something\",
-inside \$LILYPOND_BUILD_DIR/master+mybranch+dev/something.
+inside \$LILYPOND_BUILD_DIR/master+mybranch+dev_something.
 
 
 AUTHOR
