@@ -5,6 +5,12 @@ die() { # in case of error
     exit 1
 }
 
+checkversion() {
+    # returns 0 (i.e. success) if the first argument is greater
+    # or equal to the second (interpreted as version numbers)
+    [  "$2" = "$(echo -e "$2\n$1" | sort -V | head -n1)" ]
+}
+
 echo "Where would you like LilyPond stuff to be placed?"
 echo "Please specify a path relative to your home directory."
 read location
@@ -21,6 +27,19 @@ if [ $? != 0 ]; then
     sudo add-apt-repository ppa:git-core/ppa
     sudo apt-get update
     sudo apt-get install git
+else # is installed git version recent enough?
+    git_required="1.8"
+    # remove everything after last dot - its build number, not interesting
+    git_installed=$(git --version | sed 's/git\ version\ //' | sed 's/.[^.]*$//')
+    checkversion $git_installed $git_required
+    if [ $? = 1 ]; then
+        echo "It seems that you have an old version of git installed"
+        echo "(yoy have $git_installed, required version is $git_required)."
+        echo "Installing newer git version..."
+        sudo add-apt-repository ppa:git-core/ppa
+        sudo apt-get update
+        sudo apt-get install git
+    fi
 fi
 
 # get packages needed for compiling lilypond
