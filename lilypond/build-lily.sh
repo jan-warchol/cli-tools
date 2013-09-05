@@ -13,7 +13,7 @@ Usage: with no options specified, lilypond will be built in
 working directory from \$LILYPOND_GIT repository.
 
 
-OPTIONS
+OPTIONS (see also Examples at the bottom)
 
 -c <commit> tells the script to compile a particular commit
    instead of current working directory state. This can be
@@ -60,9 +60,9 @@ OPTIONS
 Sometimes it is useful to have multiple LilyPond builds,
 or to be able to continue changing source code while the
 previous state is being compiled.  You can do this quite
-easily - set your \$LILYPOND_BUILD_DIR to a directory outside
-of \$LILYPOND_GIT, and compile lilypond in its subdirectories
-(using the -d option of this script).
+easily - make sure your \$LILYPOND_BUILD_DIR variable points
+to a directory outside of \$LILYPOND_GIT, and compile lilypond
+in its subdirectories (using -c and/or -d options).
 
 In such situations (i.e. when the build directory isn't inside
 \$LILYPOND_GIT) the script will clone lilypond repository into
