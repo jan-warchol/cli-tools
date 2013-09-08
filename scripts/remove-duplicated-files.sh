@@ -5,10 +5,7 @@
 # moves duplicates to $duplicates_dir.
 
 # TODO:
-# check if one filename is a substring of another
-# (so that in case of foo.txt and foo(copy).txt
-# the script will remove foo(copy).txt )
-# also, remove 0-byte duplicates with same names
+# remove 0-byte duplicates with same names
 
 while getopts "Hn" opts; do
     case $opts in
@@ -74,17 +71,39 @@ for filesize in $(find $filelist_dir -type f | \
             echo "every other file, this may take a long time."
         fi
 
-        for file in $(cat $filesize); do
-            if [ -f "$file" ]; then
-                for anotherfile in $(cat $filesize); do
-                    if [ -f "$anotherfile" ] && [ "$anotherfile" != "$file" ]; then
-                        diff -q "$file" "$anotherfile" 2> /dev/null > /dev/null
+        for fileA in $(cat $filesize); do
+            if [ -f "$fileA" ]; then
+                for fileB in $(cat $filesize); do
+                    if [ -f "$fileB" ] && [ "$fileB" != "$fileA" ]; then
+                        # diff will exit with 0 iff files are the same.
+                        diff -q "$fileA" "$fileB" 2> /dev/null > /dev/null
                         if [[ $? == 0 ]]; then
-                            echo "  $(echo $anotherfile | sed 's|\./||')" \
-                                 "is a duplicate of" \
-                                 "$(echo $file | sed 's|\./||')"
-                            if [ "$dry_run" != "yes" ]; then
-                                mv --backup=t "$anotherfile" $duplicates_dir
+                            # detect if one filename is a substring of another
+                            # so that in case of foo.txt and foo(copy).txt
+                            # the script will remove foo(copy).txt
+                            # supports filenames with no extension.
+
+                            fileA_name=$(echo $fileA | sed 's|.*/||')
+                            fileB_name=$(echo $fileB | sed 's|.*/||')
+                            fileA_ext=$(echo $fileA_name | sed 's/.[^.]*//' | sed 's/.*\./\./')
+                            fileB_ext=$(echo $fileB_name | sed 's/.[^.]*//' | sed 's/.*\./\./')
+                            fileA_name="${fileA_name%%$fileA_ext}"
+                            fileB_name="${fileB_name%%$fileB_ext}"
+
+                            if [[ $fileB_name == *$fileA_name* ]]; then
+                                echo "  $(echo $fileB | sed 's|\./||')" \
+                                    "is a duplicate of" \
+                                    "$(echo $fileA | sed 's|\./||')"
+                                if [ "$dry_run" != "yes" ]; then
+                                    mv --backup=t "$fileB" $duplicates_dir
+                                fi
+                            else
+                                echo "  $(echo $fileA | sed 's|\./||')" \
+                                    "is a duplicate of" \
+                                    "$(echo $fileB | sed 's|\./||')"
+                                if [ "$dry_run" != "yes" ]; then
+                                    mv --backup=t "$fileA" $duplicates_dir
+                                fi
                             fi
                         fi
                     fi
