@@ -4,15 +4,14 @@
 # checks if those that have the same size are identical and
 # moves duplicates to $duplicates_dir.
 
-# TODO:
-# remove 0-byte duplicates with same names
-
-while getopts "Hn" opts; do
+while getopts "Hnz" opts; do
     case $opts in
     H)
         remove_hidden="yes";;
     n)
         dry_run="yes";;
+    z)
+        remove_empty="yes";;
     esac
 done
 
@@ -54,8 +53,10 @@ while read string; do
     echo $filename >> $filelist_dir/size-$number.txt
 done < "$filelist_dir/filelist.txt"
 
-for filesize in $(find $filelist_dir -type f | \
-                grep "size-" | grep -v "size-0.txt" ); do
+for filesize in $(find $filelist_dir -type f | grep "size-"); do
+    if [[ -z $remove_empty && $filesize == *"size-0.txt" ]]; then
+        continue
+    fi
 
     filecount=$(cat $filesize | wc -l)
     # there are more than 1 file of particular size ->
