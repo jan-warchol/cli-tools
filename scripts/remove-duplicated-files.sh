@@ -1,49 +1,77 @@
 #!/bin/bash
 
-# this script walks through all subdirectories of current dir,
-# compares all files inside (be careful, quadratic computational complexity)
-# and moves all duplicates to $dupdir.
-
-# since this is quadratic, you are advised to divide your files
-# to subdirectories containing files with the same size
-# (as differently sized files cannot be duplicates).
-# this should speed up everything enormously.
+# this script walks through all files in the current directory,
+# checks if those that have the same size are identical and
+# moves duplicates to $duplicates_dir.
 
 # TODO:
-# don't deduplicate empty files
 # check if one filename is a substring of another
 # (so that in case of foo.txt and foo(copy).txt
 # the script will remove foo(copy).txt )
+# also, remove 0-byte duplicates with same names
 
 IFS=$(echo -en "\n\b")
 
 working_dir="$PWD"
 working_dir_name=$(echo $working_dir | sed 's|.*/||')
-dupdir="$working_dir/../duplicates-from-$working_dir_name/"
-mkdir -p $dupdir
 
-for dir in $(find * -type d)
-do
-    cd "$working_dir/$dir"
-    echo Directory $dir: $(find -type f | wc -l) files to compare.
+# prepare some temp directories:
+filelist_dir="$working_dir/../$working_dir_name-filelist/"
+duplicates_dir="$working_dir/../$working_dir_name-duplicates/"
+if [[ -d $filelist_dir || -d $duplicates_dir ]]; then
+    echo "ERROR! Directories:"
+    echo "  $filelist_dir"
+    echo "and/or"
+    echo "  $duplicates_dir"
+    echo "already exist!  Aborting."
+    exit 1
+fi
+mkdir $filelist_dir
+mkdir $duplicates_dir
 
-    for file in $(find -type f); do
-        if [ -f "$file" ]; then
-            if [ "$1" != "" ]; then
-                # echo "====================================="
-                echo comparing $file with other files...
-            fi
+# get information about files:
+find -type f -print0 | xargs -0 stat -c "%s %n" | \
+     sort -nr > $filelist_dir/filelist.txt
 
-            for anotherfile in $(find -type f); do
-                if [ -f "$anotherfile" ] && [ "$anotherfile" != "$file" ]; then
-                    diff -q "$file" "$anotherfile" 2> /dev/null > /dev/null
-                    if [[ $? == 0 ]]; then
-                        echo "  $anotherfile is a duplicate of $file"
-                        mv "$anotherfile" $dupdir
-                    fi
-                fi
-            done
+echo "$(cat $filelist_dir/filelist.txt | wc -l)" \
+     "files to compare in directory $working_dir"
+echo "Creating file list..."
+
+while read string; do
+    number=$(echo $string | sed 's/\..*$//' | sed 's/ //')
+    filename=$(echo $string | sed 's/.[^.]*\./\./')
+    echo $filename >> $filelist_dir/size-$number.txt
+done < "$filelist_dir/filelist.txt"
+
+for filesize in $(find $filelist_dir -type f | \
+                grep "size-" | grep -v "size-0.txt" ); do
+
+    filecount=$(cat $filesize | wc -l)
+    # there are more than 1 file of particular size ->
+    # these may be duplicates
+    if [ $filecount -gt 1 ]; then
+        if [ $filecount -gt 100 ]; then
+            echo ""
+            echo "Warning: more than 100 files with filesize" \
+                 $(echo $filesize | sed 's|.*/||' | \
+                 sed 's/size-//' | sed 's/\.txt//') \
+                 "bytes."
+            echo "Since every file needs to be compared with"
+            echo "every other file, this may take a long time."
         fi
-    done
-done
 
+        for file in $(cat $filesize); do
+            if [ -f "$file" ]; then
+                for anotherfile in $(cat $filesize); do
+                    if [ -f "$anotherfile" ] && [ "$anotherfile" != "$file" ]; then
+                        diff -q "$file" "$anotherfile" 2> /dev/null > /dev/null
+                        if [[ $? == 0 ]]; then
+                            echo "  $anotherfile is a duplicate of $file"
+                            mv --backup=t "$anotherfile" $duplicates_dir
+                        fi
+                    fi
+                done
+            fi
+        done
+    fi
+done
