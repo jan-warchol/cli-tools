@@ -10,6 +10,15 @@
 # the script will remove foo(copy).txt )
 # also, remove 0-byte duplicates with same names
 
+while getopts "Hn" opts; do
+    case $opts in
+    H)
+        remove_hidden="yes";;
+    n)
+        dry_run="yes";;
+    esac
+done
+
 IFS=$(echo -en "\n\b")
 
 working_dir="$PWD"
@@ -32,6 +41,11 @@ mkdir $duplicates_dir
 # get information about files:
 find -type f -print0 | xargs -0 stat -c "%s %n" | \
      sort -nr > $filelist_dir/filelist.txt
+
+if [[ "$remove_hidden" != "yes" ]]; then
+    grep -v "/\." $filelist_dir/filelist.txt > $filelist_dir/no-hidden.txt
+    mv $filelist_dir/no-hidden.txt $filelist_dir/filelist.txt
+fi
 
 echo "$(cat $filelist_dir/filelist.txt | wc -l)" \
      "files to compare in directory $working_dir"
@@ -66,8 +80,12 @@ for filesize in $(find $filelist_dir -type f | \
                     if [ -f "$anotherfile" ] && [ "$anotherfile" != "$file" ]; then
                         diff -q "$file" "$anotherfile" 2> /dev/null > /dev/null
                         if [[ $? == 0 ]]; then
-                            echo "  $anotherfile is a duplicate of $file"
-                            mv --backup=t "$anotherfile" $duplicates_dir
+                            echo "  $(echo $anotherfile | sed 's|\./||')" \
+                                 "is a duplicate of" \
+                                 "$(echo $file | sed 's|\./||')"
+                            if [ "$dry_run" != "yes" ]; then
+                                mv --backup=t "$anotherfile" $duplicates_dir
+                            fi
                         fi
                     fi
                 done
@@ -75,3 +93,9 @@ for filesize in $(find $filelist_dir -type f | \
         done
     fi
 done
+
+rm -r $filelist_dir
+
+if [ "$dry_run" != "yes" ]; then
+    echo "Duplicates moved to $duplicates_dir."
+fi
