@@ -6,9 +6,10 @@
 
 IFS=$(echo -en "\n\b")
 
-dupdir="$HOME/duplicates/"
-mkdir -p $dupdir
 rundir="$PWD"
+rundirname=$(echo $rundir | sed 's|.*/||')
+dupdir="$rundir/../duplicates-from-$rundirname/"
+mkdir -p $dupdir
 
 for file in $(find -type f); do
     if [ -f "$file" ]; then
