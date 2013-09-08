@@ -1,8 +1,13 @@
 #!/bin/bash
 
 # this script walks through all files in the current directory,
-# checks if those that have the same size are identical and
-# moves duplicates to $duplicates_dir.
+# checks if there are duplicates (it compares only files with
+# the same size) and moves duplicates to $duplicates_dir.
+#
+# options:
+# -H  remove hidden files (and files in hidden folders)
+# -n  dry-run: show duplicates, but don't remove them
+# -z  deduplicate empty files as well
 
 while getopts "Hnz" opts; do
     case $opts in
@@ -15,6 +20,7 @@ while getopts "Hnz" opts; do
     esac
 done
 
+# support filenames with spaces:
 IFS=$(echo -en "\n\b")
 
 working_dir="$PWD"
@@ -47,12 +53,14 @@ echo "$(cat $filelist_dir/filelist.txt | wc -l)" \
      "files to compare in directory $working_dir"
 echo "Creating file list..."
 
+# divide the list of files into sublists with files of the same size
 while read string; do
     number=$(echo $string | sed 's/\..*$//' | sed 's/ //')
     filename=$(echo $string | sed 's/.[^.]*\./\./')
     echo $filename >> $filelist_dir/size-$number.txt
 done < "$filelist_dir/filelist.txt"
 
+# plough through the files
 for filesize in $(find $filelist_dir -type f | grep "size-"); do
     if [[ -z $remove_empty && $filesize == *"size-0.txt" ]]; then
         continue
@@ -62,9 +70,9 @@ for filesize in $(find $filelist_dir -type f | grep "size-"); do
     # there are more than 1 file of particular size ->
     # these may be duplicates
     if [ $filecount -gt 1 ]; then
-        if [ $filecount -gt 100 ]; then
+        if [ $filecount -gt 200 ]; then
             echo ""
-            echo "Warning: more than 100 files with filesize" \
+            echo "Warning: more than 200 files with filesize" \
                  $(echo $filesize | sed 's|.*/||' | \
                  sed 's/size-//' | sed 's/\.txt//') \
                  "bytes."
