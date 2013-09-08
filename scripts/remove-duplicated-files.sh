@@ -4,6 +4,11 @@
 # compares all files inside (be careful, quadratic computational complexity)
 # and moves all duplicates to $dupdir.
 
+# since this is quadratic, you are advised to divide your files
+# to subdirectories containing files with the same size
+# (as differently sized files cannot be duplicates).
+# this should speed up everything enormously.
+
 IFS=$(echo -en "\n\b")
 
 rundir="$PWD"
@@ -11,22 +16,27 @@ rundirname=$(echo $rundir | sed 's|.*/||')
 dupdir="$rundir/../duplicates-from-$rundirname/"
 mkdir -p $dupdir
 
-for file in $(find -type f); do
-    if [ -f "$file" ]; then
-        if [ "$1" != "" ]; then
-            # echo "====================================="
-            echo comparing $file with other files...
-        fi
+for dir in $(find * -type d)
+do
+    cd "$rundir/$dir"
 
-        for anotherfile in $(find -type f); do
-            if [ -f "$anotherfile" ] && [ "$anotherfile" != "$file" ]; then
-                diff -q "$file" "$anotherfile" 2> /dev/null > /dev/null
-                if [[ $? == 0 ]]; then
-                    echo "  $anotherfile is a duplicate of $file"
-                    mv "$anotherfile" $dupdir
-                fi
+    for file in $(find -type f); do
+        if [ -f "$file" ]; then
+            if [ "$1" != "" ]; then
+                # echo "====================================="
+                echo comparing $file with other files...
             fi
-        done
-    fi
+
+            for anotherfile in $(find -type f); do
+                if [ -f "$anotherfile" ] && [ "$anotherfile" != "$file" ]; then
+                    diff -q "$file" "$anotherfile" 2> /dev/null > /dev/null
+                    if [[ $? == 0 ]]; then
+                        echo "  $anotherfile is a duplicate of $file"
+                        mv "$anotherfile" $dupdir
+                    fi
+                fi
+            done
+        fi
+    done
 done
 
