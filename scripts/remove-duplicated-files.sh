@@ -17,14 +17,14 @@
 
 IFS=$(echo -en "\n\b")
 
-rundir="$PWD"
-rundirname=$(echo $rundir | sed 's|.*/||')
-dupdir="$rundir/../duplicates-from-$rundirname/"
+working_dir="$PWD"
+working_dir_name=$(echo $working_dir | sed 's|.*/||')
+dupdir="$working_dir/../duplicates-from-$working_dir_name/"
 mkdir -p $dupdir
 
 for dir in $(find * -type d)
 do
-    cd "$rundir/$dir"
+    cd "$working_dir/$dir"
     echo Directory $dir: $(find -type f | wc -l) files to compare.
 
     for file in $(find -type f); do
