@@ -6,26 +6,24 @@
 
 IFS=$(echo -en "\n\b")
 
-dupdir="~/duplicates/"
+dupdir="$HOME/duplicates/"
+mkdir -p $dupdir
 rundir="$PWD"
 
-for dir in $(find * -type d)
-do
-    cd "$rundir/$dir"
+for file in $(find -type f); do
+    if [ -f "$file" ]; then
+        echo "====================================="
+        echo comparing $file with other files...
 
-    for file in *; do
-        if [ -f "$file" ]; then
-            echo $file
-
-            for anotherfile in *; do
-                if [ -f "$anotherfile" ] && [ "$anotherfile" != "$file" ]; then
-                    diff -q "$file" "$anotherfile" 2> /dev/null > /dev/null
-                    if [[ $? == 0 ]]; then
-                        mv "$anotherfile" $dupdir
-                    fi
+        for anotherfile in $(find -type f); do
+            if [ -f "$anotherfile" ] && [ "$anotherfile" != "$file" ]; then
+                diff -q "$file" "$anotherfile" 2> /dev/null > /dev/null
+                if [[ $? == 0 ]]; then
+                    echo $anotherfile is a duplicate of $file. Moving...
+                    mv "$anotherfile" $dupdir
                 fi
-            done
-        fi
-    done
+            fi
+        done
+    fi
 done
 
