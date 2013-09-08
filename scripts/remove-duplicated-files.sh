@@ -25,6 +25,7 @@ mkdir -p $dupdir
 for dir in $(find * -type d)
 do
     cd "$rundir/$dir"
+    echo Directory $dir: $(find -type f | wc -l) files to compare.
 
     for file in $(find -type f); do
         if [ -f "$file" ]; then
