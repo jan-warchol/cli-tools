@@ -13,14 +13,16 @@ mkdir -p $dupdir
 
 for file in $(find -type f); do
     if [ -f "$file" ]; then
-        echo "====================================="
-        echo comparing $file with other files...
+        if [ "$1" != "" ]; then
+            # echo "====================================="
+            echo comparing $file with other files...
+        fi
 
         for anotherfile in $(find -type f); do
             if [ -f "$anotherfile" ] && [ "$anotherfile" != "$file" ]; then
                 diff -q "$file" "$anotherfile" 2> /dev/null > /dev/null
                 if [[ $? == 0 ]]; then
-                    echo $anotherfile is a duplicate of $file. Moving...
+                    echo "  $anotherfile is a duplicate of $file"
                     mv "$anotherfile" $dupdir
                 fi
             fi
