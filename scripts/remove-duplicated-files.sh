@@ -9,6 +9,12 @@
 # (as differently sized files cannot be duplicates).
 # this should speed up everything enormously.
 
+# TODO:
+# don't deduplicate empty files
+# check if one filename is a substring of another
+# (so that in case of foo.txt and foo(copy).txt
+# the script will remove foo(copy).txt )
+
 IFS=$(echo -en "\n\b")
 
 rundir="$PWD"
