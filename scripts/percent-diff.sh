@@ -20,22 +20,28 @@ while read string; do
     fileA=$(echo $string | sed 's/.[^.]*\./\./')
     tail -n +2 "$remaining_files" > $remaining_files.temp
     mv $remaining_files.temp $remaining_files
+    # remove empty lines since they produce false positives
+    sed '/^$/d' $fileA > tempA
 
     echo Comparing $fileA with other files...
 
     while read string; do
         fileB=$(echo $string | sed 's/.[^.]*\./\./')
-        A_len=$(cat "$fileA" | wc -l)
-        B_len=$(cat "$fileB" | wc -l)
+        sed '/^$/d' $fileB > tempB
+        A_len=$(cat tempA | wc -l)
+        B_len=$(cat tempB | wc -l)
 
-        differences=$(sdiff -B -s "$fileA" "$fileB" | wc -l)
+        differences=$(sdiff -B -s tempA tempB | wc -l)
         common=$(expr $A_len - $differences)
 
         percentage=$(echo "100 * $common / $B_len" | bc)
-        if [[ $percentage -gt 20 ]]; then
+        if [[ $percentage -gt 15 ]]; then
             echo "  $percentage% duplication in" \
                  "$(echo $fileB | sed 's|\./||')"
         fi
     done < "$remaining_files"
     echo " "
 done < "$all_files"
+
+rm tempA
+rm tempB
