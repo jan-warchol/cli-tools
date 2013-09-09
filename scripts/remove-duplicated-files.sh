@@ -75,8 +75,8 @@ for filesize in $(find $filelist_dir -type f | grep "size-"); do
             echo "Warning: more than 200 files with filesize" \
                  $(echo $filesize | sed 's|.*/||' | \
                  sed 's/size-//' | sed 's/\.txt//') \
-                 "bytes."
-            echo "Since every file needs to be compared with"
+                 "byte(s)."
+            echo "Since every file may need to be compared with"
             echo "every other file, this may take a long time."
         fi
 
