@@ -25,28 +25,16 @@ while read string; do
 
     while read string; do
         fileB=$(echo $string | sed 's/.[^.]*\./\./')
-
         A_len=$(cat "$fileA" | wc -l)
         B_len=$(cat "$fileB" | wc -l)
-        if [[ $A_len>$B_len ]]; then
-            bigger=$fileA
-            smaller=$fileB
-            max_len=$A_len
-            min_len=$B_len
-        else
-            bigger=$fileB
-            smaller=$fileA
-            max_len=$B_len
-            min_len=$A_len
-        fi
 
         differences=$(sdiff -B -s "$fileA" "$fileB" | wc -l)
-        common=$(expr $max_len - $differences)
+        common=$(expr $A_len - $differences)
 
-        percentage=$(echo "100 * $common / $min_len" | bc)
+        percentage=$(echo "100 * $common / $B_len" | bc)
         if [[ $percentage -gt 20 ]]; then
             echo "  $percentage% duplication in" \
-                 "$(echo $smaller | sed 's|\./||')"
+                 "$(echo $fileB | sed 's|\./||')"
         fi
     done < "$remaining_files"
     echo " "
