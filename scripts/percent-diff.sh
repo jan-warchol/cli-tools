@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# walk through all files in the current dir (and subdirs)
+# and compare them with other files, showing percentage
+# of duplication.
+
+# which type files to compare?
+# (wouldn't make sense to compare binary formats)
 ext="txt"
 
 # support filenames with spaces:
@@ -45,3 +51,5 @@ done < "$all_files"
 
 rm tempA
 rm tempB
+rm $all_files
+rm $remaining_files
