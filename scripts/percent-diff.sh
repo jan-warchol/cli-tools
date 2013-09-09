@@ -8,13 +8,18 @@ IFS=$(echo -en "\n\b")
 working_dir="$PWD"
 working_dir_name=$(echo $working_dir | sed 's|.*/||')
 all_files="$working_dir/../$working_dir_name-filelist.txt"
+remaining_files="$working_dir/../$working_dir_name-remaining.txt"
 
 # get information about files:
 find -type f -print0 | xargs -0 stat -c "%s %n" | grep -v "/\." | \
      grep "\.$ext" | sort -nr > $all_files
 
+cp $all_files $remaining_files
+
 while read string; do
     fileA=$(echo $string | sed 's/.[^.]*\./\./')
+    tail -n +2 "$remaining_files" > $remaining_files.temp
+    mv $remaining_files.temp $remaining_files
 
     echo Comparing $fileA with other files...
 
@@ -39,11 +44,10 @@ while read string; do
         common=$(expr $max_len - $differences)
 
         percentage=$(echo "100 * $common / $min_len" | bc)
-        #if [[ $percentage>20 ]]; then
-            echo "$percentage% of file $smaller is the same as in $bigger"
-        #fi
-
-    done < "$all_files"
-    sleep 5
-
+        if [[ $percentage -gt 20 ]]; then
+            echo "  $percentage% duplication in" \
+                 "$(echo $smaller | sed 's|\./||')"
+        fi
+    done < "$remaining_files"
+    echo " "
 done < "$all_files"
