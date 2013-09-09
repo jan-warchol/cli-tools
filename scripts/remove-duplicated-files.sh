@@ -7,7 +7,7 @@
 # options:
 # -H  remove hidden files (and files in hidden folders)
 # -n  dry-run: show duplicates, but don't remove them
-# -z  deduplicate empty files as well
+# -z  deduplicate empty/very small (0-5 bytes) files as well
 
 while getopts "Hnz" opts; do
     case $opts in
@@ -64,7 +64,7 @@ done < "$filelist_dir/filelist.txt"
 
 # plough through the files
 for filesize in $(find $filelist_dir -type f | grep "size-"); do
-    if [[ -z $remove_empty && $filesize == *"size-0.txt" ]]; then
+    if [[ -z $remove_empty && $filesize == *size-[0-5].txt ]]; then
         continue
     fi
 
