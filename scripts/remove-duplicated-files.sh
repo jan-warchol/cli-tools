@@ -38,7 +38,9 @@ if [[ -d $filelist_dir || -d $duplicates_dir ]]; then
     exit 1
 fi
 mkdir $filelist_dir
-mkdir $duplicates_dir
+if [[ -z $dry_run ]]; then
+    mkdir $duplicates_dir
+fi
 
 # get information about files:
 find -type f -print0 | xargs -0 stat -c "%s %n" | \
