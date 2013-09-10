@@ -28,6 +28,8 @@
     list-all-files = ls-tree -r --name-only --full-tree
     rb = rebase
     rs = reset
+    rt = remote
+    rtv = remote --verbose
     s = status
     st = status
 

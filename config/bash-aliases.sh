@@ -162,6 +162,9 @@ alias gri22='git rebase --interactive HEAD~22'
   alias grs='git reset'
    alias gu='git reset HEAD~1'
 
+  alias grt='git remote'
+ alias grtv='git remote --verbose'
+
    alias gs='git status'
   alias gst='git status'
 
