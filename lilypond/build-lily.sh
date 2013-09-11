@@ -46,6 +46,8 @@ OPTIONS (see also Examples at the bottom)
    that decision using this option.
    <value> should be the number of threads you want to use plus one.
 
+-o <value> specify custom options for 'make'.
+
 -t <value> sets the amount of time for which the script is paused
    when the user has to check whether the setup is correct.
 
@@ -118,7 +120,7 @@ fi
 # TODO:
 # add a dry-run option
 
-while getopts "bc:d:f:hj:lm:rst:w" opts; do
+while getopts "bc:d:f:hj:lm:o:rst:w" opts; do
     case $opts in
     b)
         only_bin="yes";;
@@ -140,6 +142,8 @@ while getopts "bc:d:f:hj:lm:rst:w" opts; do
         whichdir=$(pwd);;
     m)
         branches_to_merge=$OPTARG;;
+    o)
+        MAKE_OPTIONS=$OPTARG;;
     r)
         regtests="yes";;
     s)
@@ -179,8 +183,14 @@ fi
 if [ -z $threads ]; then
     # no cpu count was specified -> grab from processor info
     threads=$(expr 1 + $(grep -c ^processor /proc/cpuinfo))
+    # prepend this deduced threading to $MAKE_OPTIONS.
+    # (threading settings from $MAKE_OPTIONS will take precedence)
+    MAKE_OPTIONS="-j$threads CPU_COUNT=$threads $MAKE_OPTIONS"
+else
+    # -j was explicitly specified -> place the threading
+    # at the end (overridding threading from $MAKE_OPTIONS).
+    MAKE_OPTIONS="$MAKE_OPTIONS -j$threads CPU_COUNT=$threads"
 fi
-MAKE_OPTIONS="-j$threads CPU_COUNT=$threads"
 
 # amount of time that we give to the user to check
 # information at various moments (default value, in seconds)
