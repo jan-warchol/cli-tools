@@ -248,9 +248,9 @@ main_repository=$(readlink -m $main_repository)
 # would be switched.
 if [ -z "$LILYPOND_BUILD_DIR" ]; then
     echo '$LILYPOND_BUILD_DIR variable is unset.'
-    echo "Setting it to" \
-         "$(readlink -m $main_repository/../lilypond-builds)."
-    export LILYPOND_BUILD_DIR="$main_repository/../lilypond-builds"
+    export LILYPOND_BUILD_DIR="$(readlink -m \
+           $main_repository/../lilypond-builds)"
+    echo "Setting it to $LILYPOND_BUILD_DIR."
     read -t 5 proceed
 fi
 # make sure that $LILYPOND_BUILD_DIR directory exists:
