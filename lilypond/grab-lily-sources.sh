@@ -1,13 +1,21 @@
 #!/bin/bash
 
-# this script will download stuff needed to compile LilyPond
-# from source, i.e.:
-# - git
-# - some libraries
-# - lilypond sources
-# - scripts by Janek that make building easier
-# it also sets some environment variables.
+# this script will set up everything (hopefully) that you
+# need to compile LilyPonda from source - that is, it will:
+# - install appropriate version of git
+# - download required libraries
+# - clone lilypond sources
+# - clone scripts by Janek that make building easier
+# - set environment variables used by these script.
+#
+# You will be asked where the lilypond sources and Janek's
+# scripts should be placed.
+#
+# The script was written for Debian-based Linux distributions
+# using apt package manager (for example Ubuntu).
 
+
+#########################################################
 # helper functions:
 
 die() { # in case of error
@@ -47,7 +55,7 @@ else # is installed git version recent enough?
     checkversion $git_installed $git_required
     if [ $? = 1 ]; then
         echo "It seems that you have an old version of git installed"
-        echo "(yoy have $git_installed, required version is $git_required)."
+        echo "(you have $git_installed, required version is $git_required)."
         echo "Installing newer git version..."
         sudo add-apt-repository ppa:git-core/ppa
         sudo apt-get update
