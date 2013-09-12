@@ -105,8 +105,8 @@ strongcyan="\e[1;36m"
 
 # several prompts created by me.
 alias promptdefault='PS1="\u@\h \w\$"'
-alias huh='PS1="$bold huh? $normal"'
-alias promptmaster='PS1="$bold Yes, master? $normal"'
+alias huh='PS1="$bold""huh? $normal"'
+alias promptmaster='PS1="$bold""Yes, master? $normal"'
 alias promptgit='PS1="$cyan\w$normal\$(__git_ps1)$\n"'
 alias promptgithost='PS1="$violet\u@\h $cyan\w$normal\$(__git_ps1)$\n"'
 alias promptgitmaster='PS1="$strongblue\u@\h: \w$normal\$(__git_ps1)\n$cyan""Yes, master? $normal"'
