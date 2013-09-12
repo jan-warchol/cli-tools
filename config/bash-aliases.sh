@@ -15,8 +15,9 @@ alias mko='make $MAKE_OPTIONS'
 alias sai='sudo apt-get install'
 alias alm='alsamixer'
 alias ifs='IFS=$(echo -en "\n\b")'
-alias ,='less -R -S'
-alias ,,='less -R'
+alias ,='less --RAW-CONTROL-CHARS --chop-long-lines'
+# less' short options for this are -R and -S, respectively
+alias ,,='less --RAW-CONTROL-CHARS'
 alias smnt='sudo smbmount //192.168.15.210/dane/janek /media/shamon/ -o user=janek'
 fres() { python $MY_REPOSITORIES/frescobaldi/frescobaldi "$@" &>/dev/null & }
 edit() { kate "$@" &>/dev/null & }
