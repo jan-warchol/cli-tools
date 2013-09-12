@@ -53,3 +53,9 @@ cp $MY_CONFIGS/gitconfig ~/.gitconfig
 # overwrite polish keyboard layout with my own layout
 # sudo cp -f $MY_CONFIGS/janek-keyboard-layout /usr/share/X11/xkb/symbols/pl
 
+echo "Setting TrackPoint sensitivity to:"
+echo 255 | sudo tee /sys/devices/platform/i8042/serio1/serio2/sensitivity
+echo "Setting TrackPoint speed to:"
+echo 255 | sudo tee /sys/devices/platform/i8042/serio1/serio2/speed
+echo "Setting TrackPoint press-to-select to:"
+echo 1 | sudo tee /sys/devices/platform/i8042/serio1/serio2/press_to_select

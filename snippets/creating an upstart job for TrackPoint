@@ -1,0 +1,21 @@
+How to create a new upstart-job for TrackPoint, from
+http://askubuntu.com/questions/137528/ubuntu-wont-save-my-settings-for-thinkpad-trackpoint
+
+Edit a configuration file:
+
+sudo gedit /etc/init/trackpoint.conf
+
+A text editor will pop up. Paste the following code in it
+(make sure that the path in second line is the path of your TrackPoint):
+
+description "Trackpoint-Settings"
+env TPDIR=/sys/devices/platform/i8042/serio1/serio2
+start on virtual-filesystems
+script
+  while [ ! -f $TPDIR/sensitivity ]; do
+        sleep 2
+  done
+  echo -n 200 > $TPDIR/sensitivity
+  echo -n 150 > $TPDIR/speed
+  echo -n 1 > $TPDIR/press_to_select
+end script
