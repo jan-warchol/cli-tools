@@ -99,8 +99,8 @@ normalanother="\e[00m"
 
 # several prompts created by me.
 alias promptdefault='PS1="\u@\h \w\$"'
-alias huh='PS1="$boldhuh? $normal"'
-alias promptmaster='PS1="$boldYes, master? $normal"'
+alias huh='PS1="$bold huh? $normal"'
+alias promptmaster='PS1="$bold Yes, master? $normal"'
 alias promptgit='PS1="$thinblue\w$normal\$(__git_ps1)$\n"'
 alias promptgithost='PS1="$violet\u@\h $thinblue\w$normal\$(__git_ps1)$\n"'
 alias promptgitmaster='PS1="$thickblue\u@\h: \w$normal\$(__git_ps1)\n$thinblue""Yes, master? \[\e[0m\]"'
