@@ -86,24 +86,30 @@ xset r rate 120 66
 export defaultlily='2.17.3'
 
 # some colors:
-thinblue="\[$(tput setaf 6)\]"
-thickcyan="\[\e[1;36m\]"
-thickblue="\[\e[1;34m\]"
-bold="\[$(tput bold)\]"
-normal="\[$(tput sgr0)\]"
-violet="\e[00;35m"
-yellow="\e[00;33m"
-green="\e[00;32m"
+normal="\e[00m"
 red="\e[00;31m"
-normalanother="\e[00m"
+green="\e[00;32m"
+yellow="\e[00;33m"
+blue="\e[00;34m"
+violet="\e[00;35m"
+cyan="\e[00;36m"
+gray="\e[00;37m"
+
+bold="$(tput bold)"
+strongred="\e[1;31m"
+stronggreen="\e[1;32m"
+strongyellow="\e[1;33m"
+strongblue="\e[1;34m"
+strongviolet="\e[1;35m"
+strongcyan="\e[1;36m"
 
 # several prompts created by me.
 alias promptdefault='PS1="\u@\h \w\$"'
 alias huh='PS1="$bold huh? $normal"'
 alias promptmaster='PS1="$bold Yes, master? $normal"'
-alias promptgit='PS1="$thinblue\w$normal\$(__git_ps1)$\n"'
-alias promptgithost='PS1="$violet\u@\h $thinblue\w$normal\$(__git_ps1)$\n"'
-alias promptgitmaster='PS1="$thickblue\u@\h: \w$normal\$(__git_ps1)\n$thinblue""Yes, master? \[\e[0m\]"'
+alias promptgit='PS1="$cyan\w$normal\$(__git_ps1)$\n"'
+alias promptgithost='PS1="$violet\u@\h $cyan\w$normal\$(__git_ps1)$\n"'
+alias promptgitmaster='PS1="$strongblue\u@\h: \w$normal\$(__git_ps1)\n$cyan""Yes, master? $normal"'
 
 # choose default prompt:
 promptgithost
