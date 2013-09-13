@@ -125,6 +125,8 @@ alias gdom,='git diff origin/master | less -R -S'
 
    alias gl='git log'
   alias gl,='git log | less -R -S'
+  alias gla='gitk --all'
+ alias gla,='gitk --all &'
   alias glo='git log --oneline'
  alias glo,='git log --oneline | less -R -S'
  alias glod='git log --oneline --decorate'
