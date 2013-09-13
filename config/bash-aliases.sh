@@ -176,5 +176,11 @@ alias gri22='git rebase --interactive HEAD~22'
    alias gs='git status'
   alias gst='git status'
 
+  alias gsh='git stash save'
+      gsa() {
+            git stash save "a backup just in case, $(date +'%Y-%m-%d %H:%M')"
+            git stash apply &>/dev/null
+            }
+
    alias gt='git tag'
   alias gt,='git tag | less -R -S'

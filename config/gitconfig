@@ -32,6 +32,9 @@
     rtv = remote --verbose
     s = status
     st = status
+    svap = !sh -c 'git stash save \
+        "a backup just in case, $(date +\"%Y-%m-%d %H:%M\")" && \
+        git stash apply' -
 
     squash = !sh -c 'git add -u && \
         git commit --squash $1 && \
