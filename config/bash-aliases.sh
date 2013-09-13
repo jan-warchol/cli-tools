@@ -21,7 +21,12 @@ alias ,,='less --RAW-CONTROL-CHARS'
 alias smnt='sudo smbmount //192.168.15.210/dane/janek /media/shamon/ -o user=janek'
 fres() { python $MY_REPOSITORIES/frescobaldi/frescobaldi "$@" &>/dev/null & }
 edit() { kate "$@" &>/dev/null & }
-alias editconf='edit $MY_CONFIGS/*'
+editconf() {
+    nautilus $MY_CONFIGS/
+    edit $MY_CONFIGS/bash-aliases.sh \
+         $MY_CONFIGS/bash-settings.sh \
+         $MY_CONFIGS/gitconfig
+}
 
 alias lg='cd $LILYPOND_GIT; git status'
 alias fr='cd $MY_REPOSITORIES/fried-songs; git status'
