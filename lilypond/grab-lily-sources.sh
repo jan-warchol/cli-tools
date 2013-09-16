@@ -19,7 +19,7 @@
 # helper functions:
 
 die() { # in case of error
-    echo -e "\e[00;31m$1\e[00m"
+    echo "$1. Exiting."
     exit 1
 }
 
