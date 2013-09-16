@@ -88,7 +88,7 @@ export LILYPOND_GIT
 export LILYPOND_BUILD_DIR=$location/lilypond-builds
 
 # also, clone a repository with helpful scripts written by Janek:
-git clone https://github.com/janek-warchol/cli-tools.git $location/janek-scripts \
+git clone http://github.com/janek-warchol/cli-tools.git $location/janek-scripts \
 || die "Failed to clone Janek's scripts"
 
 echo " "
