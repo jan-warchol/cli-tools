@@ -31,10 +31,15 @@ checkversion() {
 
 ##########################################################
 
-echo "Where would you like LilyPond stuff to be placed?"
-echo "Please specify a path relative to your home directory."
-read location
-location=$HOME/$location
+if [ -n "$LILYPOND_GIT" ]; then
+    location=$LILYPOND_GIT/..
+else
+    echo "Where would you like LilyPond stuff to be placed?"
+    echo "Please specify a path relative to your home directory."
+    read location
+    location=$HOME/$location
+    LILYPOND_GIT="$location/lilypond-sources"
+fi
 
 echo "I will download LilyPond sources and other stuff into"
 echo -e "$location \n"
@@ -72,12 +77,15 @@ sudo apt-get install texlive-lang-cyrillic \
 || die "Failed to install texlive-lang-cyrillic"
 
 # clone lilypond sources
-git clone git://git.sv.gnu.org/lilypond.git $location/lilypond-sources \
+git clone git://git.sv.gnu.org/lilypond.git $LILYPOND_GIT \
 || die "Failed to clone LilyPond"
 
 # set environment variables used by other scripts
-echo "export LILYPOND_GIT=$location/lilypond-sources" | tee -a $HOME/.bashrc
+echo "export LILYPOND_GIT=$LILYPOND_GIT" | tee -a $HOME/.bashrc
 echo "export LILYPOND_BUILD_DIR=$location/lilypond-builds" | tee -a $HOME/.bashrc
+# also, export them for current session
+export LILYPOND_GIT
+export LILYPOND_BUILD_DIR=$location/lilypond-builds
 
 # also, clone a repository with helpful scripts written by Janek:
 git clone https://github.com/janek-warchol/cli-tools.git $location/janek-scripts \
@@ -85,7 +93,7 @@ git clone https://github.com/janek-warchol/cli-tools.git $location/janek-scripts
 
 echo " "
 echo "The script was successful. Now you have LilyPond source code in"
-echo "$location/lilypond-sources/"
+echo "$LILYPOND_GIT"
 echo "and some scripts and other stuff written by Janek Warchoł in"
 echo "$location/janek-scripts/."
 echo " "
