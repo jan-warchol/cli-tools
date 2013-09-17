@@ -87,9 +87,6 @@ fi
 # set environment variables used by other scripts
 echo "export LILYPOND_GIT=$LILYPOND_GIT" | tee -a $HOME/.bashrc
 echo "export LILYPOND_BUILD_DIR=$location/lilypond-builds" | tee -a $HOME/.bashrc
-# also, export them for current session
-export LILYPOND_GIT
-export LILYPOND_BUILD_DIR=$location/lilypond-builds
 
 # also, clone a repository with helpful scripts written by Janek:
 git clone http://github.com/janek-warchol/cli-tools.git $location/janek-scripts \
@@ -100,9 +97,12 @@ echo "The script was successful. Now you have LilyPond source code in"
 echo "$LILYPOND_GIT"
 echo "and some scripts and other stuff written by Janek Warchoł in"
 echo "$location/janek-scripts/."
+echo "To complete the \"installation\", please restart your terminal"
+echo "(some settings need to be reloaded)."
 echo " "
-echo "You probably want to compile LilyPond now. This can be easily done"
-echo "using build-lily.sh script written by Janek, which can be found in"
+echo "After that, you will probably want to compile LilyPond."
+echo "This can be easily done using build-lily.sh script written"
+echo "by Janek, which can be found in"
 echo "$location/janek-scripts/lilypond/"
 echo "Run"
 echo "$location/janek-scripts/lilypond/build-lily.sh --help"
