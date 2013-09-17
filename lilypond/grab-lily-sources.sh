@@ -78,8 +78,11 @@ sudo apt-get install texlive-lang-cyrillic \
 || die "Failed to install texlive-lang-cyrillic"
 
 # clone lilypond sources
-git clone git://git.sv.gnu.org/lilypond.git $LILYPOND_GIT \
-|| die "Failed to clone LilyPond"
+if [ ! -d "$LILYPOND_GIT/.git" ]; then
+    # $LILYPOND_GIT doesn't exist yet or is not a git repository
+    git clone git://git.sv.gnu.org/lilypond.git $LILYPOND_GIT \
+    || die "Failed to clone LilyPond"
+fi
 
 # set environment variables used by other scripts
 echo "export LILYPOND_GIT=$LILYPOND_GIT" | tee -a $HOME/.bashrc
