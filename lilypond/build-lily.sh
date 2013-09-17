@@ -477,6 +477,7 @@ echo -e "inside directory \n  $dircolor$build$normal"
 echo -e "in $timeout seconds (press Ctrl-C to abort," \
         "Enter to skip delay)\n"
 read -t $timeout dummy
+commit_id=$(git rev-parse HEAD)
 
 # build dir might have been freshly created, so we need
 # to check whether it contains necessary setup information.
@@ -505,7 +506,7 @@ compile_lilypond () {
             read -t $(expr $timeout + 5) dummy
         fi
     fi
-    time make $MAKE_OPTIONS || die "Make failed."
+    time make $MAKE_OPTIONS || die "Make failed (commit $commit_id)."
 
     echo "----------------------------------------"
     cd $source
