@@ -153,6 +153,9 @@ alias gloom='git log --oneline origin/master..'
  alias glpr='git log -p --reverse master..'
 alias glpr,='git log -p --reverse master.. | less -R -S'
 
+ alias gmbd='git merge-base-diff HEAD'
+alias gmbd,='git merge-base-diff HEAD | less -R -S'
+
   alias gpo='git push origin'
  alias gpom='git push origin master'
 

@@ -26,6 +26,9 @@
     k = commit
     l = log
     list-all-files = ls-tree -r --name-only --full-tree
+
+    merge-base-diff = !sh -c 'git diff $(git merge-base master $1) $1' -
+
     rb = rebase
     rs = reset
     rt = remote
