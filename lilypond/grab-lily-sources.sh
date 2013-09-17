@@ -32,7 +32,7 @@ checkversion() {
 ##########################################################
 
 if [ -n "$LILYPOND_GIT" ]; then
-    location=$LILYPOND_GIT/..
+    location="$LILYPOND_GIT/.."
 else
     echo "Where would you like LilyPond stuff to be placed?"
     echo "Please specify a path relative to your home directory."
@@ -43,7 +43,8 @@ fi
 
 echo "I will download LilyPond sources and other stuff into"
 echo -e "$location \n"
-sleep 4
+sleep 5
+mkdir -p $location
 
 
 which git &>/dev/null
