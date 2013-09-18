@@ -64,9 +64,9 @@ alias fixcc='$LILYPOND_GIT/scripts/auxiliar/fixcc.py'
 alias flly='flip -ub *.ly; flip -ub *.ily'
 
 lily() {
-    # doesn't support filenames with spaces.
-    files="${@#$1}"
-    $LILYPOND_BUILD_DIR/$1/out/bin/lilypond $files
+    lil="$1"
+    shift
+    "$LILYPOND_BUILD_DIR/$lil/out/bin/lilypond" "$@"
 }
 alias lgit='$LILYPOND_GIT/build/out/bin/lilypond'glpp,
 alias lcurrent='$LILYPOND_BUILD_DIR/current/out/bin/lilypond'
