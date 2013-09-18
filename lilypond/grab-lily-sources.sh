@@ -36,6 +36,8 @@ if [ -n "$LILYPOND_GIT" ]; then
 else
     echo "Where would you like LilyPond stuff to be placed?"
     echo "Please specify a path relative to your home directory."
+    echo "Subdirectories with LilyPond sources, binaries and"
+    echo "building scripts will be placed there."
     read location
     location=$HOME/$location
     LILYPOND_GIT="$location/lilypond-sources"
