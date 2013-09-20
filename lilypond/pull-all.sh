@@ -4,8 +4,10 @@
 # if any argument is specified, it will also delete merged branches
 # (i.e. branches that were already pushed upstream or merged with master).
 
-while getopts "w" opts; do
+while getopts "dw" opts; do
     case $opts in
+    d)
+        delete_merged="yes";;
     w)
         colors="--color=never";;
     esac
@@ -79,10 +81,10 @@ for branch in $(git branch --color=never | sed s/*//); do
     echo "";
 done
 
-# $# = number of arguments specified by user
-if [ $# != 0 ]; then
+if [ "$delete_merged" == "yes" ]; then
     git checkout --quiet master;
     echo -e "$yellow""DELETING MERGED BRANCHES$normal----------------";
+    sleep 2
     for branch in $(git branch --color=never | sed s/*// | sed s/master//); do
         git branch -d "$branch"
         echo ""
