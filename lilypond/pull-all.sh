@@ -51,8 +51,12 @@ prev_commit=$(git rev-parse HEAD)
 # with --quiet, diff exits with 1 when there are any uncommitted changes.
 git diff --quiet HEAD
 dirtytree=$?
-git stash
-sleep 3
+if [ $dirtytree != 0 ]; then
+    echo "You have uncommitted changes. They will be saved using"
+    echo "'git stash' and restored after the script finishes."
+    sleep 2
+    git stash save "Stashed before pulling $(date +"%Y-%m-%d_%H:%M")"
+fi
 
 echo ""
 echo -e "$green""FETCHING$normal--------------------------------"
