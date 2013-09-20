@@ -213,13 +213,13 @@ die() {
     echo -e "$red$@$normal"
     echo Exiting.
     if [ "$dirtytree" != "" ]; then
-        echo -e "$red""Warning!
-        When this script was ran, the HEAD of $source
-        repository was $prev_commit
-        (branch $prev_branch)
-        and there were uncommitted changes on top of that commit.
-        They were saved using 'git stash' and you should be able
-        to get them back using 'git stash apply'."
+        echo -e "$red""Warning!$normal"
+        echo "When this script was ran, the HEAD of $source"
+        echo "repository was $prev_commit"
+        echo "(branch $prev_branch)"
+        echo "and there were uncommitted changes on top of that commit."
+        echo "They were saved using 'git stash' and you should be able"
+        echo "to get them back using 'git stash apply'."
     fi
     exit 1
 }
