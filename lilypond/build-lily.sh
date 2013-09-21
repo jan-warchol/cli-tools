@@ -459,7 +459,8 @@ else
 fi
 
 for branch in $(git tag | grep to_be_merged/); do
-    echo Merging branch \'$(echo $branch | sed 's/to_be_merged\///')\' \
+    echo -e Merging branch \
+         \'$blue$(echo $branch | sed 's/to_be_merged\///')$normal\' \
          into HEAD...
     git merge --commit --no-edit $branch || \
     { git merge --abort; die "Failed to merge specified branches"; }
