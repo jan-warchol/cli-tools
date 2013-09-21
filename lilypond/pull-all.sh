@@ -109,7 +109,7 @@ if [ "$delete_merged" == "yes" ]; then
     echo -e "$yellow""DELETING MERGED BRANCHES$normal----------------";
     sleep 2
     for branch in $(git branch --color=never | sed s/*// | sed s/master//); do
-        git branch -d "$branch" || die "Failed to detele branch."
+        git branch -d "$branch"
         echo ""
     done
     echo ""
