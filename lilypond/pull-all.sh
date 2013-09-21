@@ -88,8 +88,8 @@ for branch in $(git branch --color=never | sed s/*//); do
         if [ "$rebase" == "yes" ]; then
             git rebase || die "Failed to rebase."
         else
-            git merge --ff-only $upstream || \
-            die "Failed to fast-forward."
+            git merge --ff-only $upstream 2>/dev/null || \
+            echo "Cannot fast-forward."
         fi
     else
         echo $branch does not track any upstream branch.
