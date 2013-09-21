@@ -66,12 +66,12 @@ fi
 
 echo ""
 echo -e "$green""FETCHING$normal--------------------------------"
-git fetch
+git fetch || die "Problems with fetching."
 echo ""
 
 echo -e "$green""UPDATING YOUR BRANCHES$normal------------------";
 for branch in $(git branch --color=never | sed s/*//); do
-    git checkout --quiet "$branch" || die;
+    git checkout --quiet "$branch" || die "Cannot checkout $branch.";
     # find the name of upstream branch
     upstream=""
     if rmte=$(git config --get branch.$branch.remote); then
@@ -86,9 +86,9 @@ for branch in $(git branch --color=never | sed s/*//); do
     if [ "$upstream" != "" ]; then
         # rebase/merge with upstream tracking branch
         if [ "$rebase" == "yes" ]; then
-            git rebase
+            git rebase || die "Failed to rebase."
         else
-            git merge --ff-only
+            git merge --ff-only || die "Failed to fast-forward."
         fi
     else
         echo $branch does not track any upstream branch.
@@ -98,7 +98,8 @@ for branch in $(git branch --color=never | sed s/*//); do
             echo -e "$red""Warning:$normal"
             echo "you forced rebasing on: $forced_target"
             sleep 5
-            git rebase $forced_target || die;
+            git rebase $forced_target || \
+            die "Failed to rebase on $forced_target."
         fi
     fi
     echo ""
@@ -109,7 +110,7 @@ if [ "$delete_merged" == "yes" ]; then
     echo -e "$yellow""DELETING MERGED BRANCHES$normal----------------";
     sleep 2
     for branch in $(git branch --color=never | sed s/*// | sed s/master//); do
-        git branch -d "$branch"
+        git branch -d "$branch" || die "Failed to detele branch."
         echo ""
     done
     echo ""
