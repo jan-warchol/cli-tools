@@ -50,8 +50,6 @@ die() {
 
 cd $LILYPOND_GIT/
 echo "========================================"
-echo "If you have any uncommitted changes, they will be saved using"
-echo "'git stash' and restored after the script finishes successfully..."
 prev_branch=$(git branch --color=never | sed --quiet 's/* \(.*\)/\1/p')
 prev_commit=$(git rev-parse HEAD)
 # with --quiet, diff exits with 1 when there are any uncommitted changes.
@@ -60,7 +58,7 @@ dirtytree=$?
 if [ $dirtytree != 0 ]; then
     echo "You have uncommitted changes. They will be saved using"
     echo "'git stash' and restored after the script finishes."
-    sleep 2
+    sleep 5
     git stash save "Stashed before pulling $(date +"%Y-%m-%d_%H:%M")"
 fi
 
