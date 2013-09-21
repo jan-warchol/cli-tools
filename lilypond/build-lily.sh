@@ -462,7 +462,7 @@ for branch in $(git tag | grep to_be_merged/); do
     echo Merging branch \'$(echo $branch | sed 's/to_be_merged\///')\' \
          into HEAD...
     git merge --commit --no-edit $branch || \
-        die "Failed to merge specified branches"
+    { git merge --abort; die "Failed to merge specified branches"; }
 done
 
 
