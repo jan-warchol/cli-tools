@@ -107,10 +107,9 @@ done
 if [ "$delete_merged" == "yes" ]; then
     git checkout --quiet master;
     echo -e "$yellow""DELETING MERGED BRANCHES$normal----------------";
-    sleep 2
+    sleep 3
     for branch in $(git branch --color=never | sed s/*// | sed s/master//); do
-        git branch -d "$branch"
-        echo ""
+        git branch -d "$branch" 2>/dev/null
     done
     echo ""
 fi
