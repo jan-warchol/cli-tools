@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
 # This script removes trailing whitepace from files.
+# It doesn't remove trailing newlines; in fact, it makes
+# sure that at least one trailing newline is present.
 
 from sys import argv
 import os, sys
@@ -15,5 +17,5 @@ for pathname in argv[1:]:
         s = "\n".join([l.rstrip() for l in f])
         f.close()
         f = file(pathname, 'w')
-        f.write(s)
+        f.write(s+"\n")
         f.close()
