@@ -15,11 +15,13 @@ done
 
 # define colors, unless the user turned them off.
 if [ -z $colors ]; then
-    violet="\e[00;35m"
-    yellow="\e[00;33m"
-    green="\e[00;32m"
-    red="\e[00;31m"
     normal="\e[00m"
+    red="\e[00;31m"
+    green="\e[00;32m"
+    yellow="\e[00;33m"
+    blue="\e[00;34m"
+    violet="\e[00;35m"
+    cyan="\e[00;36m"
     dircolor=$violet
 fi
 
