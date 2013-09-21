@@ -4,10 +4,14 @@
 # if any argument is specified, it will also delete merged branches
 # (i.e. branches that were already pushed upstream or merged with master).
 
-while getopts "dw" opts; do
+while getopts "df:rw" opts; do
     case $opts in
     d)
         delete_merged="yes";;
+    f)
+        forced_target=$OPTARG;;
+    r)
+        rebase="yes";;
     w)
         colors="--color=never";;
     esac
@@ -68,23 +72,36 @@ echo ""
 echo -e "$green""UPDATING YOUR BRANCHES$normal------------------";
 for branch in $(git branch --color=never | sed s/*//); do
     git checkout --quiet "$branch" || die;
-    echo -e "On branch $yellow$branch$normal"
+    # find the name of upstream branch
+    upstream=""
+    if rmte=$(git config --get branch.$branch.remote); then
+        mrge=$(git config --get branch.$branch.merge | \
+               sed 's|refs/heads/||')
+        upstream="$rmte/$mrge"
+    fi;
+    echo -e "On branch $yellow$branch$normal." \
+         "Upstream: $blue$upstream$normal"
+    #sleep 5
 
-    # Try to rebase against respective upstream branch
-    # (taken from config). If that fails, try to rebase
-    # against origin/master, because that's usually what
-    # you want anyway.
-    git rebase
-    if [ $? != 0 ]; then
-        echo -e "\nThis means$red a warning: upstream branch" \
-             "is not configured.$normal"
-        echo "Don't worry, that's not dangerous."
-        echo "Trying to rebase on origin/master..."
-       # sleep 7
-        git rebase origin/master || die;
-       # sleep 3
+    if [ "$upstream" != "" ]; then
+        # rebase/merge with upstream tracking branch
+        if [ "$rebase" == "yes" ]; then
+            git rebase
+        else
+            git merge --ff-only
+        fi
+    else
+        echo $branch does not track any upstream branch.
+            # User may force rebasing on some other branch
+            # (usually origin/master)
+        if [ "$forced_target" != "" ]; then
+            echo -e "$red""Warning:$normal"
+            echo "you forced rebasing on: $forced_target"
+            sleep 5
+            git rebase $forced_target || die;
+        fi
     fi
-    echo "";
+    echo ""
 done
 
 if [ "$delete_merged" == "yes" ]; then
