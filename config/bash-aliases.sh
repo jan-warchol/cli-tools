@@ -77,6 +77,8 @@ alias mb='$LILY_SCRIPTS/build-lily.sh -t 0 -b; alert'
 alias mn='$LILY_SCRIPTS/build-lily.sh -t 0   ; alert'
 alias ms='$LILY_SCRIPTS/build-lily.sh -t 0 -s; alert'
 
+alias lbuildtesting='$LILY_SCRIPTS/build-lily.sh -t 1 -c master -m "springs stroke cleaned-alignment add-dur-moll  thinner_skylines" -d testing'
+
 
 
 ############ BASH GIT ALIASES #############
