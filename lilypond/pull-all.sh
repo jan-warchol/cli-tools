@@ -68,7 +68,8 @@ git fetch || die "Problems with fetching."
 echo ""
 
 echo -e "$green""UPDATING YOUR BRANCHES$normal------------------";
-for branch in $(git branch --color=never | sed s/*//); do
+for branch in $(echo -e "master\n$(git branch --color=never | \
+                sed s/*// | sed 's/ master//')"); do
     git checkout --quiet "$branch" || die "Cannot checkout $branch.";
     # find the name of upstream branch
     upstream=""
