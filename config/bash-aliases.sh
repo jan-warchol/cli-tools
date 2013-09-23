@@ -59,7 +59,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 #### LILYPOND ALIASES:
 
-alias lpull='$LILY_SCRIPTS/pull-all.sh; alert'
+alias lpull='$LILY_SCRIPTS/pull-all.sh'
 alias fixcc='$LILYPOND_GIT/scripts/auxiliar/fixcc.py'
 alias flly='flip -ub *.ly; flip -ub *.ily'
 
