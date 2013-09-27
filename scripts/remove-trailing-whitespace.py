@@ -3,6 +3,7 @@
 # This script removes trailing whitespace from files.
 # It doesn't remove trailing newlines; in fact, it makes
 # sure that at least one trailing newline is present.
+# Also, it converts files to Unix line endings (LF).
 
 import os, sys
 
