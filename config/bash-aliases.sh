@@ -128,7 +128,9 @@ alias gdom,='git diff origin/master | less -R -S'
 
    alias gf='git fetch'
   alias gfa='git fetch --all'
+ alias gfap='git fetch --all --prune'
   alias gfo='git fetch origin'
+ alias gfop='git fetch origin --prune'
 
    alias gl='git log'
   alias gl,='git log | less -R -S'
