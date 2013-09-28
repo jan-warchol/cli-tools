@@ -478,6 +478,7 @@ echo -e "Attempting to build lilypond: \n"
 git log $nocolors -n 1 | cat
 echo ""
 echo -e "inside directory \n  $dircolor$build$normal"
+echo -e "using source from \n  $dircolor$main_repository$normal"
 echo -e "in $timeout seconds (press Ctrl-C to abort," \
         "Enter to skip delay)\n"
 read -t $timeout dummy
