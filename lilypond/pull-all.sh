@@ -4,6 +4,9 @@
 # if any argument is specified, it will also delete merged branches
 # (i.e. branches that were already pushed upstream or merged with master).
 
+# TODO: do all merging and rebasing without checking branches out
+# (should be faster). Check if this won't cause problems when conflicts appear.
+
 while getopts "df:rw" opts; do
     case $opts in
     d)
