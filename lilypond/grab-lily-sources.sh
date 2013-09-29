@@ -14,6 +14,10 @@
 # The script was written for Debian-based Linux distributions
 # using apt package manager (for example Ubuntu).
 
+# TODO:
+# add 'lily' alias/function? Or something else to make running easy
+# install build-lily or add scripts to PATH?
+
 
 #########################################################
 # helper functions:
