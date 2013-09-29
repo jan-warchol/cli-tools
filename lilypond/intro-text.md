@@ -1,27 +1,32 @@
-# Introduction to LilyPond Cli-Tools
-The LilyPond Cli-Tools do the life easier for you if you want to be updated with the latest in LilyPond development. The following is a short introduction for new and non-advanced users. It covers some kind of likely evolution for a LilyPond user who wants to get more involved in the program's development. If you like a more comprehensive account of the possibilities please see the help-files. 
-## Requirements
-OS: [?]
+Introduction to LilyPond Cli-Tools
+==================================
 
-Programs: git
+The LilyPond Cli-Tools make life easier for you if you want to be updated with the latest in LilyPond development. The following is a short introduction for new and non-advanced users. It covers some kind of likely evolution for a LilyPond user who wants to get more involved in the program's development. If you like a more comprehensive account of the possibilities please see the help-files. 
+
+Requirements
+------------
+
+Operating system:
+Debian-based GNU/Linux (for example Ubuntu, Linux Mint, Debian).
+If you're using Windows or Mac you may consider installing Linux in a Virtual Machine.
+
+Programs: everything should install itself, you just need bash shell to run the scripts (should be installed on your system).
 
 Personal: Ability to run commands from terminal. If you aren't familiar with this please see a tutorial on this.
 
 Other: [?]
 
-## First build 
-You read about a great new improvement in the development version of LilyPond and can't wait for this to reach a stable version. Or you have some other good reason for not wanting to work (only) with the stable version. LilyPond is open-source so you have the possibility to download the code and compile it yourself to get the latest version. When doing this the Cli-Tools can be a great help.
+First build
+-----------
 
-[download of Cli-Tools assumed] 
-The first thing you want to do is to download the source files. The command for this is:
+You read about a great new improvement in LilyPond that is currently in development, but it wasn't included in any release yet?  Or maybe you often use more than one LilyPond version at the same time?  Since LilyPond is open-source you have the possibility to download the code and compile it yourself to get whatever version you want. When doing this these scripts can be a great help.
 
-	grab-lily-sources.sh
+The first thing you want to do is to download the source files and other stuff.
+To do this, download `grab-lily-sources.sh` script from [here]
+(http://github.com/janek-warchol/cli-tools/blob/master/lilypond/grab-lily-sources.sh)
+and run it.
 
-Note: If you already downloaded the source files but got stuck in the compilation process you should [??]
-
-Next you want to compile the current version. You then use this command:
-
-	build-lily.sh
+Next you want to compile the current version. All you have to do is to run the script `build-lily.sh` that was downloaded in previous step.
 
 After a while you hopefully get the message that the program was successfully built. You now have the latest version on your computer.
 
@@ -95,14 +100,3 @@ and the changes will be made in the current build. But let's say you want to hav
 If the building process at some point doesn't work out you could try to use the -s option. It means to build from scratch, i.e. delete previous build results from target directory before compiling again:
 
 	build-lily.sh -s
-
-
-
-
-
-
-
-
-
-
-
