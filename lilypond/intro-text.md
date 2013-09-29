@@ -63,7 +63,7 @@ and
 
 	/lilypond-builds/branchX/out/bin/lilypond 
 
-respectively.
+respectively. (We recommend using the Frescobaldi editor for easy handling of multiple builds.)
 
 But let's say you don't want to complicate things with two development versions. You like branchX and you want to follow this for a while, later perhaps you want to go back to the main branch. Then you can build it with this command instead:
 
