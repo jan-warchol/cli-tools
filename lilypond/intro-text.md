@@ -2,9 +2,13 @@
 The LilyPond Cli-Tools do the life easier for you if you want to be updated with the latest in LilyPond development. The following is a short introduction for new and non-advanced users. It covers some kind of likely evolution for a LilyPond user who wants to get more involved in the program's development. If you like a more comprehensive account of the possibilities please see the help-files. 
 ## Requirements
 OS: [?]
+
 Programs: git
+
 Personal: Ability to run commands from terminal. If you aren't familiar with this please see a tutorial on this.
+
 Other: [?]
+
 ## First build 
 You read about a great new improvement in the development version of LilyPond and can't wait for this to reach a stable version. Or you have some other good reason for not wanting to work (only) with the stable version. LilyPond is open-source so you have the possibility to download the code and compile it yourself to get the latest version. When doing this the Cli-Tools can be a great help.
 
