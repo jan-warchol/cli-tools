@@ -125,9 +125,6 @@ fi
 # only inform about stashing changes when building in LILYPOND_GIT
 # abort when given invalid options
 # rewrite in python? :)
-# when merging additional branches, rebase these commits onto built
-# commit (so that the merge doesn't introduce later, unwanted commits)
-# use octopus merge?
 
 while getopts "bc:d:f:hj:lm:o:rst:w" opts; do
     case $opts in
@@ -498,19 +495,61 @@ else
     die "Cannot checkout desired commit."
 fi
 
+base=$(git rev-parse commit_to_build)
 for branch in $(git tag | grep to_be_merged/); do
     echo -e "\nMerging branch" \
          \'$blue$(echo $branch | sed 's/to_be_merged\///')$normal\' \
-         into HEAD...
+         into $whichcommit:
+
+    # We first rebase, because we don't want to introduce unwanted
+    # commits to the build. For example, if the history is like this:
+    #
+    #           X
+    #          /
+    # A---B---C---D
+    #
+    # and we want to compile commit A with X added, but we don't
+    # want B and C, we need to do a 'git rebase --onto A C X'
+    # to get this:
+    #
+    #   X'
+    #  /
+    # A---B---C---D
+    #
+    # so that we can merge X' into A and don't get B and C.
+
+    echo "Removing unwanted commits from the branch..."
+    git rebase --onto $base $(git merge-base origin/master $branch) $branch || \
+    {
+        echo -e "$bold""Aborting the rebase.$normal\n"
+        echo -e "Failed to remove unwanted commits from branch" \
+                "$(echo $branch | sed 's/to_be_merged\///')"
+        echo "The build may succeed nevertheless, but you'll have some"
+        echo "stuff that you probably didn't want to have. For example,"
+        echo "if you tried to merge a new experimental feature with"
+        echo "an old release, you may get a bunch of changes from the"
+        echo "newer releases as well."
+        echo ""
+        echo -e "$bold""Trying to continue the merge...$normal\n"
+        git rebase --abort
+    }
+    git tag -f $branch
+
+    git checkout --quiet commit_to_build
     git merge --commit --no-edit $branch || \
     {
         echo -e "$bold\nDetails of the failed merge:$normal\n"
         git status;
         echo -e "Aborting the merge."
         git merge --abort
-        die
+        die "Failed to merge $(echo $branch | sed 's/to_be_merged\///')"
     }
+    git tag -f commit_to_build &>/dev/null
+    merged="$merged$(echo " $branch," | sed 's/to_be_merged\///')"
 done
+merge_message="Merge$merged into $whichcommit"
+git commit --amend --message="$merge_message"
+git tag -f commit_to_build &>/dev/null
 
 
 
