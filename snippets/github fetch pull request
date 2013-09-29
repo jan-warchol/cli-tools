@@ -1,0 +1,2 @@
+# add an entry like this in .git/config (section [remote "foo"])
+fetch = +refs/pull/*/head:refs/remotes/foo/pr/*
