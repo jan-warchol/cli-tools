@@ -129,6 +129,7 @@ fi
 # when there are problems with creating a tag.
 # when merging additional branches, rebase these commits onto built
 # commit (so that the merge doesn't introduce later, unwanted commits)
+# use octopus merge?
 
 while getopts "bc:d:f:hj:lm:o:rst:w" opts; do
     case $opts in
