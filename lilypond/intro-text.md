@@ -10,11 +10,10 @@ Operating system:
 Debian-based GNU/Linux (for example Ubuntu, Linux Mint, Debian).
 If you're using Windows or Mac you may consider installing Linux in a Virtual Machine.
 
-Programs: everything should install itself, you just need bash shell to run the scripts (should be installed on your system).
+Programs: Everything should install itself, you just need bash shell to run the scripts (should be installed on your system).
 
 Personal: Ability to run commands from terminal. If you aren't familiar with this please see a tutorial on this.
 
-Other: [?]
 
 First build
 -----------
@@ -40,7 +39,7 @@ If you like to install it you should do:
 
 	(sudo) make install
 
-from /lilypond-builds/current/ [??]
+from /lilypond-builds/current/ 
 
 Warning, if you already have a previous version of Lilypond that will now be uninstalled. Maybe a preferable solution would be to have the latest stable version installed and work with development versions from respective out/bin as described. 
 
