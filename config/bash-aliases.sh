@@ -84,7 +84,10 @@ alias lbuildtesting='$LILY_SCRIPTS/build-lily.sh -t 1 -c master -m "springs stro
 ############ BASH GIT ALIASES #############
 # bash aliases for more efficient git use:
 
-    alias g='git'
+alias g='git'
+# make git autocompletion work with the above alias:
+# source: http://nuclearsquid.com/writings/git-new-workdir/
+complete -o default -o nospace -F _git g
 
    alias ga='git add'
   alias gaa='git add --all' #including untracked files
