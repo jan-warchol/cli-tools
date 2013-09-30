@@ -1,7 +1,7 @@
 Introduction to LilyPond Cli-Tools
 ==================================
 
-The LilyPond Cli-Tools make life easier for you if you want to be updated with the latest in LilyPond development. The following is a short introduction for new and non-advanced users. It covers some kind of likely evolution for a LilyPond user who wants to get more involved in the program's development. If you like a more comprehensive account of the possibilities please see the help-files. 
+The LilyPond Cli-Tools makes life easier for you if you want to be updated with the latest in LilyPond development. The following is a short introduction for new and non-advanced users. It covers some kind of likely evolution for a LilyPond user who wants to get more involved in the program's development. If you like a more comprehensive account of the possibilities please see the help-files. 
 
 Requirements
 ------------
