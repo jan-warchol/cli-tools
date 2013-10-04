@@ -10,6 +10,7 @@ alias m='man'
 alias o="gnome-open "
 alias s="$MY_SCRIPTS/"
 alias d='cd $MY_OWN_DATA'
+alias r='cd $MY_REPOSITORIES'
 alias np='nautilus "$(pwd)"'
 alias mko='make $MAKE_OPTIONS'
 alias sai='sudo apt-get install'
