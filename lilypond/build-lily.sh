@@ -130,6 +130,7 @@ fi
 # when merging additional branches, rebase these commits onto built
 # commit (so that the merge doesn't introduce later, unwanted commits)
 # use octopus merge?
+# list untracked files
 
 while getopts "bc:d:f:hj:lm:o:rst:w" opts; do
     case $opts in

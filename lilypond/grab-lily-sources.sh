@@ -17,6 +17,11 @@
 # TODO:
 # add 'lily' alias/function? Or something else to make running easy
 # install build-lily or add scripts to PATH?
+# don't use sudo inside the script.  Instead, require that the script
+# is ran with sudo.
+# add options: default yes, and quiet apt-get?
+# and building default lilypond.
+# abstract installing git away
 
 
 #########################################################
