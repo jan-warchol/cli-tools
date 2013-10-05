@@ -97,13 +97,19 @@ if [ ! -d "$LILYPOND_GIT/.git" ]; then
     || die "Failed to clone LilyPond"
 fi
 
-# set environment variables used by other scripts
-echo "export LILYPOND_GIT=$LILYPOND_GIT" | tee -a $HOME/.bashrc
-echo "export LILYPOND_BUILD_DIR=$location/lilypond-builds" | tee -a $HOME/.bashrc
-
 # also, clone a repository with helpful scripts written by Janek:
 git clone http://github.com/janek-warchol/cli-tools.git $JANEK_SCRIPTS \
 || die "Failed to clone Janek's scripts"
+
+lilypond_bash_settings="
+# environment variables and aliases for LilyPond work:
+export LILYPOND_GIT=$LILYPOND_GIT
+export LILYPOND_BUILD_DIR=$LILYPOND_BUILD_DIR
+"
+# add the above settings to bash initialization file
+echo -en "$lilypond_bash_settings" | tee -a ~/.bashrc
+# use them in this script, so that calling build-lily will work:
+eval "$lilypond_bash_settings"
 
 echo " "
 echo "The script was successful. Now you have LilyPond source code in"
