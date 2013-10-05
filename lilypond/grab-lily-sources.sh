@@ -6,13 +6,13 @@
 # - download required libraries
 # - clone lilypond sources
 # - clone scripts by Janek that make building easier
-# - set environment variables used by these script.
+# - set environment variables used by various lilypond scripts.
 #
 # You will be asked where the lilypond sources and Janek's
 # scripts should be placed.
 #
 # The script was written for Debian-based Linux distributions
-# using apt package manager (for example Ubuntu).
+# that use apt package manager (for example Ubuntu).
 
 # TODO:
 # add 'lily' alias/function? Or something else to make running easy
@@ -45,7 +45,11 @@ install_git() {
 
 ##########################################################
 
+# Where all lilypond stuff should be placed?
 if [ -n "$LILYPOND_GIT" ]; then
+    echo "It seems that you already have some LilyPond"
+    echo "configuration: your \$LILYPOND_GIT points to"
+    echo -e "  $LILYPOND_GIT\n"
     location="$LILYPOND_GIT/.."
 else
     echo "Where would you like LilyPond stuff to be placed?"
@@ -55,29 +59,31 @@ else
     read location
     location=$HOME/$location
     LILYPOND_GIT="$location/lilypond-sources"
-    LILYPOND_BUILD_DIR="$location/lilypond-builds"
-    JANEK_SCRIPTS="$location/janek-scripts"
 fi
+if [ -z "$LILYPOND_BUILD_DIR" ]; then
+    LILYPOND_BUILD_DIR="$location/lilypond-builds"
+fi
+JANEK_SCRIPTS="$location/janek-scripts"
 
 echo "I will download LilyPond sources and other stuff into"
-echo -e "$location \n"
+echo -e "  $location \n"
 sleep 5
 mkdir -p $location
 
-
+# make sure a recent enough version of git is installed
 which git &>/dev/null
-# if there's no git on the system, install it
 if [ $? != 0 ]; then
-    echo "You don't seem to have git installed - downloading..."
+    echo "Git isn't installed on your computer. Installing now..."
     install_git
-else # is installed git version recent enough?
+else
+    # is installed git version recent enough?
     git_required="1.8"
-    # remove everything after last dot - its build number, not interesting
+    # there's a build number after the last dot.
     git_installed=$(git --version | sed 's/git\ version\ //' | sed 's/.[^.]*$//')
     check_version $git_installed $git_required
     if [ $? = 1 ]; then
-        echo "It seems that you have an old version of git installed"
-        echo "(you have $git_installed, required version is $git_required)."
+        echo "You have git version $git_installed."
+        echo "Required version is $git_required."
         echo "Installing newer git version..."
         install_git
     fi
@@ -114,9 +120,9 @@ eval "$lilypond_bash_settings"
 
 echo " "
 echo "The script was successful. Now you have LilyPond source code in"
-echo "$LILYPOND_GIT"
+echo "  $LILYPOND_GIT"
 echo "and some scripts and other stuff written by Janek Warchoł in"
-echo "$JANEK_SCRIPTS."
+echo "  $JANEK_SCRIPTS."
 echo "To complete the \"installation\", please restart your terminal"
 echo "(some settings need to be reloaded)."
 echo " "
