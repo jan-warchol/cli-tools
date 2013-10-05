@@ -50,6 +50,8 @@ else
     read location
     location=$HOME/$location
     LILYPOND_GIT="$location/lilypond-sources"
+    LILYPOND_BUILD_DIR="$location/lilypond-builds"
+    JANEK_SCRIPTS="$location/janek-scripts"
 fi
 
 echo "I will download LilyPond sources and other stuff into"
@@ -100,21 +102,21 @@ echo "export LILYPOND_GIT=$LILYPOND_GIT" | tee -a $HOME/.bashrc
 echo "export LILYPOND_BUILD_DIR=$location/lilypond-builds" | tee -a $HOME/.bashrc
 
 # also, clone a repository with helpful scripts written by Janek:
-git clone http://github.com/janek-warchol/cli-tools.git $location/janek-scripts \
+git clone http://github.com/janek-warchol/cli-tools.git $JANEK_SCRIPTS \
 || die "Failed to clone Janek's scripts"
 
 echo " "
 echo "The script was successful. Now you have LilyPond source code in"
 echo "$LILYPOND_GIT"
 echo "and some scripts and other stuff written by Janek Warchoł in"
-echo "$location/janek-scripts/."
+echo "$JANEK_SCRIPTS."
 echo "To complete the \"installation\", please restart your terminal"
 echo "(some settings need to be reloaded)."
 echo " "
 echo "After that, you will probably want to compile LilyPond."
 echo "This can be easily done using build-lily.sh script written"
 echo "by Janek, which can be found in"
-echo "$location/janek-scripts/lilypond/"
+echo "$JANEK_SCRIPTS/lilypond/"
 echo "Run"
-echo "$location/janek-scripts/lilypond/build-lily.sh --help"
+echo "$JANEK_SCRIPTS/lilypond/build-lily.sh --help"
 echo "to see how the script works."
