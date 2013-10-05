@@ -50,7 +50,7 @@ if [ -n "$LILYPOND_GIT" ]; then
     echo "configuration: your \$LILYPOND_GIT points to"
     echo -e "  $LILYPOND_GIT\n"
     sleep 3
-    location="$LILYPOND_GIT/.."
+    location="$(readlink -m $LILYPOND_GIT/..)"
 else
     echo "Where would you like LilyPond stuff to be placed?"
     echo "Please specify a path relative to your home directory."
