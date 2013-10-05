@@ -18,9 +18,16 @@
 # document 'lily' bash function
 # don't use sudo inside the script.  Instead, require that the script
 # is ran with sudo.
-# add options: default yes, and quiet apt-get?
-# and building default lilypond.
+# add smart countdown
 
+while getopts "by" opts; do
+    case $opts in
+    b)
+        default_compilation="master";;
+    y)
+        yes="--yes";; # assume 'yes' to questions
+    esac
+done
 
 #########################################################
 # helper functions:
@@ -37,9 +44,9 @@ check_version() {
 }
 
 install_git() {
-    sudo add-apt-repository ppa:git-core/ppa
-    sudo apt-get update
-    sudo apt-get install git
+    sudo add-apt-repository $yes ppa:git-core/ppa
+    sudo apt-get $yes update
+    sudo apt-get $yes install git
 }
 
 ##########################################################
@@ -90,11 +97,11 @@ else
 fi
 
 # get packages needed for compiling lilypond
-sudo apt-get build-dep lilypond \
+sudo apt-get $yes build-dep lilypond \
 || die "Failed to install build dependencies for LilyPond"
-sudo apt-get install autoconf || die "Failed to install autoconf"
-sudo apt-get install dblatex || die "Failed to install dblatex"
-sudo apt-get install texlive-lang-cyrillic \
+sudo apt-get $yes install autoconf || die "Failed to install autoconf"
+sudo apt-get $yes install dblatex || die "Failed to install dblatex"
+sudo apt-get $yes install texlive-lang-cyrillic \
 || die "Failed to install texlive-lang-cyrillic"
 
 # clone lilypond sources
@@ -149,3 +156,10 @@ to learn how to use it. For a more detailed introduction, see
   $JANEK_SCRIPTS/lilypond/intro-text.md
 ===============================================================
 "
+
+# the script was run with -b option: build lilypond right away
+if [ -n "$default_compilation" ]; then
+    sleep 5
+    echo "Building LilyPond..."
+    $JANEK_SCRIPTS/lilypond/build-lily.sh -c "$default_compilation"
+fi
