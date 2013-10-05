@@ -49,6 +49,7 @@ if [ -n "$LILYPOND_GIT" ]; then
     echo "It seems that you already have some LilyPond"
     echo "configuration: your \$LILYPOND_GIT points to"
     echo -e "  $LILYPOND_GIT\n"
+    sleep 3
     location="$LILYPOND_GIT/.."
 else
     echo "Where would you like LilyPond stuff to be placed?"
@@ -104,8 +105,10 @@ if [ ! -d "$LILYPOND_GIT/.git" ]; then
 fi
 
 # also, clone a repository with helpful scripts written by Janek:
-git clone http://github.com/janek-warchol/cli-tools.git $JANEK_SCRIPTS \
-|| die "Failed to clone Janek's scripts"
+if [ ! -d "$JANEK_SCRIPTS/.git" ]; then
+    git clone http://github.com/janek-warchol/cli-tools.git $JANEK_SCRIPTS \
+    || die "Failed to clone Janek's scripts"
+fi
 
 lilypond_bash_settings="
 # environment variables and aliases for LilyPond work:
@@ -115,6 +118,12 @@ export LILYPOND_BUILD_DIR=$LILYPOND_BUILD_DIR
 alias build-lilypond=$JANEK_SCRIPTS/lilypond/build-lily.sh
 
 lily() {
+    # A shorthand for running custom-built LilyPond versions
+    # from command line. Usage example:
+    #   lily master somefile
+    # this will compile 'somefile' using LilyPond from 'master'
+    # subdirectory of \$LILYPOND_BUILD_DIR (assuming it exists).
+
     lily_version=\"\$1\"
     shift
     \"\$LILYPOND_BUILD_DIR/\$lily_version/out/bin/lilypond\" \"\$@\"
@@ -125,15 +134,18 @@ echo -en "$lilypond_bash_settings" | tee -a ~/.bashrc
 # use them in this script, so that calling build-lily will work:
 eval "$lilypond_bash_settings"
 
-echo " "
-echo "The script was successful. Now you have LilyPond source code in"
-echo "  $LILYPOND_GIT"
-echo "and some scripts and other stuff written by Janek Warchoł in"
-echo "  $JANEK_SCRIPTS."
-echo "To complete the \"installation\", please restart your terminal"
-echo "(some settings need to be reloaded)."
-echo " "
-echo "After that, use 'build-lilypond' command to compile lilypond. Run"
-echo "  build-lilypond --help"
-echo "to learn how to use it. For a more detailed introduction, see"
-echo "  $JANEK_SCRIPTS/lilypond/intro-text.md"
+echo -en "
+===============================================================
+The script was successful. Now you have LilyPond source code in
+  $LILYPOND_GIT
+and some scripts and other stuff written by Janek Warchoł in
+  $JANEK_SCRIPTS.
+To complete the \"installation\", please restart your terminal
+(some settings need to be reloaded).
+
+After that, use 'build-lilypond' command to compile lilypond. Run
+  build-lilypond --help
+to learn how to use it. For a more detailed introduction, see
+  $JANEK_SCRIPTS/lilypond/intro-text.md
+===============================================================
+"
