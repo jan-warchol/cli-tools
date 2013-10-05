@@ -15,8 +15,7 @@
 # that use apt package manager (for example Ubuntu).
 
 # TODO:
-# add 'lily' alias/function? Or something else to make running easy
-# install build-lily or add scripts to PATH?
+# document 'lily' bash function
 # don't use sudo inside the script.  Instead, require that the script
 # is ran with sudo.
 # add options: default yes, and quiet apt-get?
@@ -112,6 +111,14 @@ lilypond_bash_settings="
 # environment variables and aliases for LilyPond work:
 export LILYPOND_GIT=$LILYPOND_GIT
 export LILYPOND_BUILD_DIR=$LILYPOND_BUILD_DIR
+
+alias build-lilypond=$JANEK_SCRIPTS/lilypond/build-lily.sh
+
+lily() {
+    lily_version=\"\$1\"
+    shift
+    \"\$LILYPOND_BUILD_DIR/\$lily_version/out/bin/lilypond\" \"\$@\"
+}
 "
 # add the above settings to bash initialization file
 echo -en "$lilypond_bash_settings" | tee -a ~/.bashrc
@@ -126,10 +133,7 @@ echo "  $JANEK_SCRIPTS."
 echo "To complete the \"installation\", please restart your terminal"
 echo "(some settings need to be reloaded)."
 echo " "
-echo "After that, you will probably want to compile LilyPond."
-echo "This can be easily done using build-lily.sh script written"
-echo "by Janek, which can be found in"
-echo "$JANEK_SCRIPTS/lilypond/"
-echo "Run"
-echo "$JANEK_SCRIPTS/lilypond/build-lily.sh --help"
-echo "to see how the script works."
+echo "After that, use 'build-lilypond' command to compile lilypond. Run"
+echo "  build-lilypond --help"
+echo "to learn how to use it. For a more detailed introduction, see"
+echo "  $JANEK_SCRIPTS/lilypond/intro-text.md"
