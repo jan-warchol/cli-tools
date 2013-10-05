@@ -21,7 +21,6 @@
 # is ran with sudo.
 # add options: default yes, and quiet apt-get?
 # and building default lilypond.
-# abstract installing git away
 
 
 #########################################################
@@ -32,10 +31,16 @@ die() { # in case of error
     exit 1
 }
 
-checkversion() {
+check_version() {
     # returns 0 (i.e. success) if the first argument is greater
     # or equal to the second (interpreted as version numbers)
     [  "$2" = "$(echo -e "$2\n$1" | sort -V | head -n1)" ]
+}
+
+install_git() {
+    sudo add-apt-repository ppa:git-core/ppa
+    sudo apt-get update
+    sudo apt-get install git
 }
 
 ##########################################################
@@ -64,21 +69,17 @@ which git &>/dev/null
 # if there's no git on the system, install it
 if [ $? != 0 ]; then
     echo "You don't seem to have git installed - downloading..."
-    sudo add-apt-repository ppa:git-core/ppa
-    sudo apt-get update
-    sudo apt-get install git
+    install_git
 else # is installed git version recent enough?
     git_required="1.8"
     # remove everything after last dot - its build number, not interesting
     git_installed=$(git --version | sed 's/git\ version\ //' | sed 's/.[^.]*$//')
-    checkversion $git_installed $git_required
+    check_version $git_installed $git_required
     if [ $? = 1 ]; then
         echo "It seems that you have an old version of git installed"
         echo "(you have $git_installed, required version is $git_required)."
         echo "Installing newer git version..."
-        sudo add-apt-repository ppa:git-core/ppa
-        sudo apt-get update
-        sudo apt-get install git
+        install_git
     fi
 fi
 
