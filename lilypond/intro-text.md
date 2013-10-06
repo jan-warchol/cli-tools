@@ -97,16 +97,16 @@ installed Lilypond version.  Running new versions using `lily` function
 or with Frescobaldi should be enough for your needs.
 
 
-Get a new version
------------------
+Updating your LilyPond
+----------------------
 
-Time flies and soon your build isn't so current anymore. You need
-again to download the latest changes. But you shouldn't start
-over the process from above. Instead you run this script:
+Time flies and soon your build isn't so recent anymore. You need
+to download the latest changes, but you don't have to repeat the
+whole process - just run this:
 
-    janek-scripts/lilypond/pull-all.sh
+    update-lilypond-sources
 
-Your files are updated and you can again run:
+Your source files will be updated and you can again run:
 
     build-lilypond
 
