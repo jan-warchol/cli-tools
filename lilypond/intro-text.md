@@ -19,7 +19,7 @@ Requirements
 ------------
 
 **Operating system**:
-Ubuntu-based GNU/Linux (it's easy to make the scripts work on Debian).
+Ubuntu-based GNU/Linux (it's easy to make the scripts work on Debian, too).
 If you're using Windows or Mac you may consider installing Linux
 in a [_virtual machine_](http://en.wikipedia.org/wiki/Virtual_machine),
 as demonstrated in LilyPond's [Contributor's Guide]
