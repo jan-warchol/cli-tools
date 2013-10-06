@@ -131,6 +131,8 @@ fi
 # commit (so that the merge doesn't introduce later, unwanted commits)
 # use octopus merge?
 # list untracked files
+#
+# when merging/rebasing fails, print some more information (conflicting files)
 
 while getopts "bc:d:f:hj:lm:o:rst:w" opts; do
     case $opts in
