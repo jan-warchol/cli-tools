@@ -133,6 +133,7 @@ fi
 # list untracked files
 #
 # when merging/rebasing fails, print some more information (conflicting files)
+# when looking for branches, automatically check origin/foo if foo was not found.
 
 while getopts "bc:d:f:hj:lm:o:rst:w" opts; do
     case $opts in
