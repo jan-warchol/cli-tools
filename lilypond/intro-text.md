@@ -97,40 +97,45 @@ installed Lilypond version.  Running new versions using `lily` function
 or with Frescobaldi should be enough for your needs.
 
 
-## Get a new version
+Get a new version
+-----------------
+
 Time flies and soon your build isn't so current anymore. You need
 again to download the latest changes. But you shouldn't start
-over the process from above. Instead you run this command:
+over the process from above. Instead you run this script:
 
-    pull-all.sh
+    janek-scripts/lilypond/pull-all.sh
 
 Your files are updated and you can again run:
 
-    build-lily.sh
+    build-lilypond
 
 If you like the current version installed you also have to
 re-install.
 
-## Get a specific branch
+
+Get a specific branch
+---------------------
+
 You read about a special branch in the development and want to
 try this out instead or as a complement to current version which
 you have. This branch can't be reached with the method described
 above, but there are ways to get there. What you need to find out
 is the commit ID, branch name or a tag name of the particular
 development you want to investigate or use. Lets say that what
-you want is called *branchX, then you use this command:
+you want is called `branchX`, then you use this command:
 
-    build-lily.sh -c branchX
+    build-lilypond -c branchX
 
 You can now see that /lilypond-builds/ except from current also
 have the directory branchX. To use both these versions in
 parallel you could run:
 
-    /lilypond-builds/current/out/bin/lilypond
+    lilypond-builds/current/out/bin/lilypond
 
 and
 
-    /lilypond-builds/branchX/out/bin/lilypond
+    lilypond-builds/branchX/out/bin/lilypond
 
 respectively (we recommend using the Frescobaldi editor for easy
 handling of multiple builds).
@@ -145,14 +150,17 @@ branch. Then you can build it with this command instead:
 This way branchX version will be compiled in place of previous
 build.
 
-## Get into the source
+
+Get into the source
+-------------------
+
 You read about a novelty in the LilyPond development but it's not
 (yet) in the main branch, some subsidiary branch or even
 committed. You only got the changed files or a patch with the
 differences. We now need to turn our attention from the build
 folder to the directory called
 
-    /lilypond-sources
+    lilypond-sources
 
 If you have the changed files. Look for them in this folder and
 replace them.
@@ -171,21 +179,24 @@ Hopefully you get it right.
 We are now ready to build the source with the changes you just
 made to the source files. You could run
 
-    build-lily.sh
+    build-lilypond
 
 and the changes will be made in the current build. But let's say
 you want to have them in a different build this time. You could
-again use the -d option:
+again use the `-d` option:
 
-    build-lily.sh -d patchX
+    build-lilypond -d patchX
 
-## Basic Troubleshooting
+
+Basic Troubleshooting
+---------------------
+
 If the building process at some point doesn't work out you could
-try to use the -s option. It means to build from scratch, i.e.
+try to use the `-s` option. It means to build from scratch, i.e.
 delete previous build results from target directory before
 compiling again:
 
-    build-lily.sh -s
+    build-lilypond -s
 
 
 Asking for help
