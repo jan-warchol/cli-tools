@@ -25,6 +25,8 @@ while getopts "by" opts; do
         default_compilation="master";;
     y)
         yes="--yes";; # assume 'yes' to questions
+    w)
+        nocolors="--color=never";;
     esac
 done
 
@@ -44,8 +46,8 @@ check_version() {
 
 countdown() {
     for i in {1..5}; do
-        echo -n .
         sleep $(echo $1 / 5 | bc -l)
+        echo -n .
     done
     echo ""
 }
@@ -55,6 +57,19 @@ install_git() {
     sudo apt-get $yes update
     sudo apt-get $yes install git
 }
+
+if [ -z $nocolors ]; then
+    normal="\e[00m"
+    red="\e[00;31m"
+    green="\e[00;32m"
+    yellow="\e[00;33m"
+    blue="\e[00;34m"
+    violet="\e[00;35m"
+    cyan="\e[00;36m"
+    gray="\e[00;37m"
+    bold="$(tput bold)"
+    dircolor=$violet
+fi
 
 ##########################################################
 
@@ -80,7 +95,7 @@ fi
 JANEK_SCRIPTS="$location/janek-scripts"
 
 echo "I will download LilyPond sources and other stuff into"
-echo -en "  $location "
+echo -en "$dircolor  $location $normal"
 countdown 5
 mkdir -p $location
 
@@ -150,23 +165,24 @@ eval "$lilypond_bash_settings"
 
 echo -en "
 ===============================================================
-The script was successful. Now you have LilyPond source code in
-  $LILYPOND_GIT
+The script was successful. You have LilyPond source code in
+$dircolor  $LILYPOND_GIT$normal
 and some scripts and other stuff written by Janek Warchoł in
   $JANEK_SCRIPTS.
-To complete the \"installation\", please restart your terminal
-(some settings need to be reloaded).
+To complete the \"installation\",$bold please restart your terminal
+$normal(some settings need to be reloaded).
 
 After that, use 'build-lilypond' command to compile lilypond. Run
   build-lilypond --help
 to learn how to use it. For a more detailed introduction, see
   $JANEK_SCRIPTS/lilypond/intro-text.md
-===============================================================
 "
 
 # the script was run with -b option: build lilypond right away
 if [ -n "$default_compilation" ]; then
-    sleep 5
-    echo "Building LilyPond..."
+    echo -en "\nbuild-lilypond will be ran in 15 seconds "
+    countdown 15
     $JANEK_SCRIPTS/lilypond/build-lily.sh -c "$default_compilation"
+else
+    echo "==============================================================="
 fi
