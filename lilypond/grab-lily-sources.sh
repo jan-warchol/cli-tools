@@ -11,13 +11,18 @@
 # You will be asked where the lilypond sources and Janek's
 # scripts should be placed.
 #
-# The script was written for Debian-based Linux distributions
-# that use apt package manager (for example Ubuntu).
+# With -y option, the script will assume that your answer
+# to all questions is 'yes'.
+# With -b option, lilypond will be built immediately after
+# the script finishes.
+#
+# This script was written for Ubuntu and Ubuntu-based Linux
+# distributions. It should work on other distributions that
+# use apt package manager (for example Debian), but you may
+# have to change 'sudo' to 'su', for example.
 
 # TODO:
-# document 'lily' bash function
-# don't use sudo inside the script.  Instead, require that the script
-# is ran with sudo.
+# document 'lily' bash function in 'intro-text.md'
 
 while getopts "by" opts; do
     case $opts in
