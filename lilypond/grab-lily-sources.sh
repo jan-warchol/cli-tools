@@ -18,7 +18,6 @@
 # document 'lily' bash function
 # don't use sudo inside the script.  Instead, require that the script
 # is ran with sudo.
-# add smart countdown
 
 while getopts "by" opts; do
     case $opts in
@@ -43,6 +42,14 @@ check_version() {
     [  "$2" = "$(echo -e "$2\n$1" | sort -V | head -n1)" ]
 }
 
+countdown() {
+    for i in {1..5}; do
+        echo -n .
+        sleep $(echo $1 / 5 | bc -l)
+    done
+    echo ""
+}
+
 install_git() {
     sudo add-apt-repository $yes ppa:git-core/ppa
     sudo apt-get $yes update
@@ -56,7 +63,7 @@ if [ -n "$LILYPOND_GIT" ]; then
     echo "It seems that you already have some LilyPond"
     echo "configuration: your \$LILYPOND_GIT points to"
     echo -e "  $LILYPOND_GIT\n"
-    sleep 3
+    sleep 1
     location="$(readlink -m $LILYPOND_GIT/..)"
 else
     echo "Where would you like LilyPond stuff to be placed?"
@@ -73,8 +80,8 @@ fi
 JANEK_SCRIPTS="$location/janek-scripts"
 
 echo "I will download LilyPond sources and other stuff into"
-echo -e "  $location \n"
-sleep 5
+echo -en "  $location "
+countdown 5
 mkdir -p $location
 
 # make sure a recent enough version of git is installed
