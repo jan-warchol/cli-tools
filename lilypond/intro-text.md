@@ -114,28 +114,32 @@ If you like the current version installed you also have to
 re-install.
 
 
-Get a specific branch
----------------------
+Build a specific branch
+-----------------------
 
-You read about a special branch in the development and want to
-try this out instead or as a complement to current version which
-you have. This branch can't be reached with the method described
-above, but there are ways to get there. What you need to find out
-is the commit ID, branch name or a tag name of the particular
-development you want to investigate or use. Lets say that what
-you want is called `branchX`, then you use this command:
+You read about a new feature, bugfix or other change that is currently
+under development, but it hadn't been approved and added to the official
+sources yet (it hadn't been "merged to `master`").  You'd like to try it.
 
-    build-lilypond -c branchX
+To do this, you need to know the name of the branch to which this change
+was uploaded (you may have to ask the author of the change to push his
+changes to a branch on the official source code repository). The name
+is usually `origin/dev/something`.
 
-You can now see that /lilypond-builds/ except from current also
-have the directory branchX. To use both these versions in
+When you know the branch name, run `update-lilypond-sources` to make
+sure that the branch is available in your copy of the sources. Then run
+
+    build-lilypond -c branchname
+
+You can now see that `lilypond-builds/` except from `current` also
+contains the directory `branchname`. To use both these versions in
 parallel you could run:
 
-    lilypond-builds/current/out/bin/lilypond
+    lily current input-file
 
 and
 
-    lilypond-builds/branchX/out/bin/lilypond
+    lily branchname input-file
 
 respectively (we recommend using the Frescobaldi editor for easy
 handling of multiple builds).
@@ -145,45 +149,39 @@ development versions. You like branchX and you want to follow
 this for a while, later perhaps you want to go back to the main
 branch. Then you can build it with this command instead:
 
-    build-lily.sh -c branchX -d current
+    build-lily.sh -c branchname -d current
 
-This way branchX version will be compiled in place of previous
+This way `branchname` version will be compiled in place of previous
 build.
 
 
-Get into the source
--------------------
+Modify source files yourself
+----------------------------
 
 You read about a novelty in the LilyPond development but it's not
-(yet) in the main branch, some subsidiary branch or even
-committed. You only got the changed files or a patch with the
-differences. We now need to turn our attention from the build
+yet in any branch. You only got the changed files or a patch with
+the differences. We now need to turn our attention from the build
 folder to the directory called
 
     lilypond-sources
 
-If you have the changed files. Look for them in this folder and
-replace them.
+If you have the changed files, look for them in this folder and
+replace them (we don't recommend working this way; pathes are better).
 
-If you have the patch, let's say that is called *patchX. You can
-run the patch command to change the files. It will usually be:
+If you have a patch file generated using git (ask the author of
+the change for a "git-formatted patch"), open terminal, go to the
+`lilypond-sources` directory and run
 
-    patch <patchX
-
-For some patches you may need to add `-p` option, like `patch -p1
-<patchX`.
-
-You may have to be in the right directory to make this work.
-Hopefully you get it right.
+    git am patchfile
 
 We are now ready to build the source with the changes you just
 made to the source files. You could run
 
     build-lilypond
 
-and the changes will be made in the current build. But let's say
-you want to have them in a different build this time. You could
-again use the `-d` option:
+and the changes would be compiled in the `current` build. But it
+may be a good idea to place them in a different build directory.
+You can again use the `-d` option:
 
     build-lilypond -d patchX
 
