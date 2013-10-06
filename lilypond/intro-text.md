@@ -157,3 +157,24 @@ delete previous build results from target directory before
 compiling again:
 
     build-lily.sh -s
+
+
+Asking for help
+---------------
+
+Feel free to contact me if you have trouble using the scripts.
+To ensure that I'll be able to help you, please send me the full
+command you ran (including any options you used) and the output
+from the script.  If you append `-w &> ~/lily-build.log` to the
+command you ran, you should get a logfile in your `HOME` directory
+with the output of the script.  So, for example, if you were running
+
+    build-lilypond someoptions
+
+and it didn't work, you can either copy its output from terminal,
+or try running
+
+    build-lilypond someoptions -w &> ~/lily-build.log
+
+and then send me the `lily-build.log` file from your `HOME` folder
+with a description of the problem.
