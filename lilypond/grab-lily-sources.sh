@@ -156,6 +156,7 @@ export LILYPOND_GIT=$LILYPOND_GIT
 export LILYPOND_BUILD_DIR=$LILYPOND_BUILD_DIR
 
 alias build-lilypond=$JANEK_SCRIPTS/lilypond/build-lily.sh
+alias update-lilypond-sources=$JANEK_SCRIPTS/lilypond/pull-all.sh
 
 lily() {
     # A shorthand for running custom-built LilyPond versions
