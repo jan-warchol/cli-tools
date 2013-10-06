@@ -140,7 +140,7 @@ fi
 
 # also, clone a repository with helpful scripts written by Janek:
 if [ ! -d "$JANEK_SCRIPTS/.git" ]; then
-    git clone http://github.com/janek-warchol/cli-tools.git $JANEK_SCRIPTS \
+    git clone https://github.com/janek-warchol/cli-tools.git $JANEK_SCRIPTS \
     || die "Failed to clone Janek's scripts"
 fi
 
