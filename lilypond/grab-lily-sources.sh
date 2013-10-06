@@ -21,8 +21,6 @@
 # use apt package manager (for example Debian), but you may
 # have to change 'sudo' to 'su', for example.
 
-# TODO:
-# document 'lily' bash function in 'intro-text.md'
 
 while getopts "by" opts; do
     case $opts in

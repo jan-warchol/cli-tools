@@ -43,6 +43,8 @@ possibility to download the code and compile it yourself to get
 whatever versions you want.  When doing this the scripts
 described here can be of great help.
 
+### Downloading sources
+
 The first thing you want to do is to download LilyPond source files,
 required libraries and other stuff.
 To do this, download `grab-lily-sources.sh` script from [here]
@@ -50,31 +52,50 @@ To do this, download `grab-lily-sources.sh` script from [here]
 grab-lily-sources.sh) and run it.
 It will ask you in which directory LilyPond stuff should be placed.
 All paths in this tutorial are relative to this directory.
+Don't forget to restart the terminal after it finishes!
 
-Next you want to compile the current version. All you have to do
-is to run the script `build-lily.sh` that was downloaded in
-previous step.
+### Compiling
+
+Now, let's compile the latest LilyPond version. All you have to do
+is to run `build-lilypond` command that was installed in previous step.
+(This command simply runs `janek-scripts/lilypond/build-lily.sh` script.)
 
 After a while you hopefully get the message that the program was
 successfully built. You now have the latest version on your
-computer.
+computer, in the directory `lilypond-build/current`.
 
-But it is not installed so to run it you would have to find:
+### Using new LilyPond
 
-    /lilypond-builds/current/out/bin/lilypond
+However, if you run `lilypond` command on the command line (or compile
+a score using Frescobaldi), old LilyPond will appear.  This is because
+the newly compiled LilyPond didn't replace the previous version.
+You have to run the binary directly - it can be found here:
 
-and run that directly.
+    lilypond-builds/current/out/bin/lilypond
 
-If you like to install it you should run:
+To make this easier, you can use the `lily` bash function which is
+installed by `grab-lily-sources.sh`.  Running
+
+    lily buildname somefile
+
+will compile `somefile` using LilyPond from `lilypond-builds/buildname`.
+In this case, you want to use `lily current somefile`.
+
+You can also tell Frescobaldi about this new version, so that you
+will be able to choose between multiple versions when compiling a score.
+Add new version using `Edit->Preferences->LilyPond Preferences`.
+
+### Installing
+
+If you'd like to install this new version, first go to the directory
+containing the build (in our case `lilypond-builds/current`) and run
 
     (sudo) make install
 
-in /lilypond-builds/current
+However, this is not recommended, as it will uninstall any previously
+installed Lilypond version.  Running new versions using `lily` function
+or with Frescobaldi should be enough for your needs.
 
-Warning, if you already have a previous version of Lilypond that
-will now be uninstalled. Maybe a preferable solution would be to
-have the latest stable version installed and work with
-development versions from respective out/bin as described.
 
 ## Get a new version
 Time flies and soon your build isn't so current anymore. You need
