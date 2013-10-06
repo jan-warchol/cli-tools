@@ -48,8 +48,8 @@ described here can be of great help.
 The first thing you want to do is to download LilyPond source files,
 required libraries and other stuff.
 To do this, download `grab-lily-sources.sh` script from [here]
-(http://github.com/janek-warchol/cli-tools/blob/master/lilypond/
-grab-lily-sources.sh) and run it.
+(http://github.com/janek-warchol/cli-tools/blob/master/lilypond/grab-lily-sources.sh)
+and run it.
 It will ask you in which directory LilyPond stuff should be placed.
 All paths in this tutorial are relative to this directory.
 Don't forget to restart the terminal after it finishes!
