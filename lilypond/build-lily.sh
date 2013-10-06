@@ -125,15 +125,12 @@ fi
 # only inform about stashing changes when building in LILYPOND_GIT
 # abort when given invalid options
 # rewrite in python? :)
-# add a warning "there is no such commit in repository <path>"
-# when there are problems with creating a tag.
 # when merging additional branches, rebase these commits onto built
 # commit (so that the merge doesn't introduce later, unwanted commits)
 # use octopus merge?
 # list untracked files
 #
 # when merging/rebasing fails, print some more information (conflicting files)
-# when looking for branches, automatically check origin/foo if foo was not found.
 
 while getopts "bc:d:f:hj:lm:o:rst:w" opts; do
     case $opts in
@@ -401,17 +398,27 @@ for tag in $(git tag | grep to_be_merged/); do
 done
 
 for branch in $branches_to_merge; do
-    git tag -f to_be_merged/$branch $branch || \
-    die "Failed to create a tag.$normal" \
-    "\nIf you are trying to build a specific branch," \
-    "\nmaybe you are missing 'origin/' at the beginning of its name?"
+    git tag -f to_be_merged/$branch $branch
+    if [ $? != 0 ]; then
+        echo "Trying origin/$branch instead..."
+        git tag -f to_be_merged/$branch "origin/$branch" || \
+        die "$normal""It seems that the branch/commit/tag" \
+            "'$red$branch$normal'" \
+            "\ndoes not exist or cannot be reached from repository" \
+            "\n  $dircolor$main_repository$normal"
+    fi
 done
 
 if [ "$whichcommit" != "" ]; then
-    git tag commit_to_build $whichcommit || \
-    die "Failed to create a tag.$normal" \
-    "\nIf you are trying to build a specific branch," \
-    "\nmaybe you are missing 'origin/' at the beginning of its name?"
+    git tag commit_to_build $whichcommit
+    if [ $? != 0 ]; then
+        echo "Trying origin/$whichcommit instead..."
+        git tag commit_to_build "origin/$whichcommit" || \
+        die "$normal""It seems that the branch/commit/tag" \
+            "'$red$whichcommit$normal'" \
+            "\ndoes not exist or cannot be reached from repository" \
+            "\n  $dircolor$main_repository$normal"
+    fi
 else
     # check if there are any untracked files.
     git ls-files --other --exclude-standard | sed --quiet q1
