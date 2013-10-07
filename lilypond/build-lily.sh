@@ -409,24 +409,26 @@ done
 for branch in $branches_to_merge; do
     git tag -f to_be_merged/$branch $branch
     if [ $? != 0 ]; then
-        echo "Trying origin/$branch instead..."
+        echo -n "Trying origin/$branch instead... "
         git tag -f to_be_merged/$branch "origin/$branch" || \
         die "$normal""It seems that the branch/commit/tag" \
             "'$red$branch$normal'" \
             "\ndoes not exist or cannot be reached from repository" \
             "\n  $dircolor$main_repository$normal"
+        echo success.
     fi
 done
 
 if [ "$whichcommit" != "" ]; then
     git tag commit_to_build $whichcommit
     if [ $? != 0 ]; then
-        echo "Trying origin/$whichcommit instead..."
+        echo -n "Trying origin/$whichcommit instead... "
         git tag commit_to_build "origin/$whichcommit" || \
         die "$normal""It seems that the branch/commit/tag" \
             "'$red$whichcommit$normal'" \
             "\ndoes not exist or cannot be reached from repository" \
             "\n  $dircolor$main_repository$normal"
+        echo success.
     fi
 else
     # check if there are any untracked files.
