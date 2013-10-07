@@ -194,6 +194,20 @@ You can again use the `-d` option:
     build-lilypond -d patchX
 
 
+Advanced Usage
+--------------
+
+Would you like to have a LilyPond version that combines several
+different changes that are still in development, or maybe you'd
+like to have an old version with just one special feature or fix?
+This can be done as well, thanks to the awesome powers of git.
+All you have to do is to use `build-lilypond` with `-m` option
+For example, to compile a version based on 2.16.1 release containing
+some new features from branches `branchA` and `branchB`, run
+
+    build-lilypond -c release/2.16.1-1 -m "branchA branchB"
+
+
 Basic Troubleshooting
 ---------------------
 
