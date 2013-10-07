@@ -242,6 +242,17 @@ die() {
 
 
 ##################### GATHER INFORMATION: #######################
+# get the "version" of the script (actually, the committish of the
+# HEAD in the git repository where the script resides, if exists).
+current_working_dir=$(pwd)
+cd "$( dirname "${BASH_SOURCE[0]}" )"
+git rev-parse 2> /dev/null
+if [ $? = 0 ]; then
+    echo "This is LilyPond-building script, version" \
+        "$(git log -1 --format=%h)."
+fi
+cd $current_working_dir
+
 # $LILYPOND_GIT directory should exist and be a LilyPond repository
 if [ -z "$main_repository" ]; then
     echo -e "$red\$LILYPOND_GIT environment variable is unset."
