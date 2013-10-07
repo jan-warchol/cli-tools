@@ -21,8 +21,6 @@
 # use apt package manager (for example Debian), but you may
 # have to change 'sudo' to 'su', for example.
 
-# TODO:
-# document 'lily' bash function in 'intro-text.md'
 
 if [ ! "$BASH_VERSION" ] ; then
     echo "Please do not use sh to run this script - i.e., don't run" 1>&2
@@ -158,6 +156,7 @@ export LILYPOND_GIT=$LILYPOND_GIT
 export LILYPOND_BUILD_DIR=$LILYPOND_BUILD_DIR
 
 alias build-lilypond=$JANEK_SCRIPTS/lilypond/build-lily.sh
+alias update-lilypond-sources=$JANEK_SCRIPTS/lilypond/pull-all.sh
 
 lily() {
     # A shorthand for running custom-built LilyPond versions

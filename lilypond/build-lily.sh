@@ -119,9 +119,6 @@ fi
 
 # TODO:
 # add a dry-run option
-# add information on what info i need to debug when something
-# goes wrong (maybe dump it to some log?)
-# (see http://github.com/janek-warchol/cli-tools/issues/4)
 # only inform about stashing changes when building in LILYPOND_GIT
 # abort when given invalid options
 # rewrite in python? :)
