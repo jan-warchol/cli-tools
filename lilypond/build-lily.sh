@@ -128,7 +128,6 @@ fi
 # when merging additional branches, rebase these commits onto built
 # commit (so that the merge doesn't introduce later, unwanted commits)
 # use octopus merge?
-# list untracked files
 #
 # when merging/rebasing fails, print some more information (conflicting files)
 
@@ -434,12 +433,16 @@ else
     # check if there are any untracked files.
     git ls-files --other --exclude-standard | sed --quiet q1
     if [[ $? != 0 && "$building_inside_main_repo"="no" ]]; then
-        echo -e "$yellow""Warning:$normal you have untracked files in your"
+        echo -e "$yellow""\nWarning:$normal" \
+        "you have untracked files in your"
         echo "$main_repository repository."
         echo "They will not be included in the build."
-        echo "If they are needed, you should probably commit them."
+        echo "If you need them, you should probably commit them:"
+        echo ""
+        git ls-files --other --exclude-standard
         echo ""
         read -t $timeout dummy
+        echo "----------------------------------------"
     fi
     git diff --quiet HEAD
     # with --quiet, diff exits with 1 when there are any uncommitted changes.
