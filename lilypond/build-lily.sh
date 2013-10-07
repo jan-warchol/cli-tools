@@ -113,6 +113,9 @@ for the GNU LilyPond project (lilypond.org).
 Press q to close this help message.
 "
 
+# for measuring time performance.  See end of the script.
+STARTTIME=$(date +%s.%N)
+
 if [[ "$1" == "help" || "$1" == "--help" ]]; then
     help="yes"
 fi
@@ -614,8 +617,6 @@ compile_lilypond () {
     echo -e "inside directory \n  $dircolor$build$normal"
 }
 
-STARTTIME=$(date +%s.%N)
-
 compile_lilypond
 
 if [[ "$regtests" == "yes" ]]; then
@@ -627,13 +628,7 @@ if [[ "$regtests" == "yes" ]]; then
     die "Cannot checkout desired commit."
     compile_lilypond
     time make $MAKE_OPTIONS check || die "Regtest check failed."
-
-    ENDTIME=$(date +%s.%N)
-    TIMEDIFF=$(echo \
-    $(echo "($ENDTIME - $STARTTIME) / 60" | bc) min \
-    $(echo "($ENDTIME - $STARTTIME) % 60" | bc) sec \
-    )
-    echo "Total time spent doing regression tests: $TIMEDIFF"
+    firefox file://$build/out/test-results/index.html &
 fi
 
 # restore previous state of main_repository (if necessary).
@@ -656,6 +651,9 @@ fi
 
 echo "________________________________________"
 
-if [[ "$regtests" == "yes" ]]; then
-    firefox file://$build/out/test-results/index.html &
-fi
+ENDTIME=$(date +%s.%N)
+TIMEDIFF=$(echo \
+    $(echo "($ENDTIME - $STARTTIME) / 60" | bc) min \
+    $(echo "($ENDTIME - $STARTTIME) % 60" | bc) sec \
+)
+echo "Total time spent: $TIMEDIFF"
