@@ -174,7 +174,7 @@ folder to the directory called
     lilypond-sources
 
 If you have the changed files, look for them in this folder and
-replace them (we don't recommend working this way; pathes are better).
+replace them (we don't recommend working this way; patches are better).
 
 If you have a patch file generated using git (ask the author of
 the change for a "git-formatted patch"), open terminal, go to the
