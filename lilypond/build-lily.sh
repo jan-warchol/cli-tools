@@ -128,8 +128,6 @@ fi
 # when merging additional branches, rebase these commits onto built
 # commit (so that the merge doesn't introduce later, unwanted commits)
 # use octopus merge?
-#
-# when merging/rebasing fails, print some more information (conflicting files)
 
 while getopts "bc:d:f:hj:lm:o:rst:w" opts; do
     case $opts in
@@ -219,6 +217,7 @@ if [ -z $nocolors ]; then
     violet="\e[00;35m"
     cyan="\e[00;36m"
     gray="\e[00;37m"
+    bold="$(tput bold)"
     dircolor=$violet
 fi
 
@@ -498,11 +497,17 @@ else
 fi
 
 for branch in $(git tag | grep to_be_merged/); do
-    echo -e Merging branch \
+    echo -e "\nMerging branch" \
          \'$blue$(echo $branch | sed 's/to_be_merged\///')$normal\' \
          into HEAD...
     git merge --commit --no-edit $branch || \
-    { git merge --abort; die "Failed to merge specified branches"; }
+    {
+        echo -e "$bold\nDetails of the failed merge:$normal\n"
+        git status;
+        echo -e "Aborting the merge."
+        git merge --abort
+        die
+    }
 done
 
 
