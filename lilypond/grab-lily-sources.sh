@@ -24,6 +24,14 @@
 # TODO:
 # document 'lily' bash function in 'intro-text.md'
 
+if [ ! "$BASH_VERSION" ] ; then
+    echo "Please do not use sh to run this script - i.e., don't run" 1>&2
+    echo "  sh $0" 1>&2
+    echo "Use bash instead, or just execute it directly like this:" 1>&2
+    echo "  ./$0" 1>&2
+    exit 1
+fi
+
 while getopts "by" opts; do
     case $opts in
     b)
