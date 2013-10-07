@@ -113,6 +113,14 @@ Your source files will be updated and you can again run:
 If you like the current version installed you also have to
 re-install.
 
+### Updating building scripts
+
+The scripts described here change as well, and it's good to update
+them periodically.  To do this, go to the janek-scripts directory,
+run `git status` to make sure that the repository is in good order
+(it should say "... working directory clean"), and then run
+`git pull`.
+
 
 Build a specific branch
 -----------------------
