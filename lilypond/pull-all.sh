@@ -67,7 +67,7 @@ fi
 
 echo ""
 echo -e "$green""FETCHING$normal--------------------------------"
-git fetch || die "Problems with fetching."
+git fetch --all || die "Problems with fetching."
 echo ""
 
 echo -e "$green""UPDATING YOUR BRANCHES$normal------------------";
