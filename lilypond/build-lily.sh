@@ -244,6 +244,9 @@ if [ $? = 0 ]; then
         "$(git log -1 --format=%h)."
 fi
 cd $current_working_dir
+echo -e "LilyPond sources for building are taken from"
+echo -e "  $main_repository"
+sleep 1
 
 # $LILYPOND_GIT directory should exist and be a LilyPond repository
 if [ -z "$main_repository" ]; then
@@ -554,8 +557,10 @@ for branch in $(git tag | grep to_be_merged/); do
     git tag -f commit_to_build &>/dev/null
     merged="$merged$(echo " $branch," | sed 's/to_be_merged\///')"
 done
-merge_message="Merge$merged into $whichcommit"
-git commit --amend --message="$merge_message"
+if [ "$merged" != "" ]; then
+    merge_message="Merge$merged into $whichcommit"
+    git commit --amend --message="$merge_message"
+fi
 git tag -f commit_to_build &>/dev/null
 
 
@@ -567,7 +572,6 @@ echo -e "Attempting to build lilypond: \n"
 git log $nocolors -n 1 | cat
 echo ""
 echo -e "inside directory \n  $dircolor$build$normal"
-echo -e "using source from \n  $dircolor$main_repository$normal"
 echo -e "in $timeout seconds (press Ctrl-C to abort," \
         "Enter to skip delay)\n"
 read -t $timeout dummy
