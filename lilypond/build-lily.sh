@@ -7,6 +7,7 @@ helpmessage="This script will build LilyPond for you.
 
 You should have a git repository with LilyPond source code,
 and an environment variable \$LILYPOND_GIT pointing there.
+You can use 'grab-lily-sources.sh' script to configure that.
 
 Usage: with no options specified, lilypond will be built in
 \$LILYPOND_BUILD_DIR/current, using the current state of the
@@ -34,11 +35,13 @@ OPTIONS (see also Examples at the bottom)
 
 -h displays this help.
 
--m <branches> will combine multiple branches of LilyPond source
-   code before building.  This can be handy when you'd like to
+-m \"<branches>\" will merge additional branches of LilyPond source
+   code into the build.  This can be handy when you'd like to
    have a LilyPond version that combines several experimental
    (not yet released) features.  Also, it will probably be more
    convenient than trying to do the merge yourself.
+   Branch names should be separated by spaces, and the full list
+   enclosed in quotation marks.
 
 -j <value> sets the number of processor threads used for building.
    By default the script uses all available threads, but if this
@@ -86,20 +89,20 @@ have to be inside \$LILYPOND_GIT or \$LILYPOND_BUILD_DIR).
 
 EXAMPLES
 
-$scriptpath
+build-lily.sh
 will compile current state of the working directory from
 \$LILYPOND_GIT inside \$LILYPOND_BUILD_DIR/current
 
-$scriptpath -c master
+build-lily.sh -c master
 will compile \"master\" branch from \$LILYPOND_GIT repository
 (regardless of which branch is currently checked out there)
 inside \$LILYPOND_BUILD_DIR/master
 
-$scriptpath -c release/2.16.2-1 -d stable
+build-lily.sh -c release/2.16.2-1 -d stable
 will compile the commit tagged \"release/2.16.2-1\" inside
 \$LILYPOND_BUILD_DIR/stable
 
-$scriptpath -c master -m \"mybranch origin/dev/something\"
+build-lily.sh -c master -m \"mybranch origin/dev/something\"
 will compile \"master\" branch merged with local branch
 \"mybranch\" and remote branch \"origin/dev/something\",
 inside \$LILYPOND_BUILD_DIR/master+mybranch+dev_something.
