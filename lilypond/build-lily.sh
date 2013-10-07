@@ -417,7 +417,7 @@ for branch in $branches_to_merge; do
         die "$normal""It seems that the branch/commit/tag" \
             "'$red$branch$normal'" \
             "\ndoes not exist or cannot be reached from repository" \
-            "\n  $dircolor$main_repository$normal"
+            "\n  $main_repository"
         echo success.
     fi
 done
@@ -431,7 +431,7 @@ if [ "$whichcommit" != "" ]; then
             die "$normal""It seems that the branch/commit/tag" \
                 "'$red$whichcommit$normal'" \
                 "\ndoes not exist or cannot be reached from repository" \
-                "\n  $dircolor$main_repository$normal"
+                "\n  $main_repository"
             echo success.
         else
             echo "Trying origin/$whichcommit instead... "
@@ -439,7 +439,7 @@ if [ "$whichcommit" != "" ]; then
             die "$normal""It seems that the branch/commit/tag" \
                 "'$red$whichcommit$normal'" \
                 "\ndoes not exist or cannot be reached from repository" \
-                "\n  $dircolor$main_repository$normal"
+                "\n  $main_repository"
             echo success.
         fi
     fi
