@@ -133,7 +133,8 @@ else
     fi
 fi
 
-# get packages needed for compiling lilypond
+echo ""
+echo "Installing packages needed for compiling LilyPond:"
 sudo apt-get $yes build-dep lilypond \
 || die "Failed to install build dependencies for LilyPond"
 sudo apt-get $yes install autoconf || die "Failed to install autoconf"
