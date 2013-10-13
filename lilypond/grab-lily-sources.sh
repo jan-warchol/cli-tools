@@ -30,10 +30,12 @@ if [ ! "$BASH_VERSION" ] ; then
     exit 1
 fi
 
-while getopts "by" opts; do
+while getopts "bd:yw" opts; do
     case $opts in
     b)
         default_compilation="master";;
+    d)
+        location=$OPTARG;;
     y)
         yes="--yes";; # assume 'yes' to questions
     w)
@@ -92,11 +94,13 @@ if [ -n "$LILYPOND_GIT" ]; then
     sleep 1
     location="$(readlink -m $LILYPOND_GIT/..)"
 else
-    echo "Where would you like LilyPond stuff to be placed?"
-    echo "Please specify a path relative to your home directory."
-    echo "Subdirectories with LilyPond sources, binaries and"
-    echo "building scripts will be placed there."
-    read location
+    if [ -z "$location" ]; then
+        echo "Where would you like LilyPond stuff to be placed?"
+        echo "Please specify a path relative to your home directory."
+        echo "Subdirectories with LilyPond sources, binaries and"
+        echo "building scripts will be placed there."
+        read location
+    fi
     location=$HOME/$location
     LILYPOND_GIT="$location/lilypond-sources"
 fi
