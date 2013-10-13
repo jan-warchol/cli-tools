@@ -47,7 +47,7 @@ done
 # helper functions:
 
 die() { # in case of error
-    echo "$1. Exiting."
+    echo -e "$@\nExiting."
     exit 1
 }
 
@@ -83,7 +83,6 @@ if [ -z $nocolors ]; then
     bold="$(tput bold)"
     dircolor=$violet
 fi
-
 ##########################################################
 
 # Where all lilypond stuff should be placed?
@@ -136,23 +135,27 @@ fi
 echo ""
 echo "Installing packages needed for compiling LilyPond:"
 sudo apt-get $yes build-dep lilypond \
-|| die "Failed to install build dependencies for LilyPond"
-sudo apt-get $yes install autoconf || die "Failed to install autoconf"
-sudo apt-get $yes install dblatex || die "Failed to install dblatex"
+|| die "Failed to install build dependencies for LilyPond." \
+"\nMaybe your system is too old and the package repositories" \
+"\nare no longer available?" \
+"\nOr maybe you have deactivated source packages?" \
+"\n(I am just guessing...)"
+sudo apt-get $yes install autoconf || die "Failed to install autoconf."
+sudo apt-get $yes install dblatex || die "Failed to install dblatex."
 sudo apt-get $yes install texlive-lang-cyrillic \
-|| die "Failed to install texlive-lang-cyrillic"
+|| die "Failed to install texlive-lang-cyrillic."
 
 # clone lilypond sources
 if [ ! -d "$LILYPOND_GIT/.git" ]; then
     # $LILYPOND_GIT doesn't exist yet or is not a git repository
     git clone git://git.sv.gnu.org/lilypond.git $LILYPOND_GIT \
-    || die "Failed to clone LilyPond"
+    || die "Failed to clone LilyPond."
 fi
 
 # also, clone a repository with helpful scripts written by Janek:
 if [ ! -d "$JANEK_SCRIPTS/.git" ]; then
     git clone https://github.com/janek-warchol/cli-tools.git $JANEK_SCRIPTS \
-    || die "Failed to clone Janek's scripts"
+    || die "Failed to clone Janek's scripts."
 fi
 
 lilypond_bash_settings="
