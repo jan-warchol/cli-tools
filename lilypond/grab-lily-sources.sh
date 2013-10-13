@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # this script will set up everything (hopefully) that you
-# need to compile LilyPonda from source - that is, it will:
+# need to compile LilyPond from source - that is, it will:
 # - install appropriate version of git
 # - download required libraries
 # - clone lilypond sources
