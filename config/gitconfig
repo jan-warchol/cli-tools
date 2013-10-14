@@ -57,6 +57,11 @@
 [help]
     autocorrect = 10
 
+[merge]
+    # when solving merge conflicts, it can be very helpful to see
+    # the original code in addition to both modified versions:
+    conflictstyle = diff3
+
 [rebase]
     autosquash = true
 
