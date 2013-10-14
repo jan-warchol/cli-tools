@@ -69,6 +69,11 @@ lily() {
     shift
     "$LILYPOND_BUILD_DIR/$lil/out/bin/lilypond" "$@"
 }
+conv-ly() {
+    lil="$1"
+    shift
+    "$LILYPOND_BUILD_DIR/$lil/out/bin/convert-ly" "$@"
+}
 alias lgit='$LILYPOND_GIT/build/out/bin/lilypond'glpp,
 alias lcurrent='$LILYPOND_BUILD_DIR/current/out/bin/lilypond'
 alias lmaster='$LILYPOND_BUILD_DIR/master/out/bin/lilypond'
