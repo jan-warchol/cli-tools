@@ -30,6 +30,9 @@
     merge-base-diff = !sh -c 'git diff $(git merge-base master $1) $1' -
 
     rb = rebase
+    # reflog with dates.
+    # see http://stackoverflow.com/a/18987047/2058424
+    rf = log -g --format="%h %gd %<(12,trunc)%ci%x08%x08 %gs"
     rs = reset
     rt = remote
     rtv = remote --verbose
