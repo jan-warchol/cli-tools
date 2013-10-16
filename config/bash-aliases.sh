@@ -32,6 +32,7 @@ editconf() {
 alias lg='cd $LILYPOND_GIT; git status'
 alias fr='cd $MY_REPOSITORIES/fried-songs; git status'
 alias nuty='cd $MY_REPOSITORIES/warsztat-nutowy; git status'
+alias sni='cd $MY_REPOSITORIES/openlilylib-snippets; git status'
 alias bebe='cd $MY_REPOSITORIES/bębenek; git status'
 alias epi='cd $MY_DROPBOX/Epifania; git status'
 alias ties='cd "$MY_DROPBOX/LilyPond ties"; git status'
