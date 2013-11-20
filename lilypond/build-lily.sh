@@ -124,6 +124,8 @@ if [[ "$1" == "help" || "$1" == "--help" ]]; then
 fi
 
 # TODO:
+# pass up-to-date origin/master when regtesting
+# (or actually a merge base between tested branch and origin/master)
 # add a dry-run option
 # only inform about stashing changes when building in LILYPOND_GIT
 # abort when given invalid options
