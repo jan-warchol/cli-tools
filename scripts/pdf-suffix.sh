@@ -4,5 +4,5 @@
 
 for file in *.pdf; do
   echo "adding $1 to $file"
-  mv --force "$file" "${file%%.pdf} $1.pdf"
+  mv --force "$file" "${file%%.pdf}$1.pdf"
 done 
