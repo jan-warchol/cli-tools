@@ -337,8 +337,16 @@ if [[ "$from_scratch" == "yes" && "$build" != "$main_repository" ]]; then
         echo -e "Directory $dircolor$build$normal"
         echo "and all its content will be removed."
         echo "This operation cannot be undone. Proceed? (yes/no)"
-        read decision
-        if [ "$decision" != "yes" ]; then die "Removing aborted."; fi
+        while read answer; do
+            case $answer in
+            yes)
+                break;;
+            no)
+                die "Removing aborted.";;
+            *)
+                echo "'yes' or 'no', please.";;
+            esac
+        done
     fi
     cd ../
     rm -rf $build || die "Failed to remove $build."
