@@ -138,8 +138,25 @@ sudo apt-get $yes build-dep lilypond \
 || die "Failed to install build dependencies for LilyPond." \
 "\nMaybe your system is too old and the package repositories" \
 "\nare no longer available?" \
-"\nOr maybe you have deactivated source packages?" \
+"\nOr maybe your package manager configuration should be changed?" \
+"\nMake sure that your package manager will search the 'source'" \
+"\nrepositories (containing source code packages)." \
 "\n(I am just guessing...)"
+
+# Note from Urs:
+#
+# If you don't have TeXLive installed through your OS's package
+# manager the script will install it for you. Unfortunately this is
+# also necessary if you have installed TeXLive manually through its
+# own distribution. Having two separate installations of TeXLive is
+# (apart from disk space) no problem at all, you just have to make
+# sure that your system finds the right version first on its search
+# path. However, if you didn't install the full TeXLive
+# distribution the LilyPond build process may fail due to missing
+# packages. In that case you have to make sure all relevant
+# packages are present, if in doubt you may simply to 'tlmgr
+# install scheme-full'.
+
 sudo apt-get $yes install autoconf || die "Failed to install autoconf."
 sudo apt-get $yes install dblatex || die "Failed to install dblatex."
 sudo apt-get $yes install texlive-lang-cyrillic \
