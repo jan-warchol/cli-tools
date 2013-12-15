@@ -1,0 +1,12 @@
+nowy kretyński nautilus w ubuntu 13.10 (backspace):
+http://ubuntuforums.org/showthread.php?t=2182910
+
+do zainstalowania:
+gparted
+guake
+
+skopiowanie kluczy ssh
+szyfrowanie kluczy ssh
+konfiguracja guake
+automatyczne włączanie guake przy starcie systemu
+
