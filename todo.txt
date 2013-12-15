@@ -5,6 +5,7 @@ do zainstalowania:
 gparted
 guake
 kompare
+gksu
 
 skopiowanie kluczy ssh
 szyfrowanie kluczy ssh
