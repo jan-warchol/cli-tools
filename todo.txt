@@ -4,6 +4,7 @@ http://ubuntuforums.org/showthread.php?t=2182910
 do zainstalowania:
 gparted
 guake
+kompare
 
 skopiowanie kluczy ssh
 szyfrowanie kluczy ssh
@@ -11,3 +12,5 @@ konfiguracja guake
 automatyczne włączanie guake przy starcie systemu
 
 zmienić protokół klonowania repozytoriów na ssh.
+
+http://en.wikipedia.org/wiki/Magic_SysRq_key
