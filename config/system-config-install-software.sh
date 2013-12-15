@@ -15,6 +15,12 @@ sudo /usr/share/doc/libdvdread4/install-css.sh \
 # a program for changing line endings from windows to unix
 sudo apt-get -qy install flip || die "Failed to install flip"
 
+# misc stuff
+sudo apt-get -qy install gparted
+sudo apt-get -qy install guake
+sudo apt-get -qy install kompare
+sudo apt-get -qy install gksu
+
 # a program for changing screen brightness
 sudo apt-get -qy install xbacklight || die "Failed to install xbacklight"
 
