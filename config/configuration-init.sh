@@ -25,12 +25,12 @@ echo 'source $MY_CONFIGS/bash-settings.sh' | tee -a $HOME/.bashrc
 sleep 2
 
 echo "Copying my configs..."
-~/repos/cli-tools/system-config-copy-settings.sh || "Failed to copy configs."
+~/repos/cli-tools/config/system-config-copy-settings.sh || "Failed to copy configs."
 echo "done."
 sleep 2
 
 echo "Installing software..."
-~/repos/cli-tools/system-config-install-software.sh
+~/repos/cli-tools/config/system-config-install-software.sh
 echo "done."
 sleep 2
 
