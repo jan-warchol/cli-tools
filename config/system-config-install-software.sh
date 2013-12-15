@@ -33,6 +33,8 @@ sudo apt-get -qy install kate || die "Failed to install Kate"
 
 sudo apt-get -qy install vlc || die "Failed to install VLC"
 
+sudo apt-get -qy install guake || die "Failed to install guake"
+
 # download Dropbox
 cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 # 32-bit version would be:
