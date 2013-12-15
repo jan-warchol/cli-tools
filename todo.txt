@@ -15,3 +15,7 @@ automatyczne włączanie guake przy starcie systemu
 zmienić protokół klonowania repozytoriów na ssh.
 
 http://en.wikipedia.org/wiki/Magic_SysRq_key
+
+ustawić czułość klawiatury
+
+rozbić skrypt instalacyjny na małe kawałki
