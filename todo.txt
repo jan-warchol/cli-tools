@@ -10,3 +10,4 @@ szyfrowanie kluczy ssh
 konfiguracja guake
 automatyczne włączanie guake przy starcie systemu
 
+zmienić protokół klonowania repozytoriów na ssh.
