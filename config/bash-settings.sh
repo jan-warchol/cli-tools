@@ -17,6 +17,9 @@ export LILYPOND_GIT="$MY_REPOSITORIES/lilypond-git"
 export MY_CLI_TOOLS="$MY_REPOSITORIES/cli-tools"
 export MY_SCRIPTS="$MY_CLI_TOOLS/scripts"
 export LILY_SCRIPTS="$MY_CLI_TOOLS/lilypond"
+export JAVA_HOME=/usr/lib/jvm/java-7-oracle
+export HADOOP_INSTALL=$HOME/codilime/hadoop-1.2.1/
+export PATH=$PATH:$HADOOP_INSTALL/bin
 
 
 ######################################
