@@ -3,6 +3,9 @@ http://ubuntuforums.org/showthread.php?t=2182910
 
 do zainstalowania:
 gitk
+synaptic
+openssh-server (-> sshd)
+vlc-plugin-fluidsynth
 
 FreeFileSync:
 sudo add-apt-repository ppa:freefilesync/ffs
