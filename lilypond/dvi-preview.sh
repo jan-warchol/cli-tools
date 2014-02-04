@@ -69,6 +69,16 @@ case $1 in
     xdvi ~/font-preview/$2.dvi &
     ;;
 
+  m)
+    cd mf/
+    mf $2
+    gftodvi $2.2602gf
+    mv --force $2.dvi ~/font-preview/$2.dvi
+    rm $2.log
+    rm $2.2602gf
+    cd ../
+    ;;
+
   r)
     cd mf/
     mf $2
