@@ -7,3 +7,6 @@
 # make bash autocompletion case-insensitive:
 set completion-ignore-case on
 
+# navigation shortcuts - for moving one word at a time
+"\C-f": forward-word
+"\C-b": backward-word

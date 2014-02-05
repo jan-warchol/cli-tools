@@ -43,6 +43,7 @@ alias epi='cd $MY_DROPBOX/Epifania; git status'
 alias ties='cd "$MY_DROPBOX/LilyPond ties"; git status'
 alias epinuty='cd $MY_REPOSITORIES/epinuty; git status'
 alias cli='cd $MY_CLI_TOOLS; git status'
+alias ec='cd $MY_REPOSITORIES/engraving-challenges'
 
 # directory "bookmarks"
 alias s1='alias d1="cd $(pwd)"'

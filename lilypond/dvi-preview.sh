@@ -66,7 +66,7 @@ case $1 in
     rm $2.log
     rm $2.2602gf
     cd ../
-    xdvi ~/font-preview/$2.dvi &
+    evince ~/font-preview/$2.dvi &
     ;;
 
   m)
