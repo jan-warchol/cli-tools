@@ -15,6 +15,7 @@ export MY_REPOSITORIES="$ALL_MY_STUFF/repos"
 export LILYPOND_BUILD_DIR="$ALL_MY_STUFF/lily-builds"
 export LILYPOND_GIT="$MY_REPOSITORIES/lilypond-git"
 export MY_CLI_TOOLS="$MY_REPOSITORIES/cli-tools"
+export TRUNKNE_LIED_HOME="$MY_REPOSITORIES/nuty/trunkne-lied"
 export MY_SCRIPTS="$MY_CLI_TOOLS/scripts"
 export LILY_SCRIPTS="$MY_CLI_TOOLS/lilypond"
 export JAVA_HOME=/usr/lib/jvm/java-7-oracle
