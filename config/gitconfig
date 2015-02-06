@@ -3,6 +3,10 @@
     amend = commit --amend
     b = branch
     c = checkout
+    cb = !sh -c 'git branch --track $1 $2 && \
+        git checkout $1' -
+    co = checkout
+    ci = commit
     d = diff
     discard = stash save "discarded changes"
 
@@ -15,7 +19,9 @@
     g1 = grep -n -C1
     g2 = grep -n -C2
     g3 = grep -n -C3
+    g4 = grep -n -C4
     g5 = grep -n -C5
+    gh2 = grep --heading -C2
     gh3 = grep --heading -C3
     gh5 = grep --heading -C5
     gh11 = grep --heading -C11
@@ -29,6 +35,7 @@
     h = help
     k = commit
     l = log
+
     # from http://stackoverflow.com/questions/1057564/pretty-git-branch-graphs
     lolog = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 
@@ -39,6 +46,7 @@
 
     rb = rebase
     rbo = rebase --onto
+
     # reflog with dates.
     # see http://stackoverflow.com/a/18987047/2058424
     rf = log -g --format='%h %gd %<(12,trunc)%ci%x08%x08 %gs'
@@ -47,6 +55,7 @@
     rtv = remote --verbose
     s = status
     st = status
+
     svap = !sh -c 'git stash save \
         "a backup just in case, $(date +\"%Y-%m-%d %H:%M\")" && \
         git stash apply' -
