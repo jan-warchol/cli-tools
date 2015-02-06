@@ -66,11 +66,11 @@ if [ $dirtytree != 0 ]; then
 fi
 
 echo ""
-echo -e "$green""FETCHING$normal--------------------------------"
+echo -e "$green""FETCHING$normal -------------------------------"
 git fetch --all || die "Problems with fetching."
 echo ""
 
-echo -e "$green""UPDATING YOUR BRANCHES$normal------------------";
+echo -e "$green""UPDATING BRANCHES$normal ----------------------";
 for branch in $(echo -e "master\n$(git branch --color=never | \
                 sed s/*// | sed 's/ master//')"); do
     git checkout --quiet "$branch" || die "Cannot checkout $branch.";
@@ -81,20 +81,25 @@ for branch in $(echo -e "master\n$(git branch --color=never | \
                sed 's|refs/heads/||')
         upstream="$rmte/$mrge"
     fi;
-    echo -e "On branch $yellow$branch$normal." \
-         "Upstream: $blue$upstream$normal"
+    echo -en "On branch $yellow$branch$normal - "
+    echo -en "upstream: "
     #sleep 5
 
     if [ "$upstream" != "" ]; then
+        echo -e "$violet$upstream$normal"
         # rebase/merge with upstream tracking branch
         if [ "$rebase" == "yes" ]; then
-            git rebase || die "Failed to rebase."
+            git rebase
+            if [ "$?" != "0" ]; then
+                echo -e $red"Failed to rebase, resetting..."$normal
+                git rebase --abort
+            fi
         else
             git merge --ff-only $upstream 2>/dev/null || \
             echo "Cannot fast-forward."
         fi
     else
-        echo $branch does not track any upstream branch.
+        echo -e "$blue""none$normal"
             # User may force rebasing on some other branch
             # (usually origin/master)
         if [ "$forced_target" != "" ]; then

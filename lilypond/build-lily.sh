@@ -117,7 +117,7 @@ Press q to close this help message.
 "
 
 # for measuring time performance.  See end of the script.
-STARTTIME=$(date +%s.%N)
+STARTTIME=$(date +%s)
 
 if [[ "$1" == "help" || "$1" == "--help" ]]; then
     help="yes"
@@ -602,7 +602,7 @@ if [ "$(grep -s configure-srcdir config.make \
     # are located. Need to run autogen and configure
     cd $source; ./autogen.sh --noconfigure || die "Autogen failed."
     echo ""
-    cd $build; $source/configure || die "Configure failed."
+    cd $build; $source/configure --disable-optimising || die "Configure failed."
 fi
 
 # actual compiling.
@@ -664,7 +664,7 @@ fi
 
 echo "________________________________________"
 
-ENDTIME=$(date +%s.%N)
+ENDTIME=$(date +%s)
 TIMEDIFF=$(echo \
     $(echo "($ENDTIME - $STARTTIME) / 60" | bc) min \
     $(echo "($ENDTIME - $STARTTIME) % 60" | bc) sec \
