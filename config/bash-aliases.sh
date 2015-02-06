@@ -68,6 +68,11 @@ alias grep2='grep -C2'
 alias grep3='grep -C3'
 alias grep5='grep -C5'
 
+alias tree2='tree -L 2 --filelimit 30'
+alias tree3='tree -L 3 --filelimit 20'
+alias tree4='tree -L 4 --filelimit 15'
+alias tree5='tree -L 5 --filelimit 10'
+
 # Add an "alert" alias.
 # Use by appending to the command after a semicolon:
 #   sleep 10; alert
