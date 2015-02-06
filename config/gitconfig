@@ -70,6 +70,9 @@
     unignore = update-index --no-assume-unchanged
 
 [color]
+    # I set this to "always" so that the output will still be colored when piped
+    # to less.  Of course the downside is that I have to explicitly disable it
+    # when I _don't_ want color codes.
     ui = always
 
 [core]
