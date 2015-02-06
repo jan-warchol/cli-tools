@@ -44,10 +44,11 @@ editconf() {
 }
 
 alias lg='cd $LILYPOND_GIT; git status'
-alias fr='cd $MY_REPOSITORIES/fried-songs; git status'
-alias nuty='cd $MY_REPOSITORIES/warsztat-nutowy; git status'
-alias sni='cd $MY_REPOSITORIES/openlilylib-snippets; git status'
-alias bebe='cd $MY_REPOSITORIES/bębenek; git status'
+alias fr='cd $MY_REPOSITORIES/nuty/fried-songs; git status'
+alias tl='cd $TRUNKNE_LIED_HOME/das-trunkne-lied; git status'
+alias nuty='cd $MY_REPOSITORIES/nuty/warsztat-nutowy; git status'
+alias oll='cd $MY_REPOSITORIES/openlilylib; git status'
+alias bebe='cd $MY_REPOSITORIES/nuty/bębenek; git status'
 alias epi='cd $MY_DROPBOX/Epifania; git status'
 alias ties='cd "$MY_DROPBOX/LilyPond ties"; git status'
 alias epinuty='cd $MY_REPOSITORIES/epinuty; git status'
