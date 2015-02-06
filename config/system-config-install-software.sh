@@ -20,6 +20,7 @@ sudo apt-get -qy install gparted
 sudo apt-get -qy install guake
 sudo apt-get -qy install kompare
 sudo apt-get -qy install gksu
+sudo apt-get -qy install indicator-multiload
 
 # a program for changing screen brightness
 sudo apt-get -qy install xbacklight || die "Failed to install xbacklight"
