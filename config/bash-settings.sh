@@ -57,6 +57,9 @@ shopt -s histappend
 ######################################
 # MISCELLANEOUS SETTINGS:
 
+# disable terminal flow control key binding, so that ^S will search history forward
+stty -ixon
+
 # add a program needed for LilyPond patch handling to PATH
 PATH=$MY_REPOSITORIES/git-cl:"${PATH}"
 
