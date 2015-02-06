@@ -13,6 +13,13 @@ alias o="gnome-open "
 alias s="$MY_SCRIPTS/"
 alias d='cd $MY_OWN_DATA'
 alias r='cd $MY_REPOSITORIES'
+alias v='vagrant'
+alias vs='vagrant status'
+alias vu='vagrant up'
+alias vupo='vagrant up --provider=openstack'
+alias vd='vagrant destroy -f'
+alias vh='vagrant halt'
+alias vp='vagrant provision'
 alias np='nautilus "$(pwd)"'
 alias mko='make $MAKE_OPTIONS'
 alias sai='sudo apt-get install'
