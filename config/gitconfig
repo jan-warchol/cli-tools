@@ -100,3 +100,6 @@
     name = Janek Warchoł
     email = lemniskata.bernoullego@gmail.com
 
+[diff]
+    renames = copies
+    mnemonicprefix = true
