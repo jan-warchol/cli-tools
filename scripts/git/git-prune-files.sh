@@ -12,6 +12,7 @@ IFS=$(echo -en "\n\b")
 
 while read filename; do
     # enclose filenames in "" in case they contain spaces
+    # WARNING: will remove everything if there are empty lines!!!!!!!!
     echo $filename | sed -e 's/^/"/g' -e 's/$/"/g' | \
     xargs git rm -r --cached --ignore-unmatch --quiet
 done < $1
