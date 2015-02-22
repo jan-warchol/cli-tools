@@ -1,12 +1,3 @@
-# let ctrl-e expand aliases in bash
-# (note that bash's default keybindings include
-# ctrl-alt-e which performs shell readline function,
-# which results in expanding aliases as well).
-"\C-e": alias-expand-line
-
-# make bash autocompletion case-insensitive:
-set completion-ignore-case on
-
 # navigation shortcuts - for moving one word at a time
-"\C-f": forward-word
+"\C-w": forward-word
 "\C-b": backward-word

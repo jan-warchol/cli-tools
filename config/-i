@@ -1,0 +1,2 @@
+Safeguard against accidentally running rm -rf * in $HOME.
+expanding the wildcard results in -i being added 

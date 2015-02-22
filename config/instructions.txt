@@ -1,4 +1,0 @@
-run configuration-init.sh
-restart terminal
-run system-config-copy-settings.sh
-run system-config-install-software.sh
