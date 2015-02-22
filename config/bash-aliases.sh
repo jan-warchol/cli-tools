@@ -10,18 +10,11 @@ alias ,='less --chop-long-lines'  # I prefer to scroll horizontally than to have
 alias monl='xrandr --output HDMI1 --rotate left; xrandr --output DP1 --rotate left'
 alias monn='xrandr --output HDMI1 --rotate normal; xrandr --output DP1 --rotate normal'
 
-alias vt='vagrant'
-alias vts='vagrant status'
-alias vtss='vagrant ssh'
-alias vtu='vagrant up'
-alias vtupo='vagrant up --provider=openstack'
-alias vtd='vagrant destroy -f'
-
 alias np='nautilus "$(pwd)"'
 alias mko='make $MAKE_OPTIONS'
 alias ifs='alias reset_ifs="IFS=$IFS"; IFS=$(echo -en "\n\b")'
 alias smnt='sudo smbmount //192.168.15.210/dane/janek /media/shamon/ -o user=janek'
-fres() { python $MY_REPOSITORIES/frescobaldi/frescobaldi "$@" &>/dev/null & }
+fres() { python $OTHER_REPOS/frescobaldi/frescobaldi "$@" &>/dev/null & }
 alias intj='$HOME/bin/idea-IC-133.193/bin/idea.sh &'
 alias h='history'
 alias hf='history | grep'
@@ -44,12 +37,6 @@ alias s3='alias d3="cd $(pwd)"'
 alias grep2='grep -C2'
 alias grep3='grep -C3'
 alias grep5='grep -C5'
-
-alias tre2='tree -L 2 --filelimit 30'
-alias tre3='tree -L 3 --filelimit 20'
-alias tre4='tree -L 4 --filelimit 15'
-alias tre5='tree -L 5 --filelimit 10'
-
 
 
 #### LILYPOND ALIASES:

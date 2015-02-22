@@ -1,68 +1,5 @@
 #!/bin/bash
 
-set -x
-set -u
-set -e
-
-
-# DVD decryption
-sudo apt-get -qy install libdvdread4
-sudo /usr/share/doc/libdvdread4/install-css.sh
-
-# a program for changing line endings from windows to unix
-sudo apt-get -qy install flip
-
-# misc stuff
-sudo apt-get -qy install gparted
-sudo apt-get -qy install guake
-sudo apt-get -qy install kompare
-sudo apt-get -qy install gksu
-sudo apt-get -qy install indicator-multiload
-
-# a program for changing screen brightness
-sudo apt-get -qy install xbacklight
-
-# a program for opening files with GUI programs from command line (gnome-open)
-sudo apt-get -qy install libgnome2-0
-
-sudo apt-get -qy install keepass2
-# a library enabling auto-type in keepass:
-sudo apt-get -qy install xdotool
-
-sudo apt-get -qy install gimp
-
-sudo apt-get -qy install imagemagick
-
-sudo apt-get -qy install kate
-
-sudo apt-get -qy install vlc
-
-sudo apt-get -qy install guake
-
-# download Dropbox
-cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
-# 32-bit version would be:
-# cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86" | tar xzf -
-
-# LilyPond, with dependencies:
-sudo apt-get -qy build-dep lilypond
-sudo apt-get -qy install autoconf
-sudo apt-get -qy install dblatex
-sudo apt-get -qy install texlive-lang-cyrillic
-git clone git://git.sv.gnu.org/lilypond.git \
-$MY_REPOSITORIES/lilypond-git
-
-# Frescobaldi, with dependencies:
-sudo apt-get -qy install python
-sudo apt-get -qy install python-qt4
-sudo apt-get -qy install python-poppler-qt4
-sudo apt-get -qy install python-pypm
-git clone git://github.com/wbsoft/frescobaldi.git \
-$MY_REPOSITORIES/frescobaldi
-cd $MY_REPOSITORIES/frescobaldi
-sudo python setup.py install
-cd $ALL_MY_DATA
-
 # PyPdf library, needed for gotowa-teczka.sh
 cd ~ && wget -O - "http://pybrary.net/pyPdf/pyPdf-1.13.tar.gz" | tar xzf -
 cd pyPdf-1.13
@@ -71,9 +8,12 @@ cd pyPdf-1.13
 sudo python setup.py install
 # TODO: remove leftovers?
 # alternative version of the library could be obtained from here:
-# git clone https://github.com/mstamy2/PyPDF2/ \
-# $MY_REPOSITORIES/pypdf2
+# git clone https://github.com/mstamy2/PyPDF2/ $OTHER_REPOS/pypdf2
 
+# Dropbox
+cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+# 32-bit version would be:
+# cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86" | tar xzf -
 
 # make a backup of polish keyboard layout
 # sudo cp /usr/share/X11/xkb/symbols/pl /usr/share/X11/xkb/symbols/pl.backup
