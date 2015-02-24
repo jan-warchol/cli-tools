@@ -7,10 +7,6 @@ alias ,='less --chop-long-lines'  # I prefer to scroll horizontally than to have
 # BASH ALIASES:
 
 
-alias monl='xrandr --output HDMI1 --rotate left; xrandr --output DP1 --rotate left'
-alias monn='xrandr --output HDMI1 --rotate normal; xrandr --output DP1 --rotate normal'
-
-alias np='nautilus "$(pwd)"'
 alias mko='make $MAKE_OPTIONS'
 alias ifs='alias reset_ifs="IFS=$IFS"; IFS=$(echo -en "\n\b")'
 alias smnt='sudo smbmount //192.168.15.210/dane/janek /media/shamon/ -o user=janek'
