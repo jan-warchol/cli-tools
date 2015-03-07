@@ -1,6 +1,0 @@
-# If not running interactively, don't do anything
-[ -z "$PS1" ] && return
-
-export ALL_MY_STUFF=$HOME
-export MY_CONFIGS=$ALL_MY_STUFF/repos/cli-tools/config
-source $MY_CONFIGS/bash-settings.sh

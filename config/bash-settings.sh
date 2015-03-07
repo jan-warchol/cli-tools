@@ -31,9 +31,6 @@ fi
 
 export MY_OWN_DATA=$HOME/moje
 
-# remap useless CAPSLOCK to another control key
-/usr/bin/setxkbmap -option "ctrl:nocaps"
-
 # only store the latest occurrence of a command
 export HISTCONTROL=erasedups
 
