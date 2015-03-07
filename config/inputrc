@@ -1,3 +1,0 @@
-# navigation shortcuts - for moving one word at a time
-"\C-w": forward-word
-"\C-b": backward-word
