@@ -10,7 +10,7 @@ echo "========================================"
 
 for file in $(find $opus* -name "*standalone.ly"); do
     echo "compiling $file with $lily..."
-    ~/lily-builds/$lily/out/bin/lilypond --loglevel=ERROR $file
+    $LILYPOND_BUILD_DIR/$lily/out/bin/lilypond --loglevel=ERROR $file
     echo "----------------------------------------"
 done
 
